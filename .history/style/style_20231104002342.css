@@ -1,0 +1,2039 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+
+:root {
+    --text-baige: #f9edd3;
+    --text-darkbaige: #583300;
+    --text-brown: #411f00;
+}
+
+/* common */
+
+.mb-10{
+    margin-bottom: 10px;
+}
+button {
+    outline: none;
+    border: none;
+    background: none;
+    box-shadow: none;
+    cursor: pointer;
+}
+
+.max-wi {
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+.full-se {
+    width: 100vw;
+    height: 100vh;
+}
+
+.screen-flex{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.flex_column{
+    flex-direction: column;
+}
+/* menu */
+header {
+    position: fixed;
+    background: #000;
+    width: 100%;
+    height: 90px;
+    z-index: 9;
+}
+
+header .header_wrapp {
+    max-width: 1280px;
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+header .header_wrapp .logo {
+    width: 137px;
+    height: 56px;
+}
+
+header .header_wrapp .logo img {
+    width: 100%;
+    height: 100%;
+}
+
+header .header_wrapp .nav-links {
+    display: flex;
+    align-items: center;
+}
+
+header .header_wrapp .nav-links li {
+    padding: 15px 25px;
+}
+
+header .header_wrapp .nav-links li a {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 21px;
+    font-weight: 400;
+    letter-spacing: -0.84px;
+    color: #fff;
+}
+
+.header_wrapp .logo_m{
+    display: none;
+}
+
+.login_btn {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.login_btn button {
+    background: url('../image/header_btn.png');
+    width: 112px;
+    height: 36px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    outline: none;
+    box-shadow: none;
+    border: none;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: -0.72px;
+    color: #583300;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.login_btn span {
+    font-size: 13px;
+    margin-top: 8px;
+    font-weight: 400;
+    text-align: right;
+    color: #f3c884;
+}
+
+.header_wrapp .menu-btn,
+.header_wrapp .close-btn {
+    display: none; 
+}
+
+
+
+/* main */
+.main-se {
+    background: #282828;
+}
+
+.main_wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.main_logo {
+    width: 771px;
+    height: 317px;
+}
+
+.play_btn {
+    width: 120px;
+    height: 120px;
+    margin-top: 40px;
+    padding: 0;
+}
+
+.main_logo img,
+.play_btn img {
+    width: 100%;
+    height: 100%;
+}
+
+
+.reservation_btn {
+    background: url('../image/resevation.png');
+    box-shadow: inset 0 0 40px 0 rgba(0, 0, 0, 0.65);
+    width: 380px;
+    height: 90px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    outline: none;
+    box-shadow: none;
+    border: none;
+    font-size: 40px;
+    font-weight: 700;
+    letter-spacing: -2.37px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-top: 65px;
+}
+
+.reser_title {
+    text-shadow: 0 0 6.7px rgba(0, 0, 0, 0.35);
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: -0.5px;
+    text-align: center;
+    color: #fff;
+    margin-top: 24px;
+}
+
+.floating_banner {
+    position: absolute;
+    right: 10%;
+    top: 30%;
+    display: block;
+    cursor: pointer;
+}
+
+.floating_banner img {
+    width: 170px;
+    height: auto;
+}
+
+.close_float {
+    position: absolute;
+    right: -10%;
+    top: -9%;
+    cursor: pointer;
+}
+
+.close_float svg {
+    fill: #fff;
+}
+
+
+/* 사전예약 */
+.pre-se {
+    background: url('../image/back2.png') no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+.form_title_wrap {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    width: 100%;
+    max-width: 930px;
+}
+
+.reservation_left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.reserve_sub {
+    font-size: 31.5px;
+    font-weight: normal;
+    text-align: center;
+    line-height: 1.17;
+    letter-spacing: -1.89px;
+    background: linear-gradient(90deg, rgba(255, 236, 203, 1) 0%, rgba(255, 255, 255, 1) 18%, rgba(255, 255, 255, 1) 85%, rgba(255, 236, 203, 1) 100%);
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+    /* 크롬, 사파리 등 웹킷 브라우저를 위한 속성 */
+    font-family: 'Noto Sans KR', sans-serif;
+    margin-bottom: 1rem;
+}
+
+.pre-se .max-wi {
+    height: 100%;
+}
+
+.form_wrapp {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.resever_title_content h3 {
+    font-size: 87px;
+    background: linear-gradient(5deg, rgba(255, 236, 203, 1) 0%, rgba(255, 255, 255, 1) 100%);
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+    /* 크롬, 사파리 등 웹킷 브라우저를 위한 속성 */
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 700;
+    margin-bottom: 40px;
+}
+
+.resever_title_content h3 img {
+    width: 345px;
+    height: 82px
+}
+
+.reserver_descript {
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 1.3;
+    letter-spacing: -2.01px;
+    text-align: center;
+    color: #fff;
+}
+
+.reserver_descript span {
+    font-weight: 700;
+}
+
+.reservation_form {
+    width: 930px;
+    height: 360px;
+    padding: 34px 57px 20px 53px;
+    margin-top: 30px;
+    background: rgba(255, 210, 170, 0.55);
+    box-sizing: border-box;
+}
+
+
+.reservation_input_wrap {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.radio-button {
+    font-size: 36px;
+    font-weight: 400;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+
+
+.radio-buttons-2 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 2px solid #4a1100;
+    border-bottom: 2px solid #4a1100;
+    padding: 30px 0;
+    width: 280px;
+    margin-right: 30px;
+}
+
+.radio-buttons-2 .radio-button {
+    cursor: pointer;
+    position: relative;
+    padding-left: 55px;
+}
+
+.radio-button input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    height: 0;
+    width: 0;
+}
+
+.radio-buttons-2 .radio-button .custom-radio {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    background-color: #fff;
+    border: 4px solid #4a1100;
+}
+
+
+.radio-buttons-2 .radio-button input[type="radio"]:checked~.custom-radio {
+    border: 4px solid #4a1100;
+}
+
+
+.radio-buttons-2 .custom-radio:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #fff;
+}
+
+.radio-buttons-2 .radio-button input[type="radio"]:checked~.custom-radio:after {
+    background-color: #4a1100;
+}
+
+.radio-buttons-2 label {
+    font-size: 36px;
+    font-weight: 400;
+}
+
+.phone-wrapper {
+    border: solid 10px #4a1100;
+    background-color: #fff;
+    width: 500px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.phone-wrapper .phone-prefix {
+    font-size: 40px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 700;
+    color: #000;
+    margin-right: 0.5rem;
+    line-height: 1.5;
+}
+
+.phone-wrapper input {
+    width: 330px;
+    height: 100%;
+    border: none;
+    font-size: 33px;
+    font-weight: 700;
+    font-family: 'Noto Sans KR', sans-serif;
+    line-height: normal;
+    padding: 0;
+    line-height: 1.5;
+}
+
+.phone-wrapper input:focus {
+    outline: none;
+}
+
+.phone-wrapper input::placeholder {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 700;
+    font-size: 30px;
+    letter-spacing: -0.52px;
+    text-align: left;
+    color: rgba(0, 0, 0, 0.35);
+    vertical-align: middle;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.reser_text {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 16.5px;
+    font-weight: 400;
+    letter-spacing: -0.41px;
+    text-align: center;
+    color: #fff;
+    margin: 12px 0 18px;
+}
+
+.reservation-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.reservation-btn button {
+    background: url('../image/re_btn.png') no-repeat;
+    width: 380px;
+    height: 97px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 0.78;
+    letter-spacing: -0.72px;
+    font-size: 36px;
+    color: #fff;
+    font-weight: 700;
+}
+
+.personal_chk {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.chk_agree input[type=checkbox] {
+    position: relative;
+    border: 4px solid #411f00;
+    border-radius: 2px;
+    background: #fff;
+    cursor: pointer;
+    line-height: 0;
+    outline: 0;
+    padding: 0 ;
+    vertical-align: text-top;
+    height: 32px;
+    width: 32px;
+    -webkit-appearance: none;
+    opacity: .5;
+}
+
+
+
+
+.chk_agree input[type=checkbox]:checked:before {
+    border: solid #411f00;
+    opacity: 1;
+    border-width: 0 3px 3px 0;
+}
+
+
+.chk_agree input[type=checkbox]:before {
+    content: '';
+    position: absolute;
+    right: 50%;
+    top: 50%;
+    width: 5px;
+    height: 12px;
+    border: solid #FFF;
+    border-width: 0 3px 3px 0;
+    margin: -1px -1px 0 -1px;
+    transform: rotate(45deg) translate(-50%, -50%);
+    z-index: 2;
+}
+
+.chk_agree label{
+    font-size: 18px;
+    color: #3c0f00;
+    letter-spacing: -0.075em;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 400;
+    margin-left: 10px;
+}
+
+.chk_agree{
+    display: flex;
+    align-items: center;
+
+}
+
+.detail_pop{
+    width: 110px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 400;
+    font-family: 'Noto Sans KR', sans-serif;
+    background-color: #4a1100;
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+.reservation_bage{
+    width: 135px;
+    height: 145px;
+}
+
+.reservation_bage img{
+    width: 100%;
+    height: 100%;
+}
+
+
+
+/* 게임소개 */
+.game_introduce {
+    background: url('../image/back1.png') no-repeat;
+    background-size: cover;
+    position: relative;
+    box-sizing: border-box;
+    padding: 120px 0;
+    width: 100vw;
+}
+
+.game_screen{
+    display: flex;
+}
+
+.game_screen:first-child{
+    margin-bottom: 60px;
+}
+
+.game_screen .screenshot{
+    width: 720px;
+    height: 405px;
+    border-style: solid;
+  border-width: 5px;
+  border-image-source: linear-gradient(to top, #e9b067, #f5d5b7, #dea780);
+  border-image-slice: 1;
+  box-sizing: border-box;
+}
+
+
+.game_screen .screenshot img{
+    width: 100%;
+    height: 100%;
+}
+
+.screenshot_content{
+    padding: 60px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.one-game_screen .screenshot_content{
+    justify-content: flex-end;
+}
+
+.two-game_screen .screenshot_content{
+justify-content: center;
+}
+
+.screenshot_content h2{
+    padding-bottom: 25px;
+}
+
+.screenshot_content p{
+    color: #caa57b;
+    font-size: 24px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+.one-game_screen .line-img{
+    margin-left: -60px;
+}
+
+.two-game_screen .line-img{
+margin-right: -60px;
+}
+
+
+/* 게임공유 */
+
+.game_share{
+    background: url('../image/back3.png') no-repeat;
+    background-size: cover;
+    position: relative;
+    box-sizing: border-box;
+    padding: 120px 0;
+    height: 1200px;
+    width: 100vw;
+}
+
+.event_text01{
+    text-align: center;
+    font-size: 31.5px;
+    line-height: 1.17;
+    background: linear-gradient(90deg, rgba(255, 236, 203, 1) 0%, rgba(255, 255, 255, 1) 18%, rgba(255, 255, 255, 1) 85%, rgba(255, 236, 203, 1) 100%);
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+    font-family: 'Noto Sans KR', sans-serif;
+    margin-bottom: 5px;
+}
+
+.event01_wrap h2{
+    margin: 0 auto;
+    width: 735px;
+  height: 90px;
+  margin-bottom: 45px;
+}
+
+.event01_wrap h2 img{
+    width: 100%;
+    height: 100%;
+}
+
+.event_sub{
+    font-family: 'Noto Sans KR', sans-serif;
+    line-height: 1.31;
+    letter-spacing: -0.48px;
+    text-align: center;
+    color: #fff;
+    font-size: 24px;
+    margin-bottom: 25px;
+}
+
+.event_title_tag{
+    background: url('../image/bg2.png') no-repeat;
+    width: 140px;
+    height: 38px;
+    letter-spacing: -0.44px;
+    text-align: center;
+    color: #000;
+    font-size: 17.5px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    padding-bottom: 0.3em;
+    background-size: contain;
+}
+
+.hash_tag{
+    color: #f1ba00;
+    font-size: 39.5px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 18px;
+}
+
+.share_btn{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 55px;
+}
+
+.share_btn button{
+    width: 320px;
+    height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 700;
+    color: #fff;
+    font-size: 30.5px;
+    background: linear-gradient(5deg, rgba(186,0,0,1) 0%, rgba(253,0,0,1) 48%, rgba(186,0,0,1) 100%);
+}
+
+.sare_link_input{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 150px;
+    border: solid 10px #6e4132;
+    margin-bottom: 55px;
+    box-sizing: border-box;
+}
+
+.sare_link_input button{
+    display: flex;
+    align-items: center;
+}
+
+.sare_link_input input{
+    width: 70%;
+    height: 100%;
+    resize: none;
+    padding: 10px 50px;
+    box-sizing: border-box;
+    text-align: left;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 400;
+    font-size: 22px;
+    vertical-align: middle;
+    line-height: 1.5;
+}
+
+.sare_link_input input::placeholder{
+    font-size: 20px;
+    text-align: left;
+    white-space: pre-line;
+    letter-spacing: -0.22px;
+    color: #616161;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 400;
+    vertical-align: top;
+}
+
+.rollet_game .sare_link_input input{
+    padding:35px 50px;
+}
+
+
+.sare_link_input input:focus{
+    outline: none;
+}
+
+.sare_link_input button{
+    background: url('../image/urlButton.png') no-repeat;
+    background-size: cover;
+    width: 30%;
+    height: 100%;
+    text-shadow: 0px 2px 3px rgba(255, 255, 255, 0.35);
+    font-size: 40px;
+    font-weight: 900;
+    letter-spacing: -1.6px;
+  text-align: center;
+  color: #38210e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-left: solid 10px #6e4132;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+.event_date{
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    column-gap: 120px;
+}
+
+.date_list_line{
+    display: flex;
+
+}
+
+.date_list_line:first-child{
+    margin-bottom: 15px;
+}
+.date_sub{
+    color: #f9ddad;
+    font-size: 24px;
+    position: relative;
+    width: 33%;
+}
+
+.date_sub::after{
+    position: absolute;
+    content: '';
+    top: 0;
+    height: 25px;
+    width: 1px;
+    background: rgba(56, 53, 53,0.9);
+    margin: 0 25px;
+}
+
+.date_descript{
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 24px;
+    color: #fff;
+    margin-left: 25px;
+    line-height: 1.5;
+    width: 60%;
+}
+
+.event_img_list{
+    display: flex;
+    align-items: flex-end;
+
+}
+
+
+.event_img_list .item_img1{
+    width: 160px;
+    height: auto;
+}
+
+.event_img_list .item_img1 img{
+    width: 100%;
+    height: 100%;
+}
+
+.event_img_list .item_img2{
+    width: 105px;
+    height: 100px;
+    margin-left: -30px;
+}
+
+.event_img_list .item_img2 img{
+    width: 100%;
+    height: 100%;
+}
+
+
+/* 룰렛게임 */
+
+.rollet_game{
+    background: url('../image/back4.png') no-repeat;
+    background-size: cover;
+    position: relative;
+    box-sizing: border-box;
+    padding: 120px 0;
+    width: 100vw;
+}
+
+.event_title_tag{
+    display: block;
+}
+
+.event_sub .span_first{
+    color:#c29c71;
+    font-weight: 700;
+    display: block;
+}
+
+.event_sub .span_second{
+    color: #c29c71;
+    font-weight: 400;
+    display: block;
+}
+
+.color_span{
+    display: block;
+    color: #ffe6c9;
+    font-weight: 400;
+}
+
+.share_sns{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 24px 0;
+    border-top: 2px solid #fbd18f;
+    margin-top: 85px;
+}
+
+.share_sns p{
+    color: #af8c64;
+    font-size: 20px;
+    line-height: 1.31;
+    letter-spacing: -0.48px;
+}
+
+.share_sns .sns_group{
+    display: flex;
+    align-items: center;
+
+}
+
+.share_sns .sns_group img{
+    width: 50px;
+    height: 50px;
+    margin-right: 5px;
+}
+
+.share_sns .sns_group img:last-child{
+    margin-right: 0;
+}
+
+
+.rollet_game_wrap{
+    display: flex;
+    font-family: 'Noto Sans KR', sans-serif;
+    margin-top: 85px;
+}
+
+.rollet_step{
+    display: flex;
+    align-items: flex-start;
+}
+
+.rollet_step_list{
+    width: 50%;
+}
+.step_span{
+    font-size: 24px;
+    font-weight: 400;
+    color: #c29c71;
+    padding-bottom: 6px;
+    padding-right: 5px;
+    border-bottom: 5px solid #c29c71;
+}
+
+.step_title{
+    display: flex;
+    align-items: center;
+}
+
+.step_descript{
+    font-size: 24px;
+    line-height: 1.54;
+    letter-spacing: -0.48px;
+    text-align: left;
+    color: #c29c71;
+    font-weight: 400;
+
+}
+
+.step_container{
+margin-left: 25px;
+}
+
+.step_btn_wrap{
+    display: flex;
+    align-items: center;
+    margin-top: 25px;
+}
+
+.step_btn_wrap button{
+    width: 115px;
+    height: 115px;
+    padding: 0 2px;
+}
+.step_btn_wrap button img{
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.rollet_step_list .rollet_step:first-child{
+    margin-bottom: 90px;
+}
+
+.game_descript{
+    margin-top: 25px;
+    width: 100%;
+  height: 291px;
+  padding: 52px 38px 51px 37px;
+  box-shadow: 3.5px 6.1px 28.5px 1.5px rgba(0, 0, 0, 0.35);
+  border: solid 7px #764533;
+  background-color: #1f1916;
+  box-sizing: border-box;
+}
+
+.rollet_descript_span{
+    font-size: 16px;
+    color: #fff;
+    letter-spacing: -0.02em;
+}
+
+.game_descript h4{
+    background: linear-gradient(149deg, rgba(175,140,100,1) 0%, rgba(175,140,100,1) 20%, rgba(252,251,197,1) 36%, rgba(175,140,100,1) 46%, rgba(175,140,100,1) 96%, rgba(252,251,197,1) 100%);
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+    font-size: 30px;
+    line-height: 40px;
+    letter-spacing: -0.02em;
+    font-weight: 900;
+    margin-top: 12px;
+    margin-bottom: 28px;
+}
+
+.descript_list p{
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.86;
+    letter-spacing: -1.39px;
+    color: #fff;
+}
+
+.descript_list p span{
+    color:#ffd8a5;
+}
+
+
+.rollet_span{
+    width: 350px;
+  height: 60px;
+  box-shadow: inset 7.1px 7.1px 5px 0 rgba(0, 0, 0, 0.55);
+  border: solid 1px rgba(133, 102, 75, 0.5);
+  background-color: #1e1815;
+  color: #debe9a;
+  font-size: 24px;
+  letter-spacing: -0.48px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rollet_step_list.rollet_game_start .rollet_step{
+    display: flex;
+    flex-direction: column;
+}
+
+.rollet_step_list.rollet_game_start .step_descript{
+    margin-left: 25px;
+}
+
+
+.event_popup{
+    font-size: 16px;
+    font-weight: 400;
+    text-align: left;
+    color: #ee2300;
+    text-decoration: underline;
+    text-underline-offset:5px;
+    display: block;
+    margin-top: 15px;
+    cursor: pointer;
+}
+
+
+.date_list{
+    width: 38%;
+}
+
+.event_img_list .item_img3{
+    width: 330px;
+    height: auto;
+    z-index: 1;
+}
+
+.event_img_list .item_img3 img{
+    width: 100%;
+    height: 100%;
+}
+
+.event_img_list .item_img4{
+    width: 240px;
+    height: auto;
+    margin-left: -25%;
+
+}
+
+.event_date.rollet_gift_wrap{
+    column-gap: 33px;
+}
+
+.event_img_list .item_img4 img{
+    width: 100%;
+    height: 100%;
+}
+
+.rollet_gift.event_img_list{
+    display: flex;
+    align-items: flex-start;
+    width: 36%;
+}
+
+
+
+
+/* moal */
+.modal {
+    display: none;
+    position: fixed; 
+    z-index: 9;
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%;
+    overflow: auto; 
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.4); 
+}
+/* Modal Content/Box */
+.modal-content {
+    background:url('../image/modal_background.png') no-repeat;
+    background-size: cover;
+    border: 1px solid #888;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    font-family: 'Noto Sans KR', sans-serif;
+    border:4px solid #e9b068;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.modal-content.personal_information {
+    width: 725px;
+    height: 620px;
+
+}
+
+.modal-content.event_modal{
+    width: 725px;
+    height: 450px;
+}
+
+.modal-content.main_mp{
+    width: 1295px;
+    height: 792px;
+}
+
+.modal-content.share_modal{
+    width: 712px;
+    height: 600px;
+}
+
+.modal-content.login_pop{
+    width: 715px;
+    height: 515px;
+}
+
+.modal-content .modal_title{
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+}
+
+.event_modal .personal_sub{
+    margin-bottom: 5px;
+    margin-top: 0;
+    text-indent: -21px;
+    padding-left: 22px;
+}
+
+.modal-content.share_modal .hash_tag{
+    font-weight: 400;
+    font-size: 22px;
+    color: #ffdab0;
+    margin: 10px 0 25px;
+}
+.modal-content.share_modal .sns_group{
+    background: url('../image/modal_line.png') no-repeat;
+    background-position: 0 70%;
+}
+.close{
+    cursor: pointer;
+}
+
+.login_chk{
+    margin: 20px 0 55px;
+}
+
+
+.login_chk input[type=checkbox] {
+    position: relative;
+    border-radius: 2px;
+    background: #fff;
+    cursor: pointer;
+    line-height: 0;
+    outline: 0;
+    padding: 0 ;
+    vertical-align: text-top;
+    height: 20px;
+    width: 20px;
+    -webkit-appearance: none;
+    opacity:1;
+}
+
+
+
+
+.login_chk input[type=checkbox]:checked:before {
+    border: solid #411f00;
+    opacity: 1;
+    border-width: 0 3px 3px 0;
+}
+
+
+.login_chk input[type=checkbox]:before {
+    content: '';
+    position: absolute;
+    right: 50%;
+    top: 50%;
+    width: 5px;
+    height: 12px;
+    border: solid #FFF;
+    border-width: 0 3px 3px 0;
+    margin: -1px -1px 0 -1px;
+    transform: rotate(45deg) translate(-50%, -50%);
+    z-index: 2;
+}
+
+.login_chk label{
+    font-size: 14px;
+    color: #caa57b;
+    letter-spacing: -0.02em;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 400;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.login_submit button{
+    position: relative;
+    width: 300px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #844b00;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.06em;
+    background: url('../image/modal_login_btn.png') no-repeat;
+}
+.login_submit{
+    position: relative;
+    width: 72%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login_submit::before{
+    position: absolute;
+    content: '';
+    width: 100%;
+    height: 3px;
+    background-color: #513a28;
+    top: 50%;
+    left: 0;
+    transform: (0,-50%);
+    z-index: -1;
+}
+
+.rollet_gmae_modal{
+    display: none;
+    position: fixed;
+    z-index: 9;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+
+.rollet_gmae_modal .modal_body{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    font-family: 'Noto Sans KR', sans-serif;
+    border: 4px solid #e9b068;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background: url(../image/modal_background.png) no-repeat;
+    width: 720px;
+    height: 648px;
+    background-size: cover;
+}
+
+.modal_phone_text{
+    font-size: 18px;
+    font-weight: 400;
+    color: #caa57b;
+}
+
+.modal_login{
+    margin-top: 10px;
+    width: 500px;
+    height: 60px;
+    background-color: #170700;
+    border: 4px solid #513a28;
+    color: #caa57b;
+    font-size: 28px;
+    padding: 1rem 1.5rem;
+    box-sizing: border-box;
+}
+.modal_sub_title{
+    font-size: 20px;
+    font-weight: 400;
+    margin-bottom: 25px;
+    color: #caa57b;
+    position: relative;
+    text-align: center;
+}
+
+.modal_sub_title::after{
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%,0);
+    content: "";
+    display: block;
+    width: 150px;
+    border-bottom: 5px solid #caa57b;
+    margin-top: 6px;
+}
+
+.share_modal .sns_group{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 5px;
+}
+.close svg{
+width: 50px;
+height: 50px;
+fill: #caa57b;
+opacity: 0.5;
+position: absolute;
+top: 20px;
+right: 20px;
+}
+
+.close_game svg{
+    width: 50px;
+height: 50px;
+fill: #caa57b;
+opacity: 0.5;
+position: absolute;
+top: 20px;
+right: 20px;
+}
+.hash_info{
+    font-size: 16px;
+    font-weight: 400;
+    margin-bottom: 10px;
+    color: #a77236;
+}
+.modal_title{
+    padding-bottom: 20px;
+    border-bottom: 2px solid #caa57b;
+    display: flex;
+    justify-content: center;
+}
+
+.modal_title img{
+
+}
+
+.personal_sub{
+    font-size: 20px;
+    letter-spacing: -0.02em;
+    font-weight: 400;
+    color: #ffdaaf;
+    margin-bottom: 20px;
+    margin-top: 50px;
+    line-height: 1.5;
+}
+
+.modal_content_wrap .personal_p{
+    color: #caa57b;
+    font-size: 16px;
+    line-height: 18px;
+    letter-spacing: -0.02em;
+    font-weight: 400;
+}
+
+.personal_sub.min-margin{margin-top: 25px; margin-bottom: 20px;}
+.span_sub{
+    color: #71512e;
+    font-size: 13px;
+    line-height: 24px;
+    font-weight: 400;
+    margin-top: 30px;
+}
+
+
+.span_sub.span-second{
+    margin-top: 20px;
+}
+
+.login_pop .modal_content_wrap::before{
+    display: none;
+}
+/* 룰렛 */
+.rollet_gmae_modal{
+    display: none;
+}
+
+.rollet_pan{
+    position: relative;
+    width: 450px;
+    height: 450px;
+}
+
+.rollet_arrow{
+    width: 40px;
+    height: auto;
+    position: absolute;
+    z-index: 9;
+    left: 50%;
+    transform: translate(-50%,0);
+}
+
+.rollet_arrow img{
+    width: 100%;
+    height: 100%;
+}
+
+.rollet_game_pan{
+    width: 450px;
+    height: 450px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.rollet_game_pan img{
+    width: 100%;
+    height: 100%;
+}
+
+.start_rollet{
+    width: 135px;
+    height: 135px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.start_rollet img{
+    width: 100%;
+}
+
+.rollet_game_start .step_btn_wrap{
+    flex-direction: column;
+}
+
+.rollet_game_result{
+    display: flex;
+    align-items: flex-start;
+    column-gap: 12px;
+}
+
+.my_select{
+    width: 115px;
+    height: 140px;
+}
+
+.rollet_game_result .my_select_img{
+    background: url(../image/game_result_back.png) no-repeat;
+    width: 100%;
+    height: 107px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+}
+
+.rollet_game_result .computer_result{
+    width: 115px;
+    height: 140px;
+}
+
+.computer_result .computer_select_img{
+    background: url(../image/game_result_back.png) no-repeat;
+    width: 100%;
+    height: 107px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+}
+.rollet_game_result p, .computer_result p{
+    font-size: 13px;
+    color: #caa57b;
+    border: 2px solid #4d3827;
+    width: 100%;
+    box-sizing: border-box;
+    height: 33px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+}
+
+.result_score{
+    background: url(../image/text-back.png) no-repeat;
+    width: 115px;
+    height: 110px;
+    
+}
+
+.result_score p{
+    font-size: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    border: none;
+    height: 100%;
+    padding-bottom: 0.8rem;
+}
+
+.rollet_game_result .computer_result img{
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+}
+
+.rollet_game_result .my_select_img img{
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+}
+
+.rollet_gmae_modal .modal_title{
+    border-bottom: 0;
+}
+
+.rollet_gmae_modal .modal_rollet_text{
+    font-size: 20px;
+    font-weight: 400;
+    color: #caa57b;
+    margin-bottom: 40px;
+}
+
+.rollet-score{
+    width: 350px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 5px solid #caa57b;
+    box-sizing: border-box;
+    margin-bottom: 30px;
+    position: relative;
+    z-index: 2;
+    background-color: #1d0c04;
+}
+
+.rollet_gmae_modal .modal_content_wrap{
+    position: relative;
+}
+
+.rollet_gmae_modal .modal_content_wrap::before{
+    position: absolute;
+    top: 7%;
+    transform: translate(-50%,0);
+    content: "";
+    display: block;
+    border-bottom: 2px solid #caa57b;
+    margin-top: 6px;
+    width: 119%;
+    background-color: #1d0c04;
+    z-index: -1;
+    left: 47%;
+}
+
+.rollet-ok_btn::before{
+    position: absolute;
+    top: 50%;
+    transform: translate(0,-50%);
+    content: "";
+    display: block;
+    border-bottom: 2px solid #caa57b;
+    margin-top: 6px;
+    width: 119%;
+    background-color: #1d0c04;
+    z-index: -1;
+    left: -39px;
+}
+
+.rollet-score p{
+    font-size: 22px;
+    font-weight: 700;
+    color: #debe9a;
+}
+
+.rollet-score span{
+    font-size: 22px;
+    font-weight: 700;
+    color: #debe9a;
+}
+
+
+
+.rollet-ok_btn{
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+.rollet-ok_btn button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    letter-spacing: -0.02em;
+    width: 140px;
+    height: 50px;
+    background: url('../image/modal_result_btn.png');
+
+}
+
+.text_img_pc{
+    display: block;
+}
+
+.text_img_mo{
+    display: none;
+}
+
+@media screen and (max-width: 1024px) {
+
+    .full-se {
+        padding: 0 30px;
+        box-sizing: border-box;
+    }
+
+    .header_wrapp .logo {
+        display: none; 
+    }
+    .header_wrapp .logo_m {
+
+        display: block;
+        position: absolute;
+        top: 3%;
+        z-index: 9;
+        width: 40%;
+        height: auto;
+        left: 10%;
+    }
+
+    .header_wrapp .logo_m img{
+        width: 100%;
+        height: 100%;
+    }
+
+    .header_wrapp{
+        max-width: 100%;
+        padding: 0 30px;
+        box-sizing: border-box;
+    }
+
+    .login_btn {
+        position: absolute;
+        right: 30px;
+    }
+
+    .nav-links {
+        display: none; 
+        position: fixed; 
+        top: 0;
+        left: -100%; 
+        width: 60%;
+        height: 100vh;
+        background: #000;
+        transition: left 0.3s; 
+        display: flex;
+        padding: 20% 30px;
+        box-sizing: border-box;
+        align-items: flex-start!important;
+        justify-content: flex-start;
+        flex-direction: column;
+    }
+
+    .nav-links.open {
+        left: 0; /* 메뉴 열림 상태 */
+    }
+    .header_wrapp .menu-btn {
+        display: block; /* 메뉴 버튼 표시 */
+    }
+    .close-btn {
+        display: block!important;
+        position: absolute;
+        top: 5%;
+        right: 20px;
+        width: 30px;
+        height: 30px;
+    }
+
+    .close-btn svg{
+        width: 100%;
+        height: 100%;
+        fill: #fff;
+    }
+
+
+    .main_logo {
+        width: 80%;
+        height: auto;
+    }
+
+    .close_float {
+        position: absolute;
+        right: 2%;
+        top: 1%;
+        cursor: pointer;
+        z-index: 9;
+    }
+
+    .floating_banner img {
+        width: 100px;
+        height: auto;
+    }
+
+    .floating_banner {
+        position: absolute;
+        right: 4%;
+        top: 12%;
+        display: block;
+        cursor: pointer;
+    }
+
+    .play_btn{
+        display: none;
+    }
+
+    .reservation_btn{
+        width: 60%;
+        font-size: 25px;
+        height: 64px;
+    }
+
+    .pre-se{
+        background: url('../image/back2_back.png');
+        background-repeat: no-repeat;
+        background-position: top right;
+        width: 100%;
+        background-size: cover;
+    }
+
+    .reserve_sub{
+        font-size: 20px;
+    }
+
+    .resever_title_content h3 img{
+width: 200px;
+height: auto;
+    }
+
+    .reservation_bage {
+        width: 80px;
+        height: auto;
+    }
+
+    .reserver_descript{
+        font-size: 16px;
+        text-align: left;
+    }
+
+    .reservation_left {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .reservation_form{
+        width: 100%;
+        height: auto;
+        padding: 30px 40px;
+        box-sizing: border-box;
+    }
+
+    .reservation_input_wrap {
+        display: flex;
+        justify-content: flex-end;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .radio-buttons-2 .radio-button .custom-radio{
+        width: 25px;
+        height: 25px;
+    }
+
+    .radio-buttons-2 .custom-radio:after{
+        width: 16px;
+        height: 16px;
+    }
+
+    .radio-buttons-2 label{
+        font-size: 20px;
+        padding-left: 46px;
+    }
+
+    .radio-buttons-2{
+        padding: 20px 0;
+        width: 100%;
+        justify-content: space-evenly;
+        margin-right: 0;
+        box-sizing: border-box;
+    }
+
+    .phone-wrapper{
+        width: 100%;
+        height: 60px;
+        margin-top: 2rem;
+        border: solid 5px #4a1100;
+        padding: 1rem;
+    }
+
+    .reservation_form{
+        width: 100%;
+        height: auto;
+        padding: 30px 40px;
+        box-sizing: border-box;
+    }
+
+    .reservation-btn button{
+        width: 70%;
+        height: 70px;
+        font-size: 22px;
+    }
+
+    .personal_chk{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 20px;
+        flex-direction: column;
+    }
+
+    .phone-wrapper .phone-prefix{
+        font-size: 22px;
+    }
+
+    .phone-wrapper input {
+        width: 100%;
+        height: 100%;
+        border: none;
+        font-size: 20px;
+        font-weight: 700;
+        font-family: 'Noto Sans KR', sans-serif;
+        line-height: normal;
+        padding: 0;
+        line-height: 1.5;
+    }
+    
+    .phone-wrapper input:focus {
+        outline: none;
+    }
+    
+    .phone-wrapper input::placeholder {
+        font-family: 'Noto Sans KR', sans-serif;
+        font-weight: 700;
+        font-size: 20px;
+        text-align: left;
+        vertical-align: middle;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }   
+
+    .chk_agree label{
+        font-size: 14px;
+    }
+
+    .chk_agree input[type=checkbox]{
+        height: 25px;
+        width: 25px;
+    }
+    .chk_agree{
+        margin-bottom: 1rem;
+    }
+
+    .game_screen{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .game_introduce{
+        padding:80px 30px;
+        box-sizing: border-box;
+    }
+
+    .game_screen .screenshot{
+        width: 100%;
+        height: auto;
+    }
+
+    .screenshot_content p{
+        font-size: 15px;
+    }
+
+    .screenshot_content {
+        padding: 24px 38px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .one-game_screen .line-img {
+        margin-left: -68px;
+    }
+
+    .two-game_screen .screenshot_content {
+        justify-content: center;
+        padding: 24px 20px;
+    }
+
+    .event01_wrap h2 {
+        margin: 0 auto;
+        width: 100%;
+        height: auto;
+        margin-bottom: 45px;
+    }
+
+    .event_sub{
+        font-size: 14px;
+    }
+
+    .game_share{
+        padding: 120px 30px;
+        box-sizing: border-box;
+    }
+
+    .hash_tag{
+        font-size: 22px;
+    }
+
+    .share_btn button {
+        width: 60%;
+        height: 65px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Noto Sans KR', sans-serif;
+        font-weight: 700;
+        color: #fff;
+        font-size: 26.5px;
+    }
+
+    .event_title_tag {
+        width: 119px;
+        height: 33px;
+    }
+
+    .sare_link_input button{
+        font-size: 20px;
+        word-break: keep-all;
+    }
+
+    .sare_link_input input::placeholder{
+        font-size: 12px;
+        line-height: 1.43;
+    }
+
+    .sare_link_input input{padding: 1rem;}
+
+    .sare_link_input{
+        height: 123px;
+        border: solid 5px #6e4132;
+    }
+
+    .date_sub,.date_descript{
+        font-size: 18px;
+    }
+
+    .date_descript {
+        margin-left: 0;
+    }
+    .event_date{
+        flex-direction: column;
+    }
+    .date_list{
+        width: 100%;
+    }
+
+    .event_img_list .item_img1{
+        display: none;
+    }
+
+    .event_img_list {
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        width: 100%;
+        margin-top: 60px;
+    }
+
+    .event_img_list .item_img2 {
+        width: 105px;
+        height: 100px;
+        margin-left: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .text_img_pc{
+        display: none;
+    }
+
+    .text_img_mo{
+        display: block;
+    }
+}

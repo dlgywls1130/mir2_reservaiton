@@ -1,0 +1,497 @@
+
+
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+
+  :root{
+    --text-baige:#f9edd3;
+    --text-darkbaige:#583300;
+    --text-brown:#411f00;
+  }
+/* common */
+
+button{
+    outline: none;
+    border: none;
+    background: none;
+    box-shadow: none;
+}
+
+.max-wi{
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+.full-se{
+    width: 100vw;
+    height: 100vh;
+}
+
+/* menu */
+header{
+    position: fixed;
+    background: #000;
+    width: 100%;
+    height: 90px;
+}
+
+header .header_wrapp{
+    max-width: 1014px;
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+header .header_wrapp .logo{
+    width: 137px;
+    height: 56px;
+}
+
+header .header_wrapp .logo img{
+    width: 100%;
+    height: 100%;
+}
+
+header .header_wrapp .nav-links{
+    display: flex;
+    align-items: center;
+}
+
+header .header_wrapp .nav-links .nav_list{
+    padding: 0 25px;
+}
+
+header .header_wrapp .nav-links li a{
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 21px;
+    font-weight:400;
+    letter-spacing: -0.84px;
+    color: #f9edd3;
+}
+
+.nav-links .mobile-item {
+    display: none;
+}
+
+.login_btn{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.login_btn button{
+    background: url('../image/header_btn.png');
+    width: 112px;
+    height: 36px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    outline: none;
+    box-shadow: none;
+    border:none;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.56;
+    letter-spacing: -0.72px;
+    color: #583300;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.login_btn span{
+    font-size: 13px;
+    margin-top: 8px;
+    font-weight: 400;
+    text-align: right;
+    color: #f3c884;
+}
+
+.nav-links .drop-menu {
+    position: absolute;
+    width: 137px;
+    top: 65px;
+    opacity: 0;
+    visibility: hidden;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+    padding: 1rem;
+    background: #000;
+}
+
+.nav-links .drop-menu li:first-child{
+    margin-bottom: 1rem;
+}
+
+.nav-links li:hover .drop-menu{
+    transition: all 0.3s ease;
+    top: 70px;
+    opacity: 1;
+    visibility: visible;
+}
+
+.header_wrapp input {
+    display: none;
+}
+
+
+
+/* main */
+.main-se{
+    background: #282828;
+}
+
+.main_wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.main_logo{
+    width: 771px;
+    height: 317px;
+}
+
+.play_btn{
+    width: 120px;
+    height: 120px;
+    margin-top: 40px;
+}
+
+.main_logo img,.play_btn img{
+    width: 100%;
+    height: 100%;
+}
+
+
+.reservation_btn{
+    background: url('../image/header_btn.png');
+    width: 380px;
+    height: 90px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    outline: none;
+    box-shadow: none;
+    border:none;
+    font-size: 40px;
+    font-weight: 700;
+    letter-spacing: -2.37px;
+    color: #844b00;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-top: 65px;
+}
+
+.reser_title{
+  text-shadow: 0 0 6.7px rgba(0, 0, 0, 0.35);
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: -0.5px;
+  text-align: center;
+  color: #f6ce89;
+  margin-top: 24px;
+}
+
+.floating_banner{
+    position: absolute;
+    right: 20%;
+    top: 30%;
+}
+
+.floating_banner img{
+    width: 170px;
+    height: auto;
+}
+
+.close_float{
+    position: absolute;
+    right: 6%;
+    top: 0;
+}
+
+.close_float svg{
+    fill: #fff;
+}
+
+
+/* 사전예약 */
+.pre-se{
+    background: url('../image/back2.png') no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+.form_title_wrap{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.reservation_left{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.reserve_sub{
+    font-size: 31.5px;
+    font-weight: normal;
+    text-align: center;
+    line-height: 1.17;
+    letter-spacing: -1.89px;
+    background: linear-gradient(90deg, rgba(255,236,203,1) 0%, rgba(255,255,255,1) 18%, rgba(255,255,255,1) 85%, rgba(255,236,203,1) 100%);
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text; /* 크롬, 사파리 등 웹킷 브라우저를 위한 속성 */
+    font-family: 'Noto Sans KR', sans-serif;
+    margin-bottom: 1rem;
+}
+
+.pre-se .max-wi{
+    height: 100%;
+}
+
+.form_wrapp{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.resever_title_content h3{
+    font-size: 87px;
+    background:linear-gradient(5deg, rgba(255,236,203,1) 0%, rgba(255,255,255,1) 100%);
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text; /* 크롬, 사파리 등 웹킷 브라우저를 위한 속성 */
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 700;
+    margin-bottom: 40px;
+}
+
+.resever_title_content h3 img{
+    width: 345px;
+    height: 82px
+}
+
+.reserver_descript{
+    font-size: 33.5px;
+    font-weight: 400;
+    line-height: 1.3;
+    letter-spacing: -2.01px;
+    text-align: center;
+    color: #fff;
+}
+
+.reserver_descript span{
+    font-weight: 700;
+}
+
+.reservation_form{
+    width: 930px;
+  height: 340px;
+  padding: 34px 57px 20px 53px;
+    margin-top: 30px;
+    background:rgba(255, 210, 170,0.55);
+}
+
+
+.reservation_input_wrap{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.radio-button{
+    font-size: 36px;
+    font-weight: 400;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+
+
+.radio-buttons-2 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 2px solid #4a1100;
+    border-bottom: 2px solid #4a1100;
+    padding: 30px 0;
+    width: 260px;
+    margin-right: 30px;
+}
+
+.radio-buttons-2 .radio-button {
+    cursor: pointer;
+    position: relative;
+    padding-left: 55px;
+}
+
+.radio-button input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    height: 0;
+    width: 0;
+}
+
+.radio-buttons-2 .radio-button .custom-radio {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    background-color: #fff;
+    border: 4px solid #4a1100;
+}
+
+
+.radio-buttons-2 .radio-button input[type="radio"]:checked ~ .custom-radio {
+    border: 4px solid #4a1100;
+}
+
+
+.radio-buttons-2 .custom-radio:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #fff;
+}
+
+.radio-buttons-2 .radio-button input[type="radio"]:checked ~ .custom-radio:after {
+    background-color: #4a1100;
+}
+
+.radio-buttons-2 label{
+    font-size: 36px;
+    font-weight: 400;
+}
+
+.phone-wrapper{
+    border: solid 10px #4a1100;
+    background-color: #fff;
+    width: 500px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 25px 40px;
+    box-sizing: border-box;
+}
+
+.phone-wrapper .phone-prefix{
+    font-size: 55px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 700;
+    color: #000;
+    margin-top: -1rem;
+    margin-right: 1rem;
+}
+
+.phone-wrapper input{
+    width: 330px;
+    height: 100%;
+    border:none;
+    font-size: 30px;
+    font-weight: 700;
+    font-family: 'Noto Sans KR', sans-serif;
+    line-height: normal; 
+    padding: 0;   
+}
+
+.phone-wrapper input:focus{
+    outline: none;
+}
+
+.phone-wrapper input::placeholder{
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.52px;
+    text-align: left;
+    color: rgba(0, 0, 0, 0.35);
+    vertical-align: middle;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: normal;
+}
+@media screen and (max-width: 768px) {
+    .wrapper .btn {
+        display: block;
+    }
+
+    
+
+
+    #menu-btn:checked~.nav-links {
+        left: 0%;
+    }
+
+    #menu-btn:checked~.btn.menu-btn {
+        display: none;
+    }
+
+    #close-btn:checked~.btn.menu-btn {
+        display: block;
+    }
+
+    .nav-links .drop-menu {
+        position: static;
+        opacity: 1;
+        top: 65px;
+        visibility: visible;
+        padding-left: 20px;
+        width: 100%;
+        max-height: 0px;
+        overflow: hidden;
+        box-shadow: none;
+        transition: all 0.3s ease;
+    }
+
+    #showDrop:checked~.drop-menu{
+        max-height: 100%;
+    }
+
+    .nav-links .desktop-item {
+        display: none;
+    }
+
+    .nav-links .mobile-item {
+        display: block;
+        color: #f2f2f2;
+        font-size: 20px;
+        font-weight: 500;
+        padding-left: 20px;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+    }
+
+    .nav-links .mobile-item:hover {
+        background: #3A3B3C;
+    }
+
+    .drop-menu li {
+        margin: 0;
+    }
+
+    .drop-menu li a {
+        border-radius: 5px;
+        font-size: 18px;
+    }
+
+    
+}
+
