@@ -212,16 +212,6 @@ let userChoice = '';
 let computerChoice = '';
 let chances = 0;
 
-// 게임 결과를 저장하는 변수
-let gameResults = [];
-
-// 페이지 로드 시 게임 이력을 가져와서 gameResults 배열에 저장
-document.addEventListener('DOMContentLoaded', () => {
-    const accountId = localStorage.getItem('accountId');
-    const date = new Date().toISOString().split('T')[0];
-    fetchGameHistory(accountId, date);
-});
-
 
 function checkLogin() {
     const token = localStorage.getItem('token');
@@ -270,25 +260,20 @@ function fetchGameHistory(accountId) {
         return response.json();
     })
     .then(data => {
-        // 남은 기회가 유효한 숫자인지 확인
         if (data.hasOwnProperty('remainingChances') && !isNaN(Number(data.remainingChances))) {
             const remainingChances = Number(data.remainingChances);
             setChances(remainingChances);
-            localStorage.setItem('chances', remainingChances); // 여기에서 로컬 스토리지에 남은 횟수를 저장
+            localStorage.setItem('chances', remainingChances); // 서버 응답에 기반해 남은 횟수 저장
         } else {
-            // 새로운 사용자 또는 이력 없는 경우, 기본 기회를 4회로 설정
-            setChances(4);
-            localStorage.setItem('chances', 4); // 여기에서 로컬 스토리지에 기본 횟수를 저장
+            // 서버에서 남은 횟수 정보를 제공하지 않는 경우에만 기본 값 설정
+            if (!localStorage.getItem('chances')) {
+                setChances(4);
+                localStorage.setItem('chances', 4);
+            } else {
+                setChances(localStorage.getItem('chances'));
+            }
         }
-
-        // 게임 이력을 gameResults 배열에 추가
-        const gameResult = data.isSuccess === 'true' ? true : false;
-        gameResults.push(gameResult);
-
-        // 현재 나의 전적을 업데이트하고 화면에 표시
-        updateMyScore();
     })
-    
     
     .catch(error => {
         console.error('Error fetching game history:', error);
@@ -296,19 +281,10 @@ function fetchGameHistory(accountId) {
     });
 }
 
-// 현재 나의 전적을 업데이트하고 화면에 표시하는 함수
-function updateMyScore() {
-    const wins = gameResults.filter(result => result === true).length;
-    const losses = gameResults.filter(result => result === false).length;
-    
-    const scoreElement = document.querySelector('.rollet-score span');
-    scoreElement.textContent = `${wins}승 ${losses}패`;
-}
-
 // 남은 기회를 설정하는 함수
 function setChances(num) {
     chances = num;
-    localStorage.setItem('chances', num);
+    localStorage.setItem('chances', num); // 남은 기회를 로컬 스토리지에 저장
     document.getElementById('remainingChances').textContent = num;
 }
 
@@ -404,15 +380,12 @@ let resultColor;
 if (userChoice === '묵' && computerChoice === '찌' || userChoice === '찌' && computerChoice === '빠' || userChoice === '빠' && computerChoice === '묵') {
     resultText = '승';
     resultColor = '#ff2400';
-    isSuccess = true;
 } else if (userChoice === computerChoice) {
     resultText = '무';
     resultColor = '#caa57b';
-    isSuccess = false; 
 } else {
     resultText = '패';
     resultColor = '#0084ff';
-    isSuccess = false; 
 }
 
 sendGameResult(isSuccess);

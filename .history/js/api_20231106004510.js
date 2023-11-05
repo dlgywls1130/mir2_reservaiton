@@ -282,7 +282,7 @@ function fetchGameHistory(accountId) {
         }
 
         // 게임 이력을 gameResults 배열에 추가
-        const gameResult = data.isSuccess === 'true' ? true : false;
+        const gameResult = data.isSuccess === 'true';
         gameResults.push(gameResult);
 
         // 현재 나의 전적을 업데이트하고 화면에 표시
@@ -308,7 +308,7 @@ function updateMyScore() {
 // 남은 기회를 설정하는 함수
 function setChances(num) {
     chances = num;
-    localStorage.setItem('chances', num);
+    localStorage.setItem('chances', num); // 남은 기회를 로컬 스토리지에 저장
     document.getElementById('remainingChances').textContent = num;
 }
 

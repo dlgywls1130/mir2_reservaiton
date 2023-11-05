@@ -94,17 +94,16 @@ document.addEventListener("DOMContentLoaded", function() {
 
     headerLoginButton.addEventListener('click', function() {
         if (isLoggedIn) {
+            // 로그아웃 처리
             isLoggedIn = false;
+            localStorage.removeItem('isLoggedIn');
             localStorage.removeItem('token');
-            localStorage.removeItem('accountId');
-            localStorage.setItem('chances', 0); // 'gameCount' 대신 'chances'를 0으로 설정
+            localStorage.setItem('gameCount', 0); 
             headerLoginButton.innerText = '로그인';
             loginInfoSpan.style.display = 'block';
             modal.style.display = 'none';
             phoneInputLogin.value = '';  // 입력 값을 초기화
             rawInput = '';  // rawInput 값도 초기화
-            setChances(0); // 로그아웃 시 남은 기회를 0으로 설정하는 함수 호출
-            checkLogin(); // 로그인 상태 재검사
             return;
         } else {
             modal.style.display = 'block'; // 로그아웃 상태에서는 모달을 보이게 함
@@ -165,8 +164,6 @@ document.addEventListener("DOMContentLoaded", function() {
             if (loginStateCheckbox.checked) {
                 localStorage.setItem('isLoggedIn', 'true');
             }
-
-            fetchGameHistory(body.accountId); 
         })
 
         .catch(error => {
@@ -212,16 +209,6 @@ let userChoice = '';
 let computerChoice = '';
 let chances = 0;
 
-// 게임 결과를 저장하는 변수
-let gameResults = [];
-
-// 페이지 로드 시 게임 이력을 가져와서 gameResults 배열에 저장
-document.addEventListener('DOMContentLoaded', () => {
-    const accountId = localStorage.getItem('accountId');
-    const date = new Date().toISOString().split('T')[0];
-    fetchGameHistory(accountId, date);
-});
-
 
 function checkLogin() {
     const token = localStorage.getItem('token');
@@ -244,9 +231,9 @@ function checkLogin() {
 // 사용자의 게임 이력을 가져오는 함수
 function fetchGameHistory(accountId) {
     const token = localStorage.getItem('token'); // 토큰을 로컬 스토리지에서 가져옴
-    const date = new Date().toISOString().split('T')[0];
+    const today = new Date().toISOString().split('T')[0];
 
-    fetch(`https://mir2red.com/api/rulet/${accountId}/${date}`, {
+    fetch(`https://mir2red.com/api/rulet/${accountId}/${today}`, {
         headers: {
             'Authorization': 'Bearer ' + token // 인증 토큰을 헤더에 추가
         }
@@ -272,23 +259,12 @@ function fetchGameHistory(accountId) {
     .then(data => {
         // 남은 기회가 유효한 숫자인지 확인
         if (data.hasOwnProperty('remainingChances') && !isNaN(Number(data.remainingChances))) {
-            const remainingChances = Number(data.remainingChances);
-            setChances(remainingChances);
-            localStorage.setItem('chances', remainingChances); // 여기에서 로컬 스토리지에 남은 횟수를 저장
+            setChances(Number(data.remainingChances));
         } else {
             // 새로운 사용자 또는 이력 없는 경우, 기본 기회를 4회로 설정
             setChances(4);
-            localStorage.setItem('chances', 4); // 여기에서 로컬 스토리지에 기본 횟수를 저장
         }
-
-        // 게임 이력을 gameResults 배열에 추가
-        const gameResult = data.isSuccess === 'true' ? true : false;
-        gameResults.push(gameResult);
-
-        // 현재 나의 전적을 업데이트하고 화면에 표시
-        updateMyScore();
     })
-    
     
     .catch(error => {
         console.error('Error fetching game history:', error);
@@ -296,19 +272,10 @@ function fetchGameHistory(accountId) {
     });
 }
 
-// 현재 나의 전적을 업데이트하고 화면에 표시하는 함수
-function updateMyScore() {
-    const wins = gameResults.filter(result => result === true).length;
-    const losses = gameResults.filter(result => result === false).length;
-    
-    const scoreElement = document.querySelector('.rollet-score span');
-    scoreElement.textContent = `${wins}승 ${losses}패`;
-}
-
 // 남은 기회를 설정하는 함수
 function setChances(num) {
     chances = num;
-    localStorage.setItem('chances', num);
+    localStorage.setItem('chances', num); // 남은 기회를 로컬 스토리지에 저장
     document.getElementById('remainingChances').textContent = num;
 }
 
@@ -404,15 +371,12 @@ let resultColor;
 if (userChoice === '묵' && computerChoice === '찌' || userChoice === '찌' && computerChoice === '빠' || userChoice === '빠' && computerChoice === '묵') {
     resultText = '승';
     resultColor = '#ff2400';
-    isSuccess = true;
 } else if (userChoice === computerChoice) {
     resultText = '무';
     resultColor = '#caa57b';
-    isSuccess = false; 
 } else {
     resultText = '패';
     resultColor = '#0084ff';
-    isSuccess = false; 
 }
 
 sendGameResult(isSuccess);

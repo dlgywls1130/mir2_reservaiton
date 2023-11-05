@@ -308,7 +308,7 @@ function updateMyScore() {
 // 남은 기회를 설정하는 함수
 function setChances(num) {
     chances = num;
-    localStorage.setItem('chances', num);
+    localStorage.setItem('chances', num); // 남은 기회를 로컬 스토리지에 저장
     document.getElementById('remainingChances').textContent = num;
 }
 
