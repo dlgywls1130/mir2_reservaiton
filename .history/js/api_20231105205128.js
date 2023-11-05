@@ -209,41 +209,6 @@ let computerChoice = '';
 let chances = 0; // 사용자의 남은 기회
 
 
-function checkLogin() {
-    const token = localStorage.getItem('token');
-    const accountId = localStorage.getItem('accountId');
-    if (token && accountId) {
-        isLoggedIn = true;
-        fetchGameHistory(accountId); // 로그인 시 게임 이력 가져오기
-    } else {
-        isLoggedIn = false;
-        setChances(0); // 로그아웃 상태라면 기회를 0으로 설정
-    }
-}
-
-// 사용자의 게임 이력을 가져오는 함수
-function fetchGameHistory(accountId) {
-    const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD 포맷의 오늘 날짜
-    fetch(`https://mir2red.com/api/rulet/${accountId}/${today}`)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Failed to fetch game history');
-            }
-            return response.json();
-        })
-        .then(data => {
-            setChances(data.remainingChances); // 남은 기회 설정
-        })
-        .catch(error => {
-            console.error('Error fetching game history:', error);
-        });
-}
-
-// 남은 기회를 설정하는 함수
-function setChances(num) {
-    chances = num;
-    document.querySelector('.rollet_span span').textContent = num;
-}
 
 function selectChoice(choice) {
     userChoice = choice;
@@ -270,13 +235,6 @@ function startRoulette() {
         alert("STEP1의 묵찌빠 중 하나를 먼저 선택해 주세요");
         return;
     }
-
-    if (chances <= 0) {
-        alert("남은 기회가 없습니다. 미션을 통해 추가 기회를 획득해 보세요.");
-        return;
-    }
-
-    setChances(chances - 1);
 
     let roulette = document.getElementById('rouletteImg');
     let deg = 1800 + Math.floor(Math.random() * 360);
@@ -434,5 +392,3 @@ function sendGameResult(isSuccess) {
         alert(error.message); // 사용자에게 에러 알림
     });
 }
-
-document.addEventListener('DOMContentLoaded', checkLogin);
