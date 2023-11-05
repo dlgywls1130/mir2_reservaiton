@@ -1625,7 +1625,7 @@ header .header_wrapp .nav-links li a {
     transform: translate(-50%, 0);
     content: "";
     display: block;
-    border-bottom: 1px solid #caa57b;
+    border-bottom: 2px solid #caa57b;
     margin-top: 6px;
     width: 119%;
     background-color: #1d0c04;
@@ -1639,7 +1639,7 @@ header .header_wrapp .nav-links li a {
     transform: translate(0, -50%);
     content: "";
     display: block;
-    border-bottom: 1px solid #caa57b;
+    border-bottom: 2px solid #caa57b;
     margin-top: 6px;
     width: 119%;
     background-color: #1d0c04;
@@ -1674,27 +1674,11 @@ header .header_wrapp .nav-links li a {
     align-items: center;
     justify-content: center;
     font-size: 18px;
-    font-family: 'Noto Sans KR', sans-serif;
-    font-weight: 600;
-    color: #844b00;
     letter-spacing: -0.02em;
     width: 140px;
     height: 50px;
     background: url('../image/modal_result_btn.png');
 
-}
-
-.rollet_gmae_modal .event_img_list .item_img3{
-    width: 150px
-}
-
-.rollet_gmae_modal .event_img_list .item_img4{
-    width: 120px;
-    margin-left: -9%;
-}
-
-.rollet_gmae_modal .event_img_list{
-    align-items: center;
 }
 
 .text_img_pc {
@@ -2246,7 +2230,6 @@ header .header_wrapp .nav-links li a {
     .modal_title img {
         width: 70%;
         height: 100%;
-        object-fit: contain;
     }
 
     .close svg {
@@ -2319,30 +2302,6 @@ header .header_wrapp .nav-links li a {
 
     .event_img_list.rollet_gift{
         width: 80%;
-    }
-
-    .login_btn button{
-        width: 98px;
-    height: 30px;
-    font-size: 15px;
-    font-weight: 600;
-    font-family: 'Noto Sans KR', sans-serif;
-    }
-
-    .modal_login{
-        width: 100%;
-    }
-
-    .phone_input{
-        margin-top: 1rem;
-    }
-
-    .modal-content.login_pop{
-        height: 448px;
-    }
-
-    .modal-content.login_pop .modal_title img{
-        width: 40%;
     }
 }
 
@@ -2425,118 +2384,9 @@ header .header_wrapp .nav-links li a {
 
     .step_container {
         margin-left: 0;
-        width: 100%;
     }
 
     .form_title_wrap {
         justify-content: flex-start;
-    }
-
-    .step_btn_wrap{
-        justify-content: center;
-    }
-
-    .rollet_game_result .my_select_img img{
-        width: 50px;
-        height: 50px;
-    }
-
-    .my_select {
-        width: 100px;
-        height: 100px;
-    }
-
-    .rollet_game_result .my_select_img {
-        height: 81px;
-        background-size: contain;
-    }
-
-    .rollet_game_result .computer_result {
-        width: 100px;
-        height: 100px;
-    }
-
-    .computer_result .computer_select_img{
-        height: 81px;
-        background-size: contain;
-    }
-
-    .result_score {
-        background: url(../image/text-back.png) no-repeat;
-        width: 100px;
-        height: 81px;
-        background-size: contain;
-    }
-
-    .result_score p {
-        font-size: 50px;}
-
-    .rollet_game_result{
-        justify-content: center;
-    }
-
-    .rollet_gmae_modal .modal_body{
-        width: 90%;
-        height: 648px;
-        padding: 0 30px;
-        box-sizing: border-box;
-    }
-
-    .close_game svg{
-        width: 30px;
-        height: 30px;
-    }
-
-    .rollet_gmae_modal .modal_rollet_text{
-        font-size: 14px;
-        margin-bottom: 20px;
-    }
-
-    .rollet-score {
-        width: 100%;
-    }
-
-    .rollet_gmae_modal .modal_content_wrap{
-        width: 100%;    
-    }
-
-    .rollet_game_result .computer_result img{
-        width: 50px;
-        height: 50px;
-    }
-
-    .rollet_gmae_modal .modal_content_wrap::before{
-        width: 108%;
-        left: 50%;
-        top: 5%;
-    }
-
-    .rollet-ok_btn::before{
-        width: 100%;
-        left: 0;
-        top: 44%;
-    }
-
-    .modal_sub_title::after{
-        width: 115px;
-            border-bottom: 2px solid #caa57b;
-            margin-top: 6px;
-    }
-
-    .rollet_gmae_modal .modal_title img{
-        width: 100%;
-    }
-
-    .rollet_gmae_modal .event_img_list .item_img3{
-        width: 150px
-    }
-
-    .rollet_gmae_modal .event_img_list .item_img4{
-        width: 120px;
-        margin-left: -9%;
-    }
-
-    .rollet_gmae_modal .event_img_list{
-        align-items: center;
     }
 }

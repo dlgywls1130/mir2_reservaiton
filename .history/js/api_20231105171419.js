@@ -165,25 +165,18 @@ document.addEventListener("DOMContentLoaded", function() {
         })
 
         .catch(error => {
+            // 에러 처리
             console.error('API 호출 중 에러 발생:', error);
-            // 모달 닫기
-            modal.style.display = 'none'; // 모달 창을 닫음
-        
             let errorMessage = '서버 에러가 발생했습니다.';
             if (error.message.includes('401')) {
-                // 401 Unauthorized 에러 메시지 처리
                 errorMessage = "사전예약되지 않은 휴대폰 번호입니다. 지금 사전예약 하시겠습니까?";
                 if (confirm(errorMessage)) {
                     document.querySelector('#prebook').scrollIntoView({ behavior: 'smooth' });
                 }
             } else if (error.message.includes('400')) {
-                // 400 Bad Request 에러 메시지 처리
                 errorMessage = "휴대폰 번호를 정확히 입력해주세요.";
-                alert(errorMessage);
-            } else {
-                // 기타 서버 에러 메시지 처리
-                alert(errorMessage);
             }
+            alert(errorMessage);
         });
     });
 

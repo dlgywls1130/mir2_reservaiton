@@ -2320,30 +2320,6 @@ header .header_wrapp .nav-links li a {
     .event_img_list.rollet_gift{
         width: 80%;
     }
-
-    .login_btn button{
-        width: 98px;
-    height: 30px;
-    font-size: 15px;
-    font-weight: 600;
-    font-family: 'Noto Sans KR', sans-serif;
-    }
-
-    .modal_login{
-        width: 100%;
-    }
-
-    .phone_input{
-        margin-top: 1rem;
-    }
-
-    .modal-content.login_pop{
-        height: 448px;
-    }
-
-    .modal-content.login_pop .modal_title img{
-        width: 40%;
-    }
 }
 
 

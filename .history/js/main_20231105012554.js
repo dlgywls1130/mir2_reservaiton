@@ -93,6 +93,132 @@ document.querySelector('.close_float').addEventListener('click', function() {
 
 
 // 6. rollet
+let userChoice = '';
+let computerChoice = '';
+
+function selectChoice(choice) {
+    userChoice = choice;
+    const buttons = document.querySelectorAll('.rollet_start-btn img');
+    buttons.forEach(button => {
+        button.style.border = 'none'; // 모든 버튼 border 제거
+    });
+    event.target.style.border = '3px solid red'; // 선택한 버튼에 border 적용
+}
+
+if (!isLoggedIn) {
+    if (confirm("로그인 후 진행할 수 있습니다. 지금 로그인 하시겠습니까?")) {
+        // 첫 번째 로그인 모달을 표시합니다.
+        var modals = document.querySelectorAll('.modal');
+        if(modals.length > 0) {
+            modals[0].style.display = 'block';
+        } else {
+            console.error('로그인 모달을 찾을 수 없습니다.');
+        }
+    }
+    return;
+}
+function startRoulette() {
+    if (userChoice === '') {
+        alert("STEP1의 묵찌빠 중 하나를 먼저 선택해 주세요");
+        return;
+    }
+
+    let roulette = document.getElementById('rouletteImg');
+    let deg = 1800 + Math.floor(Math.random() * 360);
+
+    roulette.style.transition = 'transform 3s ease-out';
+    roulette.style.transform = `rotate(${deg}deg)`;
+
+    let normalizedDeg = deg % 360;  
+    if ((normalizedDeg >= 0 && normalizedDeg < 60) || (normalizedDeg >= 180 && normalizedDeg < 240)) {
+        computerChoice = '찌';
+    } else if ((normalizedDeg >= 60 && normalizedDeg < 120) || (normalizedDeg >= 240 && normalizedDeg < 300)) {
+        computerChoice = '묵';
+    } else {
+        computerChoice = '빠';
+    }
+
+    setTimeout(() => {
+        showResult();
+    }, 3000);
+}
+
+function showResult() {
+    let modal = document.querySelector('.rollet_gmae_modal');
+    let mySelectImg = document.querySelector('.my_select_img');
+    let computerSelectImg = document.querySelector('.computer_select_img');
+    let resultScore = document.querySelector('.result_score');
+
+    switch (userChoice) {
+        case '묵':
+            mySelectImg.innerHTML = '<img src="./image/rollet_my.png">';
+            break;
+        case '찌':
+            mySelectImg.innerHTML = '<img src="./image/rollet_my2.png">';
+            break;
+        case '빠':
+            mySelectImg.innerHTML = '<img src="./image/rollet_my1.png">';
+            break;
+    }
+
+    switch (computerChoice) {
+        case '묵':
+            computerSelectImg.innerHTML = '<img src="./image/rollet_my.png">';
+            break;
+        case '찌':
+            computerSelectImg.innerHTML = '<img src="./image/rollet_my2.png">';
+            break;
+        case '빠':
+            computerSelectImg.innerHTML = '<img src="./image/rollet_my1.png">';
+            break;
+    }
+
+// 결과 표시 및 색상 설정
+let resultText;
+let resultColor;
+if (userChoice === '묵' && computerChoice === '찌' || userChoice === '찌' && computerChoice === '빠' || userChoice === '빠' && computerChoice === '묵') {
+    resultText = '승';
+    resultColor = '#ff2400';
+} else if (userChoice === computerChoice) {
+    resultText = '무';
+    resultColor = '#caa57b';
+} else {
+    resultText = '패';
+    resultColor = '#0084ff';
+}
+
+// p 태그에 결과 텍스트를 적용하고, 색상 설정
+resultScore.innerHTML = `<p style="color: ${resultColor}">${resultText}</p>`;
+modal.style.display = 'block';
+}
+
+
+function closeModal() {
+    let modal = document.querySelector('.rollet_gmae_modal');
+    modal.style.display = 'none';
+
+    // 게임 리셋 로직
+    userChoice = '';
+    computerChoice = '';
+    let roulette = document.getElementById('rouletteImg');
+
+    // 트랜지션을 잠시 끔
+    roulette.style.transition = 'none';
+    roulette.style.transform = `rotate(0deg)`;
+    // 트랜지션 다시 켜기
+    setTimeout(() => {
+        roulette.style.transition = 'transform 3s ease-out';
+    }, 50);
+
+    const buttons = document.querySelectorAll('.rollet_start-btn img');
+    buttons.forEach(button => {
+        button.style.border = 'none';
+    });
+}
+
+
+document.querySelector('.close_game').addEventListener('click', closeModal);
+document.querySelector('.rollet-ok_btn button').addEventListener('click', closeModal);
 
 
 

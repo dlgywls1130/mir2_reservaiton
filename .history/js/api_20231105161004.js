@@ -140,50 +140,49 @@ document.addEventListener("DOMContentLoaded", function() {
             body: JSON.stringify(requestBody) 
         })
         .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            return response.json();
+            return { 
+                status: response.status, 
+                body: response.json()
+            };
         })
+        .then(data => {
+            data.body.then(body => {
+                switch (data.status) {
+                    case 200:
+                        isLoggedIn = true;
+                        modal.style.display = 'none';
+                        headerLoginButton.innerText = '로그아웃';
+                        loginInfoSpan.style.display = 'none';
 
-        .then(body => {
-            // 로그인 성공 시 처리
-            isLoggedIn = true;
-            modal.style.display = 'none';
-            headerLoginButton.innerText = '로그아웃';
-            loginInfoSpan.style.display = 'none';
-            alert("다양한 이벤트에 참여해보세요.");
+                        // 로컬 스토리지에 accountId 저장
+                        if (body && body.token) {
+                            localStorage.setItem('token', body.token);
+                        }
         
-            // 로컬 스토리지에 토큰과 accountId 저장
-            localStorage.setItem('token', body.token);
-            localStorage.setItem('accountId', body.accountId);
+                        // accountId를 로컬 스토리지에 저장
+                        if (body && body.accountId) {
+                            localStorage.setItem('accountId', body.accountId);
+                        }
         
-            // 로그인 상태 저장
-            if (loginStateCheckbox.checked) {
-                localStorage.setItem('isLoggedIn', 'true');
-            }
+                        // 로그인 상태 저장
+                        if (loginStateCheckbox.checked) {
+                            localStorage.setItem('isLoggedIn', 'true');
+                        }
+                        break;
+                    case 400:
+                        alert('사전예약되지 않은 휴대폰 번호입니다.');
+                        modal.style.display = 'none';
+                        document.querySelector('#prebook').scrollIntoView({ behavior: 'smooth' });
+                        break;
+                    default:
+                        console.error('API 호출 결과 에러 발생:', body);
+                        alert('서버 에러가 발생했습니다.');
+                }
+            });
         })
-
         .catch(error => {
             console.error('API 호출 중 에러 발생:', error);
-            // 모달 닫기
-            modal.style.display = 'none'; // 모달 창을 닫음
-        
-            let errorMessage = '서버 에러가 발생했습니다.';
-            if (error.message.includes('401')) {
-                // 401 Unauthorized 에러 메시지 처리
-                errorMessage = "사전예약되지 않은 휴대폰 번호입니다. 지금 사전예약 하시겠습니까?";
-                if (confirm(errorMessage)) {
-                    document.querySelector('#prebook').scrollIntoView({ behavior: 'smooth' });
-                }
-            } else if (error.message.includes('400')) {
-                // 400 Bad Request 에러 메시지 처리
-                errorMessage = "휴대폰 번호를 정확히 입력해주세요.";
-                alert(errorMessage);
-            } else {
-                // 기타 서버 에러 메시지 처리
-                alert(errorMessage);
-            }
+            alert('서버 에러가 발생했습니다.');
         });
     });
 

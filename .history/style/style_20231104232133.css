@@ -7,8 +7,7 @@
     --text-brown: #411f00;
 }
 
-html,
-body {
+html,body{
     overflow-x: hidden;
     width: 100vw;
 }
@@ -289,10 +288,10 @@ header .header_wrapp .nav-links li a {
     /* 크롬, 사파리 등 웹킷 브라우저를 위한 속성 */
     /* font-family: 'Noto Sans KR', sans-serif; */
     /* font-weight: 700; */
-
+    
 }
 
-.resever_title_content {
+.resever_title_content{
     margin-bottom: 40px;
 }
 
@@ -686,7 +685,7 @@ header .header_wrapp .nav-links li a {
     margin-bottom: 25px;
 }
 
-.event_sub span {
+.event_sub span{
     font-weight: 600;
 }
 
@@ -844,7 +843,7 @@ header .header_wrapp .nav-links li a {
     color: #fff;
     margin-left: 25px;
     line-height: 1.5;
-    width: 67%;
+    width: 60%;
 }
 
 .event_img_list {
@@ -951,7 +950,7 @@ header .header_wrapp .nav-links li a {
 }
 
 .rollet_step {
-    display: flex !important;
+    display: flex!important;
     align-items: flex-start;
 }
 
@@ -1625,7 +1624,7 @@ header .header_wrapp .nav-links li a {
     transform: translate(-50%, 0);
     content: "";
     display: block;
-    border-bottom: 1px solid #caa57b;
+    border-bottom: 2px solid #caa57b;
     margin-top: 6px;
     width: 119%;
     background-color: #1d0c04;
@@ -1639,7 +1638,7 @@ header .header_wrapp .nav-links li a {
     transform: translate(0, -50%);
     content: "";
     display: block;
-    border-bottom: 1px solid #caa57b;
+    border-bottom: 2px solid #caa57b;
     margin-top: 6px;
     width: 119%;
     background-color: #1d0c04;
@@ -1674,27 +1673,11 @@ header .header_wrapp .nav-links li a {
     align-items: center;
     justify-content: center;
     font-size: 18px;
-    font-family: 'Noto Sans KR', sans-serif;
-    font-weight: 600;
-    color: #844b00;
     letter-spacing: -0.02em;
     width: 140px;
     height: 50px;
     background: url('../image/modal_result_btn.png');
 
-}
-
-.rollet_gmae_modal .event_img_list .item_img3{
-    width: 150px
-}
-
-.rollet_gmae_modal .event_img_list .item_img4{
-    width: 120px;
-    margin-left: -9%;
-}
-
-.rollet_gmae_modal .event_img_list{
-    align-items: center;
 }
 
 .text_img_pc {
@@ -1710,23 +1693,16 @@ header .header_wrapp .nav-links li a {
 }
 
 .rollet-info-mo {
-    display: none !important;
+    display: none!important;
 }
 
-.step_descript.pc-descript {
-    display: block;
-}
 
-.step_descript.mo-descript {
-    display: none;
-}
 
 @media screen and (max-width: 1024px) {
 
-    header {
+    header{
         height: 70px;
     }
-
     .full-se {
         padding: 100px 30px;
         box-sizing: border-box;
@@ -1791,7 +1767,7 @@ header .header_wrapp .nav-links li a {
         height: auto;
     }
 
-    .header_wrapp .menu-btn img {
+    .header_wrapp .menu-btn img{
         width: 100%;
         height: 100%;
     }
@@ -1920,10 +1896,9 @@ header .header_wrapp .nav-links li a {
         box-sizing: border-box;
     }
 
-    .radio-buttons-2 .radio-button {
+    .radio-buttons-2 .radio-button{
         padding-left: 33px;
     }
-
     .phone-wrapper {
         width: 100%;
         height: 60px;
@@ -1932,11 +1907,10 @@ header .header_wrapp .nav-links li a {
         padding: 1rem;
     }
 
-    .radio-buttons-2 .radio-button .custom-radio {
+    .radio-buttons-2 .radio-button .custom-radio{
         border: 2px solid #4a1100;
     }
-
-    .radio-buttons-2 .radio-button input[type="radio"]:checked~.custom-radio {
+    .radio-buttons-2 .radio-button input[type="radio"]:checked~.custom-radio{
         border: 2px solid #4a1100;
     }
 
@@ -1978,7 +1952,7 @@ header .header_wrapp .nav-links li a {
     .phone-wrapper input::placeholder {
         font-family: 'Noto Sans KR', sans-serif;
         font-weight: 700;
-        font-size: 15px;
+        font-size: 20px;
         text-align: left;
         vertical-align: middle;
         display: flex;
@@ -1988,17 +1962,11 @@ header .header_wrapp .nav-links li a {
 
     .chk_agree label {
         font-size: 14px;
-        margin-left: 3px;
     }
 
     .chk_agree input[type=checkbox] {
-        height: 20px;
-        width: 20px;
-    }
-
-    .chk_agree input[type=checkbox]:before {
-        width: 2px;
-        height: 8px;
+        height: 25px;
+        width: 25px;
     }
 
     .chk_agree {
@@ -2011,12 +1979,8 @@ header .header_wrapp .nav-links li a {
         width: 100%;
     }
 
-    .game_screen:first-child {
-        margin-bottom: 0px;
-    }
-
     .game_introduce {
-        padding: 100px 20px;
+        padding: 80px 20px;
         box-sizing: border-box;
     }
 
@@ -2058,7 +2022,7 @@ header .header_wrapp .nav-links li a {
     }
 
     .game_share {
-        padding: 100px 20px;
+        padding: 120px 20px;
         box-sizing: border-box;
     }
 
@@ -2086,7 +2050,6 @@ header .header_wrapp .nav-links li a {
     .sare_link_input button {
         font-size: 16px;
         word-break: keep-all;
-        border-left: solid 5px #6e4132;
     }
 
     .sare_link_input input::placeholder {
@@ -2104,16 +2067,9 @@ header .header_wrapp .nav-links li a {
         border: solid 5px #6e4132;
     }
 
-    .date_sub::after {
-        margin:0 9px 0 14px;
-        height: 19px;
-        width: 0.5px;
-        background: rgba(255, 255, 255, 0.9);
-    }
-
     .date_sub,
     .date_descript {
-        font-size: 13px;
+        font-size: 18px;
     }
 
     .date_descript {
@@ -2164,9 +2120,8 @@ header .header_wrapp .nav-links li a {
     .rollet_step {
         display: flex;
         align-items: flex-start;
-        justify-content: flex-start;
-        width: 100%;
-        flex-direction: column;
+        justify-content: center;
+
     }
 
     .rollet_step_list.rollet_game_start .rollet_step {
@@ -2179,21 +2134,20 @@ header .header_wrapp .nav-links li a {
     }
 
     .rollet-info-pc {
-        display: none !important;
+        display: none;
     }
 
     .rollet-info-mo {
-        display: flex !important;
+        display: block;
         margin-top: 5rem;
     }
 
     .share_sns {
         flex-direction: column;
-        margin-top: 45px;
     }
 
     .rollet_game {
-        padding: 100px 30px;
+        padding: 0 30px;
         box-sizing: border-box;
     }
 
@@ -2202,147 +2156,36 @@ header .header_wrapp .nav-links li a {
         justify-content: center;
     }
 
-    .event_text01 {
+    .event_text01{
         font-size: 24px;
     }
 
-    .reser_text {
+    .reser_text{
         font-size: 12px;
     }
 
-    .personal_sub {
+    .personal_sub{
         font-size: 14px;
         margin-top: 25px;
     }
 
-    .modal_content_wrap .personal_p {
+    .modal_content_wrap .personal_p{
         font-size: 12px;
     }
 
-    .span_sub {
+    .span_sub{
         font-size: 10px;
         margin-top: 15px;
-        white-space: nowrap;
-        line-height: 15px;
     }
 
-    .modal-content {
-        width: 95% !important;
-        padding: 0 20px;
-        box-sizing: border-box;
+    .modal-content{
+        width: 95%;
+    padding: 0 20px;
+    box-sizing: border-box;
     }
 
-    .modal_body {
+    .modal_body{
         width: 100%;
-    }
-
-    .modal-content .modal_title {
-        margin-bottom: 40px;
-        padding-bottom: 20px;
-        width: 100%;
-        margin: 0 auto;
-    }
-
-    .modal_title img {
-        width: 70%;
-        height: 100%;
-        object-fit: contain;
-    }
-
-    .close svg {
-        width: 30px;
-        height: 30px;
-    }
-
-    .modal-content.personal_information {
-        height: 542px;
-    }
-
-    .modal-content.event_modal {
-        height: 363px;
-    }
-
-    .modal-content.event_modal .modal_content_wrap {
-        padding-top: 2rem;
-    }
-
-    .personal_sub br {
-        display: none;
-    }
-
-    .step_descript.pc-descript {
-        display: none;
-    }
-
-    .step_descript.mo-descript {
-        display: block;
-    }
-
-    .step_title {
-        width: 100%;
-    }
-
-    .game_descript {
-        padding: 22px 15px 15px 15px;
-        height: 225px;
-    }
-
-    .descript_list p {
-        font-size: 13px;
-    }
-
-    .rollet_descript_span {
-        font-size: 14px;
-    }
-
-    .share_sns p {
-        font-size: 12px;
-        margin-bottom: 2rem;
-        text-align: center;
-    }
-
-    .rollet_game .sare_link_input input {
-        padding: 0.5rem 0.8rem;
-    }
-
-    .event_date.rollet_gift_wrap .date_list_line:last-child {
-        margin-top: 0.5rem;
-    }
-
-    .date_list_line:first-child {
-        margin-bottom: 0.5rem;
-    }
-
-    .date_sub {
-        width: 29%;
-    }
-
-    .event_img_list.rollet_gift{
-        width: 80%;
-    }
-
-    .login_btn button{
-        width: 98px;
-    height: 30px;
-    font-size: 15px;
-    font-weight: 600;
-    font-family: 'Noto Sans KR', sans-serif;
-    }
-
-    .modal_login{
-        width: 100%;
-    }
-
-    .phone_input{
-        margin-top: 1rem;
-    }
-
-    .modal-content.login_pop{
-        height: 448px;
-    }
-
-    .modal-content.login_pop .modal_title img{
-        width: 40%;
     }
 }
 
@@ -2374,15 +2217,11 @@ header .header_wrapp .nav-links li a {
         display: block;
     }
 
-    .rollet_pan {
-        height: 328px;
-    }
-
     .rollet_game_pan {
         width: 300px;
         height: 300px;
         position: absolute;
-        top: 54%;
+        top: 38%;
         left: 50%;
         transform: translate(-50%, -50%);
     }
@@ -2391,7 +2230,7 @@ header .header_wrapp .nav-links li a {
         width: 110px;
         height: 110px;
         position: absolute;
-        top: 54%;
+        top: 38%;
         left: 50%;
         transform: translate(-50%, -50%);
     }
@@ -2405,7 +2244,7 @@ header .header_wrapp .nav-links li a {
     }
 
     .rollet_span {
-        width: 300px;
+        width: 100%;
     }
 
     .step_btn_wrap button {
@@ -2418,125 +2257,16 @@ header .header_wrapp .nav-links li a {
         width: 80%;
     }
 
-    .screenshot_content h2 img {
+    .screenshot_content h2 img{
         width: 100%;
         height: 100%;
     }
 
     .step_container {
         margin-left: 0;
-        width: 100%;
     }
 
-    .form_title_wrap {
+    .form_title_wrap{
         justify-content: flex-start;
-    }
-
-    .step_btn_wrap{
-        justify-content: center;
-    }
-
-    .rollet_game_result .my_select_img img{
-        width: 50px;
-        height: 50px;
-    }
-
-    .my_select {
-        width: 100px;
-        height: 100px;
-    }
-
-    .rollet_game_result .my_select_img {
-        height: 81px;
-        background-size: contain;
-    }
-
-    .rollet_game_result .computer_result {
-        width: 100px;
-        height: 100px;
-    }
-
-    .computer_result .computer_select_img{
-        height: 81px;
-        background-size: contain;
-    }
-
-    .result_score {
-        background: url(../image/text-back.png) no-repeat;
-        width: 100px;
-        height: 81px;
-        background-size: contain;
-    }
-
-    .result_score p {
-        font-size: 50px;}
-
-    .rollet_game_result{
-        justify-content: center;
-    }
-
-    .rollet_gmae_modal .modal_body{
-        width: 90%;
-        height: 648px;
-        padding: 0 30px;
-        box-sizing: border-box;
-    }
-
-    .close_game svg{
-        width: 30px;
-        height: 30px;
-    }
-
-    .rollet_gmae_modal .modal_rollet_text{
-        font-size: 14px;
-        margin-bottom: 20px;
-    }
-
-    .rollet-score {
-        width: 100%;
-    }
-
-    .rollet_gmae_modal .modal_content_wrap{
-        width: 100%;    
-    }
-
-    .rollet_game_result .computer_result img{
-        width: 50px;
-        height: 50px;
-    }
-
-    .rollet_gmae_modal .modal_content_wrap::before{
-        width: 108%;
-        left: 50%;
-        top: 5%;
-    }
-
-    .rollet-ok_btn::before{
-        width: 100%;
-        left: 0;
-        top: 44%;
-    }
-
-    .modal_sub_title::after{
-        width: 115px;
-            border-bottom: 2px solid #caa57b;
-            margin-top: 6px;
-    }
-
-    .rollet_gmae_modal .modal_title img{
-        width: 100%;
-    }
-
-    .rollet_gmae_modal .event_img_list .item_img3{
-        width: 150px
-    }
-
-    .rollet_gmae_modal .event_img_list .item_img4{
-        width: 120px;
-        margin-left: -9%;
-    }
-
-    .rollet_gmae_modal .event_img_list{
-        align-items: center;
     }
 }

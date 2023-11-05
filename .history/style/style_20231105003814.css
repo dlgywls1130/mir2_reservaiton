@@ -2324,9 +2324,6 @@ header .header_wrapp .nav-links li a {
     .login_btn button{
         width: 98px;
     height: 30px;
-    font-size: 15px;
-    font-weight: 600;
-    font-family: 'Noto Sans KR', sans-serif;
     }
 
     .modal_login{
@@ -2335,14 +2332,6 @@ header .header_wrapp .nav-links li a {
 
     .phone_input{
         margin-top: 1rem;
-    }
-
-    .modal-content.login_pop{
-        height: 448px;
-    }
-
-    .modal-content.login_pop .modal_title img{
-        width: 40%;
     }
 }
 
