@@ -208,7 +208,32 @@ document.addEventListener("DOMContentLoaded", function() {
 // 3.룰렛
 let userChoice = '';
 let computerChoice = '';
-let chances = 0;
+let chances = 4; // 변경된 기본 게임 횟수
+let sharedEventsCount = 0; // 추가된 변수, 공유 이벤트 카운트
+
+
+// 페이지 로드 시 게임 이력을 가져와서 gameResults 배열에 저장하고, 남은 기회를 초기화
+document.addEventListener('DOMContentLoaded', () => {
+    checkLogin();
+    setChances(getSavedChances()); // 초기화된 남은 기회를 가져오기
+    // 게임 기회가 들어가도록 수정
+    document.getElementById('remainingChances').textContent = chances.toString(); 
+});
+
+
+// 남은 기회를 가져오는 함수
+function getSavedChances() {
+    // 로그인 상태라면 서버에서 가져온 기회를 사용, 아니면 로컬 스토리지에서 가져오기
+    return isLoggedIn ? chances : (localStorage.getItem('chances') ? parseInt(localStorage.getItem('chances'), 10) : 4); // 기본값을 4로 변경
+}
+
+// 공유 이벤트가 성공적으로 완료됐을 때 호출하는 함수
+function sharedEventCompleted() {
+    sharedEventsCount++;
+    if (sharedEventsCount <= 2) { // 최대 2번까지만 기회 추가
+        setChances(chances + 1);
+    }
+}
 
 // 게임 결과를 저장하는 변수
 let gameResults = [];
@@ -516,7 +541,7 @@ document.addEventListener("DOMContentLoaded", function() {
      // 게임 기회 초기화
      initializeGameChances();
 
-     
+
     // 첫 번째 공유 URL 세트
     const shareUrlInputFirst = document.querySelector('.url-share-btn_input input'); // 첫 번째 공유 URL 입력 필드
     const shareUrlButtonFirst = document.querySelector('.sare_link_input .url-share-btn'); // 첫 번째 공유 URL 제출 버튼
@@ -542,6 +567,8 @@ function handleShareButtonClick(shareUrlInput, apiUrl) {
     const token = localStorage.getItem('token');
     const accountId = localStorage.getItem('accountId');
     
+    const eventIdentifier = apiUrl.includes('event-first') ? 'first' : 'second';
+
     // 먼저 로그인 상태 확인
     if (!token || !accountId) {
         alert("로그인 후 진행할 수 있습니다. 지금 로그인 하시겠습니까?");
@@ -557,14 +584,11 @@ function handleShareButtonClick(shareUrlInput, apiUrl) {
         return;
     }
 
-    // 로그인 되어 있고 URL 입력됐다면 공유 URL 제출
-    submitShareUrl(accountId, shareUrlInput.value.trim(), token, apiUrl)
+    submitShareUrl(accountId, sharedUrl, token, apiUrl)
     .then(() => {
       updateGameChances(eventIdentifier); // API 호출 성공 시 게임 횟수 업데이트
     })
     .catch(handleApiError);
-
-    displayGameChances();
 }
 
 // 공유 URL API 제출 함수

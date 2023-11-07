@@ -512,11 +512,6 @@ document.addEventListener('DOMContentLoaded', checkLogin);
 
 // 페이지가 로드되었을 때 실행
 document.addEventListener("DOMContentLoaded", function() {
-
-     // 게임 기회 초기화
-     initializeGameChances();
-
-     
     // 첫 번째 공유 URL 세트
     const shareUrlInputFirst = document.querySelector('.url-share-btn_input input'); // 첫 번째 공유 URL 입력 필드
     const shareUrlButtonFirst = document.querySelector('.sare_link_input .url-share-btn'); // 첫 번째 공유 URL 제출 버튼

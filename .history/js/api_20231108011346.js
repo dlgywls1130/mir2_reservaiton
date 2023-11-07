@@ -103,6 +103,7 @@ document.addEventListener("DOMContentLoaded", function() {
             modal.style.display = 'none';
             phoneInputLogin.value = '';  // 입력 값을 초기화
             rawInput = '';  // rawInput 값도 초기화
+            setChances(0); // 로그아웃 시 남은 기회를 0으로 설정하는 함수 호출
             checkLogin(); // 로그인 상태 재검사
             return;
         } else {
@@ -208,7 +209,21 @@ document.addEventListener("DOMContentLoaded", function() {
 // 3.룰렛
 let userChoice = '';
 let computerChoice = '';
-let chances = 0;
+let gameChances = 4;
+
+// 이벤트 완료 후 게임 횟수 증가
+function incrementGameChance() {
+    gameChances += 1;
+    updateGameChancesDisplay();
+}
+
+function updateGameChancesDisplay() {
+    const chancesDisplay = document.getElementById('remainingChances');
+    
+    if (chancesDisplay) {
+        chancesDisplay.textContent = gameChances;
+    }
+}
 
 // 게임 결과를 저장하는 변수
 let gameResults = [];
@@ -341,7 +356,8 @@ function startRoulette() {
         return;
     }
 
-    setChances(chances - 1);
+    gameChances -= 1;
+    updateGameChancesDisplay();
 
     let roulette = document.getElementById('rouletteImg');
     let deg = 1800 + Math.floor(Math.random() * 360);
@@ -485,7 +501,7 @@ function sendGameResult(isSuccess) {
                 case 400:
                     throw new Error('Bad Request: 요청이 잘못되었습니다.');
                 case 429:
-                    throw new Error('남은 기회가 없습니다. 미션을 통해 추가 기회를 획득해 보세요.”');
+                    throw new Error('Too Many Requests: 요청이 너무 많습니다.');
                 case 500:
                     throw new Error('Server Error: 서버 에러가 발생했습니다.');
                 default:
@@ -512,11 +528,6 @@ document.addEventListener('DOMContentLoaded', checkLogin);
 
 // 페이지가 로드되었을 때 실행
 document.addEventListener("DOMContentLoaded", function() {
-
-     // 게임 기회 초기화
-     initializeGameChances();
-
-     
     // 첫 번째 공유 URL 세트
     const shareUrlInputFirst = document.querySelector('.url-share-btn_input input'); // 첫 번째 공유 URL 입력 필드
     const shareUrlButtonFirst = document.querySelector('.sare_link_input .url-share-btn'); // 첫 번째 공유 URL 제출 버튼
@@ -558,13 +569,7 @@ function handleShareButtonClick(shareUrlInput, apiUrl) {
     }
 
     // 로그인 되어 있고 URL 입력됐다면 공유 URL 제출
-    submitShareUrl(accountId, shareUrlInput.value.trim(), token, apiUrl)
-    .then(() => {
-      updateGameChances(eventIdentifier); // API 호출 성공 시 게임 횟수 업데이트
-    })
-    .catch(handleApiError);
-
-    displayGameChances();
+    submitShareUrl(accountId, sharedUrl, token, apiUrl);
 }
 
 // 공유 URL API 제출 함수
