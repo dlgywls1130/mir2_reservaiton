@@ -100,14 +100,13 @@ document.addEventListener("DOMContentLoaded", function() {
             localStorage.setItem('chances', 0); // 'gameCount' 대신 'chances'를 0으로 설정
             headerLoginButton.innerText = '로그인';
             loginInfoSpan.style.display = 'block';
-            modal.style.display = 'none';
+            modals.style.display = 'none';
             phoneInputLogin.value = '';  // 입력 값을 초기화
             rawInput = '';  // rawInput 값도 초기화
-            setChances(0); // 로그아웃 시 남은 기회를 0으로 설정하는 함수 호출
             checkLogin(); // 로그인 상태 재검사
             return;
         } else {
-            modal.style.display = 'block'; // 로그아웃 상태에서는 모달을 보이게 함
+            modals.style.display = 'block'; // 로그아웃 상태에서는 모달을 보이게 함
         }
     });
 
@@ -218,6 +217,7 @@ let gameResults = [];
 document.addEventListener('DOMContentLoaded', () => {
     
     checkLogin();
+    updateChanceDisplay(); 
 });
 
 
@@ -227,14 +227,10 @@ function checkLogin() {
     
     if (token && accountId) {
         isLoggedIn = true;
-        // 로그인 상태일 때만 게임 이력을 불러온다
-        fetchGameHistory(accountId); // 여기서는 날짜를 인자로 넘길 필요가 없습니다
+        fetchGameHistory(accountId);
     } else {
         isLoggedIn = false;
-        chances = localStorage.getItem('chances') ? parseInt(localStorage.getItem('chances'), 10) : 0;
-        if (isNaN(chances)) {
-            chances = 0;
-        }
+        chances = localStorage.getItem('chances') ? parseInt(localStorage.getItem('chances'), 10) : chances; // 기본값을 4로 설정
         setChances(chances);
     }
 }
@@ -309,6 +305,11 @@ function setChances(num) {
     document.getElementById('remainingChances').textContent = num;
 }
 
+function updateChanceDisplay() {
+    document.getElementById('remainingChances').textContent = chances;
+}
+
+
 function selectChoice(choice) {
     userChoice = choice;
     const buttons = document.querySelectorAll('.rollet_start-btn img');
@@ -318,6 +319,23 @@ function selectChoice(choice) {
     event.target.style.border = '3px solid red'; // 선택한 버튼에 border 적용
 }
 
+
+// 공유 이벤트에 따른 추가 횟수 부여 로직
+function handleShareEvent(eventCompleted) {
+    // eventCompleted는 공유 이벤트를 완료했는지에 대한 boolean 값입니다.
+    if (eventCompleted) {
+        chances += 1; // 공유 이벤트 완료 시 횟수를 1 증가
+        setChances(chances); // 변경된 횟수 저장 및 업데이트
+    }
+}
+
+// 두 번째 공유 이벤트를 처리하는 함수
+function handleSecondShareEvent(eventCompleted) {
+    if (eventCompleted) {
+        chances += 1; // 두 번째 공유 이벤트 완료 시 횟수를 1 증가
+        setChances(chances); // 변경된 횟수 저장 및 업데이트
+    }
+}
 
 
 function startRoulette() {
@@ -486,7 +504,7 @@ function sendGameResult(isSuccess) {
                 case 400:
                     throw new Error('Bad Request: 요청이 잘못되었습니다.');
                 case 429:
-                    throw new Error('Too Many Requests: 요청이 너무 많습니다.');
+                    throw new Error('남은 기회가 없습니다. 미션을 통해 추가 기회를 획득해 보세요.”');
                 case 500:
                     throw new Error('Server Error: 서버 에러가 발생했습니다.');
                 default:
@@ -504,22 +522,23 @@ function sendGameResult(isSuccess) {
     });
 }
 
-document.addEventListener('DOMContentLoaded', checkLogin);
-
+document.addEventListener('DOMContentLoaded', () => {
+    checkLogin();
+    updateChanceDisplay(); // 페이지 로딩 시 남은 기회를 화면에 업데이트
+});
 
 
 
 // event 공유
-
 // 페이지가 로드되었을 때 실행
 document.addEventListener("DOMContentLoaded", function() {
     // 첫 번째 공유 URL 세트
-    const shareUrlInputFirst = document.querySelector('.url-share-btn_input input'); // 첫 번째 공유 URL 입력 필드
+    const shareUrlInputFirst = document.querySelector('.sare_link_input input'); // 첫 번째 공유 URL 입력 필드
     const shareUrlButtonFirst = document.querySelector('.sare_link_input .url-share-btn'); // 첫 번째 공유 URL 제출 버튼
     
     // 두 번째 공유 URL 세트
-    const shareUrlInputSecond = document.querySelector('.rollet_share_link input'); // 두 번째 공유 URL 입력 필드
-    const shareUrlButtonSecond = document.querySelector('.rollet_share_link_btn'); // 두 번째 공유 URL 제출 버튼
+    const shareUrlInputSecond = document.querySelector('.url-share-btn_input input'); // 두 번째 공유 URL 입력 필드
+    const shareUrlButtonSecond = document.querySelector('.url-share-btn_input .url-share-btn'); // 두 번째 공유 URL 제출 버튼
     
     // 첫 번째 버튼에 이벤트 리스너 추가
     shareUrlButtonFirst.addEventListener('click', function() {
@@ -581,6 +600,7 @@ function submitShareUrl(accountId, sharedUrl, token, apiUrl) {
         handleApiError(error);
     });
 }
+
 
 // API 에러 처리 함수
 function handleApiError(error) {
