@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>미르2 RED</title>
+
+    <link rel="stylesheet" href="./style/style.css">
+    <link rel="stylesheet" href="./style/reset.css">
+</head>
+<body>
+
+    <!-- header -->
+    <header>
+        <div class="header_wrapp">
+            <a class="logo" href="javascript:void(0)">
+                <img src="./image/h_logo.png" alt="logo">
+            </a>
+            <div for="menu-btn" class="btn menu-btn">
+                <img src="./image/menu_btn.png" alt="menu">
+            </div>
+            
+            <ul class="nav-links">
+                <a class="logo_m" href="javascript:void(0)">
+                    <img src="./image/h_logo.png" alt="logo">
+                </a>
+                <li class="nav_list"><a href="#main">메인</a></li>
+                <li class="nav_list"><a href="#prebook">사전예약</a></li>
+                <li class="nav_list"><a href="#intro">게임소개</a></li>
+                <li class="nav_list"><a href="#urlShare">이벤트1</a></li>
+                <li class="nav_list"><a href="#gameUrl">이벤트2</a></li>
+                <li class="nav_list"><a href="https://cafe.naver.com/mir2red">공식카페</a></li>
+                <div for="close-btn" class="btn close-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                        <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+                    </svg>
+                </div>
+            </ul>
+            <div class="login_btn">
+                <button type="button" class="view_more">로그인</button>
+                <span>사전예약 후, 로그인 해주세요!</span>
+            </div>
+
+
+        </div>
+    </header>
+
+    <!-- main -->
+    <section id="main" class="full-se main-se">
+        <div class="main_wrapper">
+            <div class="main_logo">
+                <img src="./image/main_logo.png" alt="main-logo">
+            </div>
+            <button type="button" class="play_btn view_more">
+                <img src="./image/play.png" alt="play">
+            </button>
+
+            <button type="button" class="reservation_btn">
+                사전예약하기
+            </button>
+            <p class="reser_title">사전예약 신청 시 자동 신청 됩니다. </p>
+            <a href="https://cafe.naver.com/mir2red" class="floating_banner" target="_blank">
+                <img src="./image/float.png" alt="banner">
+                <div class="close_float">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                        <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+                    </svg>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- 사전예약 -->
+    <section id="prebook" class="full-se pre-se">
+        <div class="max-wi">
+            <div class="form_wrapp">
+                <div class="form_title_wrap">
+                    <div class="reservation_left">
+                        <div class="resever_title_content">
+                            <img src="./image/title_line.png" alt="line" class="text-top-line">
+                            <p class="reserve_sub">더 빠르게 더 강력하게!</p>
+                            <!-- <h3>사전예약</h3> -->
+                            <h3><img src="./image/text_img.png"></h3>
+                        </div>
+                        <div class="reserver_descript">
+                            지금 사전예약하면,
+                            <br><span>전설템을 100% 지급</span>해드립니다! 
+                        </div>
+                    </div>
+                    <div class="reservation_bage">
+                        <img src="./image/item01.png" alt="item">
+                    </div>
+                </div>
+                <form>
+                    <div class="reservation_form">
+                        <div class="reservation_input_wrap">
+                            <div class="radio-buttons-2">
+                                <label for="term-1" class="radio-button">AOS
+                                    <input type="radio" id="term-1" name="terms" checked>
+                                    <span class="custom-radio"></span>
+                                </label>
+                                <label for="term-2" class="radio-button">iOS
+                                    <input type="radio" id="term-2" name="terms">
+                                    <span class="custom-radio"></span>
+                                </label>
+                            </div>
+                            <div class="phone-wrapper">
+                                    <div class="phone-prefix">010-</div>
+                                    <div class="input_phone">
+                                        <input type="tel" id="phoneInput" placeholder="휴대폰 번호(“-”없이 입력)">
+                                    </div>
+                                
+                            </div>
+                        </div>
+                        <p class="reser_text">※사전예약 신청 시 자동 신청 됩니다. </p>
+                        <div class="reservation-btn">
+                            <button type="button">사전예약 하기</button>
+                        </div>
+                        <div class="personal_chk">
+                            <div class="chk_agree">
+                                <input type="checkbox" id="agree">
+                                <label for="agree">개인정보 수집·이용 및 LMS 수신 동의</label>
+                            </div>
+                            <div class="detail_pop view_more">자세히보기</div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="app_dowload">
+                <a href="https://play.google.com/store/apps/details?id=com.vfg.mir2.google" class="app_dowload_list">
+                    <img src="./image/app1.png" alt="google">
+                </a>
+                <a href="http://apps.apple.com/kr/app/미르2-레드/id6469580558" class="app_dowload_list">
+                    <img src="./image/app4.png" alt="ios">
+                </a>
+                <a href="https://onesto.re/_1UieZT1" class="app_dowload_list">
+                    <img src="./image/app3.png" alt="one">
+                </a>
+                <a href="https://apps.samsung.com/appquery/preOrderDetail.as?contentId=000007135662" class="app_dowload_list">
+                    <img src="./image/app2.png" alt="galaxy">
+                </a>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- 게임소개 -->
+    <section id="intro" class="game_introduce">
+        <div class="max-wi screen-flex flex_column">
+            <div class="game_screen one-game_screen">
+                <div class="screenshot">
+                    <img src="./image/screen1.png" alt="screen">
+                </div>
+                <div class="screenshot_content first-scrrenshot">
+                    <h2><img src="./image/gra_Text.png" alt="text"></h2>
+                    <img class="line-img" src="./image/gra_line.png" alt="hr">
+                    <p>원작의 그래픽을 모바일로 담아낸 미르2: 레드는
+                        <br>과거의 추억을 그대로 재현했습니다</p>
+                </div>
+            </div>
+            <div class="game_screen two-game_screen">
+                <div class="screenshot_content">
+                    <h2><img src="./image/gra_Text1.png" alt="text"></h2>
+                    <img class="line-img" src="./image/gra_line.png" alt="hr">
+                    <p>치열했던 사북성 공성을 기억하시나요?
+                        <br>다시 문파원들과 힘을 합칠 때가 되었습니다</p>
+                </div>
+                <div class="screenshot">
+                    <img src="./image/screen2.png" alt="screen">
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+
+    <!-- 게임공유  -->
+    <section id="urlShare" class="game_share">
+        <div class="max-wi">
+            <div class="event01_wrap">
+                <div class="line_wrapp">
+                    <img src="./image/title_line.png" alt="line" class="text-top-line">
+                </div>
+                
+                <h4 class="event_text01">이벤트 하나</h4>
+                <h2 class="text_img_pc"><img src="./image/share_text.png" alt="text"></h2>
+                <h2 class="text_img_mo"><img src="./image/share_text_m.png" alt="text"></h2>
+                <p class="event_sub">
+                    사전예약 소식을 필수 <span> 해시태그</span>와 <span>함께 SNS</span>에 공유하고,
+<br>공유 게시글 URL을 등록하시면 <span>3만원 상당</span>의
+아이템을 드립니다.
+
+                </p>
+                <div class="event_title_tag">
+                    
+                </div>
+                <p class="hash_tag">[#미르2레드, #미르2:레드 ]</p>
+                <div class="share_btn">
+                    <button type="button" class="view_more">공유하기</button>
+                </div>
+                <div class="sare_link_input">
+                    <input type="text" placeholder="공유 URL을 입력해 주세요
+                    페이스북, 카카오스토리, 트위터 외 기타 커뮤니티를 통한 공유도 참여가 가능합니다.
+                    비공개로 공유할 경우, 당첨자에서 제외됩니다.">
+                    <button type="button" class="url_input_share">URL 입력 완료</button>
+                </div>
+                <div class="event_date">
+                    <div class="date_list">
+                        <ul class="date_list_line">
+                            <li class="date_sub">이벤트 기간</li>
+                            <li class="date_descript">~ 출시 전까지</li> 
+                        </ul>
+                        <ul class="date_list_line">
+                            <li class="date_sub">이벤트 경품</li>
+                            <li class="date_descript">출시 후, 2주 이내
+                                <br>3만원 상당 게임 아이템(전원) 
+                                <span class="event_popup view_more">이벤트 유의사항 ▶</span></li> 
+                        </ul>
+                    </div>
+                    <div class="event_img_list">
+                        <div class="item_img1">
+                            <img src="./image/gift3.png" alt="gift">
+                        </div>
+                        <div class="item_img2">
+                            <img src="./image/gift1.png" alt="gift">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- rollet 게임 -->
+    <section id="gameUrl" class="rollet_game">
+        <div class="max-wi">
+            <div class="event01_wrap">
+                <h4 class="event_text01">이벤트 둘!</h4>
+                <h2 class="text_img_pc"><img src="./image/gra_Text2.png" alt="text"></h2>
+                <h2 class="text_img_mo"><img src="./image/gra_Text2_m.png" alt="text"></h2>
+                <p class="event_sub">
+                    <span class="span_first">끊을 수 없는 그 맛, ㅁㅉㅃ를 기억하시나요?</span>
+                    <span class="span_second">매일 매일 추억의 묵찌빠에 도전해 보세요! 룰렛을 이길 때마다 당첨 확률 UP! </span>
+                    <span class="color_span">한 판만 승리해도 인게임 선물 100% 지급!</span>
+                </p>
+
+                <div class="rollet_game_wrap">
+                    <div class="rollet_step_list">
+                        <div class="rollet_step">
+                            <div class="step_title">
+                                <div class="step_span">STEP 1</div>
+                                <div class="step_descript mo-descript">묵, 찌, 빠 중 하나를 선택하세요</div>
+                            </div>
+                            <div class="step_container">
+                                <div class="step_descript pc-descript">묵, 찌, 빠 중 하나를 선택하세요</div>
+                                <div class="step_btn_wrap">
+                                    <button type="button" class="rollet_start-btn">
+                                        <img src="./image/rollet2.png" alt="rollet" onclick="selectChoice('묵')">
+                                    </button>
+                                    <button type="button" class="rollet_start-btn">
+                                        <img src="./image/rollet1.png" alt="rollet" onclick="selectChoice('찌')">
+                                    </button>
+                                    <button type="button" class="rollet_start-btn">
+                                        <img src="./image/rollet3.png" alt="rollet" onclick="selectChoice('빠')">
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="rollet_step rollet-info-pc">
+                            <div class="step_title">
+                                <div class="step_span">STEP 3</div>
+                                
+                            </div>
+                            <div class="step_container">
+                                <div class="step_descript">추가 기회를 획득해 보세요.</div>
+                               <div class="game_descript">
+                                    <p class="rollet_descript_span">
+                                        1일 3회 무료 참여 (매일 00:00 리셋) 
+                                    </p>
+                                    <h4>추가 기회 획득 미션</h4>
+                                    <div class="descript_list">
+                                        <p><span>- 사전예약 시, 추가 기회</span> 자동 획득 (1회)</p>
+                                        <p>- 이벤트1<span>(영상 공유) 참여 시, 추가 기회 </span>자동 획득(1일 1회)</p>
+                                        <p>- 이벤트2<span>(묵찌빠 ) SNS 공유 시, 추가 기회</span> 자동 획득(1일 1회)</p>
+                                            
+                                    </div>
+                               </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rollet_step_list  rollet_game_start">
+                        <div class="rollet_step">
+                            <div class="step_title">
+                                <div class="step_span">STEP 2</div>
+                                <div class="step_descript">묵찌빠 룰렛을 돌려보세요</div>
+                            </div>
+                            <div class="step_container">
+
+                                <div class="step_btn_wrap">
+                                    <div class="rollet_pan">
+                                        <div class="rollet_arrow">
+                                            <img src="./image/rollet_arrow.png">
+                                        </div>
+                                        <div class="rollet_game_pan">
+                                            <img src="./image/rollet.png" id="rouletteImg">
+                                        </div>
+                                        <div class="start_rollet" onclick="startRoulette()">
+                                            <img src="./image/start.png">
+                                        </div>
+                                    </div>
+                                    <div class="rollet_span">
+                                        오늘 남은 기회 : <span id="remainingChances"></span>번
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="rollet_step rollet-info-mo">
+                            <div class="step_title">
+                                <div class="step_span">STEP 3</div>
+                                <div class="step_descript">추가 기회를 획득해 보세요.</div>
+                            </div>
+                            <div class="step_container">
+                                
+                               <div class="game_descript">
+                                    <p class="rollet_descript_span">
+                                        1일 3회 무료 참여 (매일 00:00 리셋) 
+                                    </p>
+                                    <h4>추가 기회 획득 미션</h4>
+                                    <div class="descript_list">
+                                        <p><span>- 사전예약 시, 추가 기회</span> 자동 획득 (1회)</p>
+                                        <p>- 이벤트1<span>(영상 공유) 참여 시, 추가 기회 </span>자동 획득(1일 1회)</p>
+                                        <p>- 이벤트2<span>(묵찌빠 ) SNS 공유 시, 추가 기회</span> 자동 획득(1일 1회)</p>
+                                            
+                                    </div>
+                               </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="share_sns">
+                    <p>묵찌빠 이벤트 링크 공유하고 URL 링크를 입력해 주시면 즉석으로 추가 기회를 획득할 수 있습니다.</p>
+                    <div class="sns_group">
+                        <a href="https://section.cafe.naver.com/ca-fe/home" target="_blank"><img src="./image/sns3.png" alt="sns"></a>
+                        <a href="javascript:toSNS('blog','mir2','http://www.mir2red.com/')" ><img src="./image/sns2.png" alt="sns"></a>
+                        <a href="javascript:shareFacebook();"><img src="./image/sns4.png" alt="sns"></a>
+                        <a href="javascript:shareTwitter();" ><img src="./image/sns5.png" alt="sns"></a>
+                        <a href="https://story.kakao.com/" target="_blank"><img src="./image/sns1.png" alt="sns"></a>
+                    </div>
+                </div>
+                <div class="sare_link_input">
+                    <input type="text" placeholder="공유 URL을 입력해 주세요
+                    페이스북, 카카오스토리, 트위터 외 기타 커뮤니티를 통한 공유도 참여가 가능합니다.">
+                    <button type="button" class="url_input_share">URL 입력 완료</button>
+                </div>
+                <div class="event_date rollet_gift_wrap">
+                    <div class="date_list">
+                        
+                        <ul class="date_list_line">
+                            <li class="date_sub">이벤트 기간</li>
+                            <li class="date_descript">~ 출시 전까지</li> 
+                        </ul>
+                        <ul class="date_list_line">
+                            <li class="date_sub">당첨자 발표</li>
+                            <li class="date_descript">출시 후, 2주 이내</li> 
+                        </ul>
+                        <ul class="date_list_line">
+                            <li class="date_sub">이벤트 경품</li>
+                            <li class="date_descript">BBQ 황금올리브 치킨 (10명)
+                                <br>문화상품권 1만원권 (20명)
+                                <span class="event_popup view_more">이벤트 유의사항 ▶</span> </li> 
+                        </ul>
+                    </div>
+                    <div class="event_img_list rollet_gift">
+                        <div class="item_img3">
+                            <img src="./image/gift4.png" alt="gift">
+                        </div>
+                        <div class="item_img4">
+                            <img src="./image/gift5.png" alt="gift">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- popup -->
+
+    <!-- 로그인 -->
+    <div class="modal">
+        <div class="modal-content login_pop">
+            <span class="close">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                    <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+                </svg>
+            </span>
+            <div class="modal_body">
+                <div class="modal_title">
+                    <img src="./image/modal_text4.png">
+                </div>
+                <div class="modal_content_wrap">
+                    
+                    <div class="phone_input">
+                        <p class="modal_phone_text">휴대폰 번호</p>
+                        <input type="tel" class="modal_login">
+                    </div>
+                    <div class="login_chk">
+                        <input type="checkbox" id="login">
+                        <label for="login">로그인 상태 유지</label>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="login_submit">
+                <button type="button">로그인</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- main 영상 -->
+    <div class="modal">
+        <div class="modal-content main_mp">
+            <span class="close">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                    <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+                </svg>
+            </span>
+        </div>
+    </div>
+
+    <!-- 개인정보팝업 -->
+
+    <div class="modal">
+        <div class="modal-content  personal_information">
+            <span class="close">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                    <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+                </svg>
+            </span>
+            <div class="modal_body">
+                <div class="modal_title">
+                    <img src="./image/modal_text1.png">
+                </div>
+                <div class="modal_content_wrap">
+                    <div class="personal_sub"> 게임정보 및 이벤트 정보 안내를 위해
+                    <br>다음과 같은 개인정보를 수집하고 있습니다.</div>
+
+                    <p class="personal_p">‐ 개인정보의 수집 및 이용목적: 게임 정보 및 이벤트 정보 안내</p>
+                    <p class="personal_p">‐ 수집하고자 하는 개인정보 항목 : 휴대폰번호</p>
+                    <p class="personal_p">‐ 개인정보의 보유 및 이용기간 : 이벤트 종료 후 1년</p>
+
+                    <div class="span_sub"> 본 동의를 거부할 권리가 있습니다.
+                        <br>단, 동의를 거부하는 경우 게임 정보 및 이벤트 정보 안내 문자를 받을 수 없습니다.</div>
+
+                    <div class="personal_sub min-margin">[개인정보 취급 위탁에 대한 동의]</div>
+
+                    <div class="span_sub span-second mb-10"> 개인정보 제공을 위해 다음과 같이 개인정보 위탁을 합니다.</div>
+                    <p class="personal_p ">- 개인정보 위탁 업체 : ㈜자이언트블랙</p>
+                    <p class="personal_p">- 개인정보 위탁 목적 : 게임서비스 운영 및 고객 상담 업무, 이벤트 경품 지급 업무</p>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- 사전예약공유 -->
+    <div class="modal">
+        <div class="modal-content  share_modal">
+            <span class="close">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                    <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+                </svg>
+            </span>
+            <div class="modal_body">
+                <div class="modal_sub_title">사전예약 공유하기</div>
+                <div class="modal_title">
+                    <img src="./image/modal_text3.png">
+                </div>
+                <div class="modal_content_wrap">
+                    
+                    <div class="share_mp">
+                        <iframe></iframe>
+                    </div>
+                    <p class="hash_info">
+                        필수 해시태그와 함께 SNS 버튼을 통해 친구에게 공유해주세요!
+                    </p>
+                    <p class="hash_tag">[#미르2레드, #미르2:레드 ]</p>
+                    <div class="sns_group">
+                        <a href="https://section.cafe.naver.com/ca-fe/home" target="_blank"><img src="./image/sns3.png" alt="sns"></a>
+                        <a href="javascript:toSNS('blog','mir2','http://www.mir2red.com/')" ><img src="./image/sns2.png" alt="sns"></a>
+                        <a href="javascript:shareFacebook();"><img src="./image/sns4.png" alt="sns"></a>
+                        <a href="javascript:shareTwitter();" ><img src="./image/sns5.png" alt="sns"></a>
+                        <a href="https://story.kakao.com/" target="_blank"><img src="./image/sns1.png" alt="sns"></a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- 이벤트 유의사항(공유이벤트) -->
+    <div class="modal">
+        <div class="modal-content  event_modal">
+            <span class="close">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                    <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+                </svg>
+            </span>
+            <div class="modal_body">
+                <div class="modal_title">
+                    <img src="./image/modal_text2.png">
+                </div>
+                <div class="modal_content_wrap">
+                    
+                    <div class="personal_sub"> ‐ 부적절한 형태로 이벤트 응모 시 당첨에서 제외됩니다.</div>
+                    <div class="personal_sub"> ‐ 이벤트 응모 시, 입력한 개인정보가 당첨자와 일치 해야하며, 
+                            <Br>불일치 시 당첨이 취소됩니다.</div>
+                    <div class="personal_sub"> ‐ 잘못된 개인정보 입력으로 인해 당첨자에게 연락이 불가능하거나 
+                            <Br>경품이 반송, 분실될 경우 재발송되지 않습니다.</div>
+                    <div class="personal_sub"> ‐ 이벤트를 통해 수집된 개인정보는 경품 발송을 위한 목적으로만 사용되며, 
+                            <Br>이후 파기 됩니다.</div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- 이벤트 유의사항(룰렛이벤트) -->
+    <div class="modal">
+        <div class="modal-content  event_modal">
+            <span class="close">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                    <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+                </svg>
+            </span>
+            <div class="modal_body">
+                <div class="modal_title">
+                    <img src="./image/modal_text2.png">
+                </div>
+                <div class="modal_content_wrap">
+                    
+                    <div class="personal_sub"> ‐ 부적절한 형태로 이벤트 응모 시 당첨에서 제외됩니다.</div>
+                    <div class="personal_sub"> ‐ 이벤트 응모 시, 입력한 개인정보가 당첨자와 일치 해야하며, 
+                            <Br>불일치 시 당첨이 취소됩니다.</div>
+                    <div class="personal_sub"> ‐ 잘못된 개인정보 입력으로 인해 당첨자에게 연락이 불가능하거나 
+                            <Br>경품이 반송, 분실될 경우 재발송되지 않습니다.</div>
+                    <div class="personal_sub"> ‐ 이벤트를 통해 수집된 개인정보는 경품 발송을 위한 목적으로만 사용되며, 
+                            <Br>이후 파기 됩니다.</div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- 룰렛게임결과 -->
+
+    <div class="rollet_gmae_modal">
+        
+        <div class="modal_body">
+            <span class="close_game"  onclick="closeResultModal()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                    <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+                </svg>
+            </span>
+            <div class="modal_sub_title">결과보기</div>
+            <div class="modal_title">
+                <img src="./image/rollet_title.png">
+            </div>
+            <p class="modal_rollet_text">룰렛을 이길 때마다 당첨 확률 UP!</p>
+            <div class="modal_content_wrap">
+                <div class="rollet-score">
+                    <p>현재 나의 전적 : </p>
+                    <span></span>
+                </div>
+
+                <div class="rollet_game_result">
+                    <div class="my_select">
+                        <div class="my_select_img">
+
+                        </div>
+                        <p>나의선택</p>
+                    </div>
+                    <div class="result_score">
+
+                    </div>
+                    <div class="computer_result">
+                        <div class="computer_select_img">
+
+                        </div>
+                        <p>룰렛결과</p>
+                    </div>
+                </div>
+
+                <div class="rollet-gift">
+                    <div class="event_img_list">
+                        <div class="item_img3">
+                            <img src="./image/gift4.png" alt="gift">
+                        </div>
+                        <div class="item_img4">
+                            <img src="./image/gift5.png" alt="gift">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="rollet-ok_btn">
+                    <button type="button" onclick="closeModal()">확인</button> 
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<!-- js -->
+
+
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+
+<script src="./js/main.js"></script>
+<script src="./js/api.js"></script>
+
+
+</html>
