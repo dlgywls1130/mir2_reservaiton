@@ -97,15 +97,17 @@ document.addEventListener("DOMContentLoaded", function() {
             isLoggedIn = false;
             localStorage.removeItem('token');
             localStorage.removeItem('accountId');
+            localStorage.setItem('chances', 0); // 'gameCount' 대신 'chances'를 0으로 설정
             headerLoginButton.innerText = '로그인';
             loginInfoSpan.style.display = 'block';
-            modals.style.display = 'none';
+            modal.style.display = 'none';
             phoneInputLogin.value = '';  // 입력 값을 초기화
             rawInput = '';  // rawInput 값도 초기화
+            setChances(0); // 로그아웃 시 남은 기회를 0으로 설정하는 함수 호출
             checkLogin(); // 로그인 상태 재검사
             return;
         } else {
-            modals.style.display = 'block'; // 로그아웃 상태에서는 모달을 보이게 함
+            modal.style.display = 'block'; // 로그아웃 상태에서는 모달을 보이게 함
         }
     });
 
@@ -114,14 +116,9 @@ document.addEventListener("DOMContentLoaded", function() {
         if (isLoggedIn) {
             // 로그아웃 처리
             isLoggedIn = false;
-            localStorage.setItem('isLoggedIn', true);
-            
-            const savedChances = localStorage.getItem('gameChances');
-            const gameChances = savedChances ? savedChances : '4';
-            localStorage.setItem('gameChances', gameChances);
-            updateRemainingChancesDisplay(); // 화면에 게임 기회 표시 업데이트
-            headerLoginButton.innerText = '로그아웃';
-            loginInfoSpan.style.display = 'none';
+            localStorage.removeItem('isLoggedIn');
+            headerLoginButton.innerText = '로그인';
+            loginInfoSpan.style.display = 'block';
             modals.style.display = 'none';
             return;
         }
@@ -221,25 +218,8 @@ let gameResults = [];
 document.addEventListener('DOMContentLoaded', () => {
     
     checkLogin();
+    updateChanceDisplay(); 
 });
-
-
-// 남은 게임 기회를 화면에 표시하는 함수
-function updateRemainingChancesDisplay() {
-    const remainingChances = localStorage.getItem('gameChances') || '4';
-    document.getElementById('remainingChances').textContent = remainingChances;
-}
-
-function playRoulette() {
-    let gameChances = parseInt(localStorage.getItem('gameChances') || '4', 10);
-    if (gameChances > 0) {
-        gameChances -= 1; // 게임 기회를 감소
-        localStorage.setItem('gameChances', gameChances.toString());
-        updateRemainingChancesDisplay(); // 변경된 기회를 화면에 표시합니다.
-    } else {
-        alert("게임 기회가 더 이상 남아있지 않습니다.");
-    }
-}
 
 
 function checkLogin() {
@@ -341,7 +321,22 @@ function selectChoice(choice) {
 }
 
 
+// 공유 이벤트에 따른 추가 횟수 부여 로직
+function handleShareEvent(eventCompleted) {
+    // eventCompleted는 공유 이벤트를 완료했는지에 대한 boolean 값입니다.
+    if (eventCompleted) {
+        chances += 1; // 공유 이벤트 완료 시 횟수를 1 증가
+        setChances(chances); // 변경된 횟수 저장 및 업데이트
+    }
+}
 
+// 두 번째 공유 이벤트를 처리하는 함수
+function handleSecondShareEvent(eventCompleted) {
+    if (eventCompleted) {
+        chances += 1; // 두 번째 공유 이벤트 완료 시 횟수를 1 증가
+        setChances(chances); // 변경된 횟수 저장 및 업데이트
+    }
+}
 
 
 function startRoulette() {
@@ -540,8 +535,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // 페이지가 로드되었을 때 실행
 document.addEventListener("DOMContentLoaded", function() {
-    updateRemainingChancesDisplay();
-
     // 첫 번째 공유 URL 세트
     const shareUrlInputFirst = document.querySelector('.url-share-btn_input input'); // 첫 번째 공유 URL 입력 필드
     const shareUrlButtonFirst = document.querySelector('.sare_link_input .url-share-btn'); // 첫 번째 공유 URL 제출 버튼
@@ -562,28 +555,56 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 // 공유 URL 제출 처리 함수
-function handleShareButtonClick(shareUrlInput, apiUrl) {
-    // 로그인 체크 및 토큰과 accountId 가져오기
-    const token = localStorage.getItem('token');
-    const accountId = localStorage.getItem('accountId');
-    
-    // 먼저 로그인 상태 확인
-    if (!token || !accountId) {
-        alert("로그인 후 진행할 수 있습니다. 지금 로그인 하시겠습니까?");
-        // 여기서 로그인 모달을 표시
-        modals[0].style.display = 'block'; 
-        return;
-    }
+function submitShareUrl(accountId, sharedUrl, token, apiUrl) {
+    fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ accountId: accountId, sharedUrl: sharedUrl })
+    })
+    .then(response => {
+        // Check if the response status is OK
+        if (response.ok) {
+            // Try to parse the JSON, but this might still fail if the response is empty or not JSON
+            return response.json().then(data => ({ status: response.status, body: data }));
+        } else {
+            // If the response is not OK, throw an error with the status
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+    })
+    .then(result => {
+        // Handle the JSON data here
+        alert("URL이 성공적으로 등록되었습니다.");
+        // Do additional success handling
+    })
+    .catch(error => {
+        console.error('API 호출 중 에러 발생:', error);
+        
+        // Handle SyntaxError separately
+        if (error instanceof SyntaxError) {
+            alert("서버 응답이 유효한 JSON 형식이 아닙니다. 관리자에게 문의하세요.");
+        } else {
+            // If it's not a SyntaxError, it could be a network error or other error
+            handleApiError(error);
+        }
+    });
+}
 
-    // 그 다음 URL 입력 확인
-    const sharedUrl = shareUrlInput.value.trim();
-    if (!sharedUrl) {
-        alert("공유 URL을 입력해주세요.");
-        return;
+// API 에러 처리 함수
+function handleApiError(error) {
+    // Here, we check the error message for specific status codes
+    if (error.message.includes('400')) {
+        alert("잘못된 요청입니다. URL을 확인해주세요.");
+    } else if (error.message.includes('401')) {
+        alert("인증에 실패했습니다. 다시 로그인해주세요.");
+    } else if (error.message.includes('500')) {
+        alert("서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
+    } else {
+        // For other cases, provide a generic message
+        alert("문제가 발생했습니다. 다시 시도해 주세요.");
     }
-
-    // 로그인 되어 있고 URL 입력됐다면 공유 URL 제출
-    submitShareUrl(accountId, sharedUrl, token, apiUrl);
 }
 
 // 공유 URL API 제출 함수
@@ -597,41 +618,45 @@ function submitShareUrl(accountId, sharedUrl, token, apiUrl) {
         body: JSON.stringify({ accountId: accountId, sharedUrl: sharedUrl })
     })
     .then(response => {
-        if (!response.ok) {
+        // Check if the response status is OK
+        if (response.ok) {
+            // Try to parse the JSON, but this might still fail if the response is empty or not JSON
+            return response.json().then(data => ({ status: response.status, body: data }));
+        } else {
+            // If the response is not OK, throw an error with the status
             throw new Error(`HTTP error! status: ${response.status}`);
         }
-        // 이 부분이 중요합니다: 빈 응답을 처리할 수 있도록 합니다.
-        return response.text().then(text => {
-            return text ? JSON.parse(text) : {}
-        });
     })
-    .then(data => {
+    .then(result => {
+        // Handle the JSON data here
         alert("URL이 성공적으로 등록되었습니다.");
-        // 추가적인 성공 후 처리
-        addGameChance();
+        // Do additional success handling
     })
     .catch(error => {
         console.error('API 호출 중 에러 발생:', error);
-        handleApiError(error);
+        
+        // Handle SyntaxError separately
+        if (error instanceof SyntaxError) {
+            alert("서버 응답이 유효한 JSON 형식이 아닙니다. 관리자에게 문의하세요.");
+        } else {
+            // If it's not a SyntaxError, it could be a network error or other error
+            handleApiError(error);
+        }
     });
-}
-
-function addGameChance() {
-    let gameChances = parseInt(localStorage.getItem('gameChances') || '4', 10);
-    gameChances += 1; // 기회를 하나 추가합니다.
-    localStorage.setItem('gameChances', gameChances.toString());
-    updateRemainingChancesDisplay(); // 변경된 기회를 화면에 표시합니다.
 }
 
 // API 에러 처리 함수
 function handleApiError(error) {
-    // 에러에 따른 적절한 사용자 피드백
+    // Here, we check the error message for specific status codes
     if (error.message.includes('400')) {
         alert("잘못된 요청입니다. URL을 확인해주세요.");
     } else if (error.message.includes('401')) {
         alert("인증에 실패했습니다. 다시 로그인해주세요.");
     } else if (error.message.includes('500')) {
         alert("서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
+    } else {
+        // For other cases, provide a generic message
+        alert("문제가 발생했습니다. 다시 시도해 주세요.");
     }
 }
 

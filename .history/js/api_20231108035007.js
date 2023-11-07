@@ -115,7 +115,7 @@ document.addEventListener("DOMContentLoaded", function() {
             // 로그아웃 처리
             isLoggedIn = false;
             localStorage.setItem('isLoggedIn', true);
-            
+            // 로그인 성공 시 이전에 저장된 게임 기회를 복원하거나 기본값 4를 설정합니다.
             const savedChances = localStorage.getItem('gameChances');
             const gameChances = savedChances ? savedChances : '4';
             localStorage.setItem('gameChances', gameChances);

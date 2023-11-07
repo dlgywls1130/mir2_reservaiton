@@ -97,11 +97,13 @@ document.addEventListener("DOMContentLoaded", function() {
             isLoggedIn = false;
             localStorage.removeItem('token');
             localStorage.removeItem('accountId');
+            localStorage.setItem('chances', 0); // 'gameCount' 대신 'chances'를 0으로 설정
             headerLoginButton.innerText = '로그인';
             loginInfoSpan.style.display = 'block';
-            modals.style.display = 'none';
+            modal.style.display = 'none';
             phoneInputLogin.value = '';  // 입력 값을 초기화
             rawInput = '';  // rawInput 값도 초기화
+            setChances(0); // 로그아웃 시 남은 기회를 0으로 설정하는 함수 호출
             checkLogin(); // 로그인 상태 재검사
             return;
         } else {
@@ -114,14 +116,9 @@ document.addEventListener("DOMContentLoaded", function() {
         if (isLoggedIn) {
             // 로그아웃 처리
             isLoggedIn = false;
-            localStorage.setItem('isLoggedIn', true);
-            
-            const savedChances = localStorage.getItem('gameChances');
-            const gameChances = savedChances ? savedChances : '4';
-            localStorage.setItem('gameChances', gameChances);
-            updateRemainingChancesDisplay(); // 화면에 게임 기회 표시 업데이트
-            headerLoginButton.innerText = '로그아웃';
-            loginInfoSpan.style.display = 'none';
+            localStorage.removeItem('isLoggedIn');
+            headerLoginButton.innerText = '로그인';
+            loginInfoSpan.style.display = 'block';
             modals.style.display = 'none';
             return;
         }
@@ -233,11 +230,13 @@ function updateRemainingChancesDisplay() {
 function playRoulette() {
     let gameChances = parseInt(localStorage.getItem('gameChances') || '4', 10);
     if (gameChances > 0) {
-        gameChances -= 1; // 게임 기회를 감소
+        gameChances -= 1;
         localStorage.setItem('gameChances', gameChances.toString());
-        updateRemainingChancesDisplay(); // 변경된 기회를 화면에 표시합니다.
+        updateRemainingChancesDisplay();
+
+        // 여기에 룰렛 게임 로직을 실행합니다.
     } else {
-        alert("게임 기회가 더 이상 남아있지 않습니다.");
+        alert("더 이상 게임 기회가 없습니다.");
     }
 }
 
@@ -341,7 +340,22 @@ function selectChoice(choice) {
 }
 
 
+// 공유 이벤트에 따른 추가 횟수 부여 로직
+function handleShareEvent(eventCompleted) {
+    // eventCompleted는 공유 이벤트를 완료했는지에 대한 boolean 값입니다.
+    if (eventCompleted) {
+        chances += 1; // 공유 이벤트 완료 시 횟수를 1 증가
+        setChances(chances); // 변경된 횟수 저장 및 업데이트
+    }
+}
 
+// 두 번째 공유 이벤트를 처리하는 함수
+function handleSecondShareEvent(eventCompleted) {
+    if (eventCompleted) {
+        chances += 1; // 두 번째 공유 이벤트 완료 시 횟수를 1 증가
+        setChances(chances); // 변경된 횟수 저장 및 업데이트
+    }
+}
 
 
 function startRoulette() {

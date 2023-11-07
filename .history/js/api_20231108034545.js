@@ -97,11 +97,13 @@ document.addEventListener("DOMContentLoaded", function() {
             isLoggedIn = false;
             localStorage.removeItem('token');
             localStorage.removeItem('accountId');
+            localStorage.setItem('chances', 0); // 'gameCount' 대신 'chances'를 0으로 설정
             headerLoginButton.innerText = '로그인';
             loginInfoSpan.style.display = 'block';
             modals.style.display = 'none';
             phoneInputLogin.value = '';  // 입력 값을 초기화
             rawInput = '';  // rawInput 값도 초기화
+            setChances(0); // 로그아웃 시 남은 기회를 0으로 설정하는 함수 호출
             checkLogin(); // 로그인 상태 재검사
             return;
         } else {
@@ -114,14 +116,9 @@ document.addEventListener("DOMContentLoaded", function() {
         if (isLoggedIn) {
             // 로그아웃 처리
             isLoggedIn = false;
-            localStorage.setItem('isLoggedIn', true);
-            
-            const savedChances = localStorage.getItem('gameChances');
-            const gameChances = savedChances ? savedChances : '4';
-            localStorage.setItem('gameChances', gameChances);
-            updateRemainingChancesDisplay(); // 화면에 게임 기회 표시 업데이트
-            headerLoginButton.innerText = '로그아웃';
-            loginInfoSpan.style.display = 'none';
+            localStorage.removeItem('isLoggedIn');
+            headerLoginButton.innerText = '로그인';
+            loginInfoSpan.style.display = 'block';
             modals.style.display = 'none';
             return;
         }
