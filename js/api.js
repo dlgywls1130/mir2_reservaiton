@@ -508,3 +508,68 @@ function sendGameResult(isSuccess) {
 }
 
 document.addEventListener('DOMContentLoaded', checkLogin);
+
+// event1 공유
+
+
+// event2 공유
+
+
+  // This function will be called when the user clicks on the share button
+  async function shareLink() {
+    // Check if the user is logged in
+    let isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+
+    // If not logged in, alert the user and show the login modal
+    if (!isLoggedIn) {
+      alert("Please log in to continue.");
+      // Open your login modal here
+      // For example: $('#loginModal').modal('show');
+      // Assuming you have a modal with an ID of 'loginModal'
+      return;
+    }
+
+    // If logged in, proceed to share
+    const sharedUrl = document.querySelector('.sare_link_input input[type="text"]').value;
+
+    if (!sharedUrl) {
+      alert("Please enter a URL to share.");
+      return;
+    }
+
+    // Make the API call
+    try {
+      const accountId = localStorage.getItem('accountId'); // Assuming account ID is stored in local storage
+      const response = await fetch('https://mir2red.com/api/event-second/create', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${yourAuthToken}`,
+        },
+        body: JSON.stringify({ accountId, sharedUrl })
+      });
+
+      // Handle different response cases
+      if (response.ok) {
+        // Success
+        const data = await response.json();
+        console.log('Share successful', data);
+        // Perform actions on success
+      } else if (response.status === 400) {
+        // Bad Request
+        console.error('Bad request');
+        // Handle bad request
+      } else if (response.status === 401) {
+        // Unauthorized
+        console.error('Unauthorized');
+        // Handle unauthorized access
+      } else if (response.status === 500) {
+        // Server Error
+        console.error('Server error');
+        // Handle server error
+      }
+    } catch (error) {
+      // Handle errors that occur during the fetch
+      console.error('Error sharing the link:', error);
+    }
+  }

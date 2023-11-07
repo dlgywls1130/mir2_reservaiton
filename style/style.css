@@ -128,7 +128,7 @@ header .header_wrapp .nav-links li a {
     margin-top: 8px;
     font-weight: 400;
     text-align: right;
-    color: #f3c884;
+    color: #ff0000;
 }
 
 .header_wrapp .menu-btn,
@@ -857,7 +857,6 @@ header .header_wrapp .nav-links li a {
 .event_img_list .item_img1 {
     width: 160px;
     height: auto;
-    display: none;
 }
 
 .event_img_list .item_img1 img {
