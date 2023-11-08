@@ -1825,10 +1825,6 @@ width: 17%;
     left: 0;
     width: 100%;
 }
-
-.share_sns p br{
-    display: none;
-}
 @media screen and (max-width: 1024px) {
 
     header {
@@ -2556,16 +2552,6 @@ width: 17%;
         position: absolute;
         bottom: -74%;
         left: -30%;
-    }
-
-    .rollet_game .bottom_background {
-        position: absolute;
-        bottom: -60%;
-        left: -61%;
-    }
-
-    .share_sns p br{
-        display: block;
     }
 }
 

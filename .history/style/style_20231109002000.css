@@ -1825,10 +1825,6 @@ width: 17%;
     left: 0;
     width: 100%;
 }
-
-.share_sns p br{
-    display: none;
-}
 @media screen and (max-width: 1024px) {
 
     header {
@@ -2513,7 +2509,6 @@ width: 17%;
         text-align: center;
         width: 100%;
         display: block;
-        color: #f9edd3;
     }
     .mo_nav{
         display:block;
@@ -2546,26 +2541,8 @@ width: 17%;
     }
 
     .li.mo_nav.mo-login-btn{
-        border-top: 1px solid #4c3827;
-        border-bottom: 1px solid #4c3827;
-        padding: 15px 0;
-        margin-bottom: 1rem;
-    }
-
-    .game_share .bottom_background {
-        position: absolute;
-        bottom: -74%;
-        left: -30%;
-    }
-
-    .rollet_game .bottom_background {
-        position: absolute;
-        bottom: -60%;
-        left: -61%;
-    }
-
-    .share_sns p br{
-        display: block;
+        border-bottom: ;
+        border-top: ;
     }
 }
 

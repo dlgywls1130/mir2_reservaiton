@@ -34,23 +34,12 @@
                 <a class="logo_m" href="javascript:void(0)">
                     <img src="./image/h_logo.png" alt="logo">
                 </a>
-                <li class="mo_nav mo-login-btn">
-                    <div class="login_btn">
-                        <button type="button" class="view_more">로그인</button>
-                        <span>사전예약 후, 로그인 해주세요!</span>
-                    </div>
-                </li>
                 <li class="nav_list"><a href="#main">메인</a></li>
                 <li class="nav_list"><a href="#prebook">사전예약</a></li>
                 <li class="nav_list"><a href="#intro">게임소개</a></li>
                 <li class="nav_list"><a href="#urlShare">이벤트1</a></li>
                 <li class="nav_list"><a href="#gameUrl">이벤트2</a></li>
                 <li class="nav_list"><a href="https://cafe.naver.com/mir2red" target="_blank">공식카페</a></li>
-                <li class="mo_nav mobile_link_img">
-                    <a href="https://cafe.naver.com/mir2red">
-                        <img src="./image/mo_cafe_link.png" class="mo_banner_img"></img>
-                    </a>
-                </li>
                 <div for="close-btn" class="btn close-btn">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
                         <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
@@ -93,7 +82,7 @@
     </section>
 
     <!-- 사전예약 -->
-    <section id="prebook" class=" pre-se">
+    <section id="prebook" class="full-se pre-se">
         <div class="max-wi">
             <div class="form_wrapp">
                 <div class="form_title_wrap">
@@ -134,7 +123,7 @@
                                 
                             </div>
                         </div>
-                        <!-- <p class="reser_text">※사전예약 신청 시 자동 신청 됩니다. </p> -->
+                        <p class="reser_text">※사전예약 신청 시 자동 신청 됩니다. </p>
                         <div class="reservation-btn">
                             <button type="button">사전예약 하기</button>
                         </div>
@@ -149,16 +138,16 @@
                 </form>
             </div>
             <div class="app_dowload">
-                <a href="https://play.google.com/store/apps/details?id=com.vfg.mir2.google" class="app_dowload_list" target="_blank">
+                <a href="https://play.google.com/store/apps/details?id=com.vfg.mir2.google" class="app_dowload_list">
                     <img src="./image/app1.png" alt="google">
                 </a>
-                <a href="http://apps.apple.com/kr/app/미르2-레드/id6469580558" class="app_dowload_list"  target="_blank">
+                <a href="http://apps.apple.com/kr/app/미르2-레드/id6469580558" class="app_dowload_list">
                     <img src="./image/app4.png" alt="ios">
                 </a>
-                <a href="https://onesto.re/_1UieZT1" class="app_dowload_list"  target="_blank">
+                <a href="https://onesto.re/_1UieZT1" class="app_dowload_list">
                     <img src="./image/app3.png" alt="one">
                 </a>
-                <a href="https://apps.samsung.com/appquery/preOrderDetail.as?contentId=000007135662" class="app_dowload_list"  target="_blank">
+                <a href="https://apps.samsung.com/appquery/preOrderDetail.as?contentId=000007135662" class="app_dowload_list">
                     <img src="./image/app2.png" alt="galaxy">
                 </a>
             </div>
@@ -367,7 +356,7 @@
                     </div>
                 </div>
                 <div class="share_sns">
-                    <p>묵찌빠 이벤트 링크를 공유하고 URL 링크를 입력하면 <br> 즉시 추가 기회를 획득할 수 있습니다.</p>
+                    <p>묵찌빠 이벤트 링크 공유하고 URL 링크를 입력해 주시면 즉석으로 추가 기회를 획득할 수 있습니다.</p>
                     <div class="sns_group">
                         <a href="https://section.cafe.naver.com/ca-fe/home" target="_blank"><img src="./image/sns3.png" alt="sns"></a>
                         <a href="javascript:toSNS('blog','mir2','http://www.mir2red.com/')" ><img src="./image/sns2.png" alt="sns"></a>
@@ -453,36 +442,6 @@
         </div>
     </div>
 
-        <!-- 모바일 로그인-->
-    <div class="modal">
-        <div class="modal-content login_pop">
-            <span class="close">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
-                    <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
-                </svg>
-            </span>
-            <div class="modal_body">
-                <div class="modal_title">
-                    <img src="./image/modal_text4.png">
-                </div>
-                <div class="modal_content_wrap">
-                    
-                    <div class="phone_input">
-                        <p class="modal_phone_text">휴대폰 번호</p>
-                        <input type="tel" class="modal_login">
-                    </div>
-                    <div class="login_chk">
-                        <input type="checkbox" id="login">
-                        <label for="login">로그인 상태 유지</label>
-                    </div>
-                    
-                </div>
-            </div>
-            <div class="login_submit">
-                <button type="button">로그인</button>
-            </div>
-        </div>
-    </div>
 
 
     <!-- main 영상 -->
