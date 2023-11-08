@@ -205,121 +205,17 @@ document.addEventListener("DOMContentLoaded", function() {
 // 3.룰렛
 let userChoice = '';
 let computerChoice = '';
-let chances = 4;
+let chances = 3;
 
 // 게임 결과를 저장하는 변수
 let gameResults = [];
 
-// 페이지 로드 시 게임 이력을 가져와서 gameResults 배열에 저장
-document.addEventListener('DOMContentLoaded', () => {
-    
-    checkLogin();
+document.addEventListener('DOMContentLoaded', (event) => {
+    updateChancesDisplay();
+    fetchGameHistory(); // 게임 기록을 가져옵니다.
 });
 
-
-// 남은 게임 기회를 화면에 표시하는 함수
-function updateRemainingChancesDisplay() {
-    const remainingChances = localStorage.getItem('gameChances') || '4';
-    document.getElementById('remainingChances').textContent = remainingChances;
-}
-
-function playRoulette() {
-    let gameChances = parseInt(localStorage.getItem('gameChances') || '4', 10);
-    if (gameChances > 0) {
-        gameChances -= 1; // 게임 기회를 감소
-        localStorage.setItem('gameChances', gameChances.toString());
-        updateRemainingChancesDisplay(); // 변경된 기회를 화면에 표시합니다.
-    } else {
-        alert("게임 기회가 더 이상 남아있지 않습니다.");
-    }
-}
-
-
-function checkLogin() {
-    const token = localStorage.getItem('token');
-    const accountId = localStorage.getItem('accountId');
-    
-    if (token && accountId) {
-        isLoggedIn = true;
-        fetchGameHistory(accountId);
-    } else {
-        isLoggedIn = false;
-        chances = localStorage.getItem('chances') ? parseInt(localStorage.getItem('chances'), 10) : chances; // 기본값을 4로 설정
-        setChances(chances);
-    }
-}
-
-
-
-// 사용자의 게임 이력을 가져오는 함수
-function fetchGameHistory(accountId) {
-    const token = localStorage.getItem('token'); // 토큰을 로컬 스토리지에서 가져옴
-    const date = new Date().toISOString().split('T')[0];
-
-    fetch(`https://mir2red.com/api/rulet/${accountId}/${date}`, {
-        headers: {
-            'Authorization': 'Bearer ' + token // 인증 토큰을 헤더에 추가
-        }
-    })
-    .then(response => {
-        // 성공적인 응답이 아닐 경우 에러 처리
-        if (!response.ok) {
-            // 여기서 상태 코드별 다른 처리를 할 수 있습니다.
-            switch (response.status) {
-                case 400:
-                    throw new Error('Bad Request: 요청이 잘못되었습니다.');
-                case 401:
-                    throw new Error('Unauthorized: 인증 정보가 없습니다.');
-                case 500:
-                    throw new Error('Server Error: 서버 오류가 발생했습니다.');
-                // 다른 상태 코드에 대한 처리를 추가할 수 있습니다.
-                default:
-                    throw new Error(`An error occurred: ${response.statusText}`);
-            }
-        }
-        return response.json();
-    })
-    .then(data => {
-        // 남은 기회가 유효한 숫자인지 확인
-        if (typeof data.remainingChances !== 'undefined' && !isNaN(Number(data.remainingChances))) {
-            const remainingChances = Number(data.remainingChances);
-            setChances(remainingChances);
-        } else {
-            console.error('Invalid or missing remainingChances from the response');
-        }
-
-        // 게임 이력을 gameResults 배열에 추가
-        const gameResult = data.isSuccess === 'true' ? true : false;
-        gameResults.push(gameResult);
-
-        // 현재 나의 전적을 업데이트하고 화면에 표시
-        updateMyScore();
-    })
-    
-    
-    .catch(error => {
-        console.error('Error fetching game history:', error);
-        alert(error.message); // 사용자에게 에러 메시지를 보여줍니다.
-    });
-}
-
-// 현재 나의 전적을 업데이트하고 화면에 표시하는 함수
-function updateMyScore() {
-    const wins = gameResults.filter(result => result === true).length;
-    const losses = gameResults.filter(result => result === false).length;
-    
-    const scoreElement = document.querySelector('.rollet-score span');
-    scoreElement.textContent = `${wins}승 ${losses}패`;
-}
-
-// 남은 기회를 설정하는 함수
-function setChances(num) {
-    chances = num;
-    localStorage.setItem('chances', num);
-    document.getElementById('remainingChances').textContent = num;
-}
-
-function updateChanceDisplay() {
+function updateChancesDisplay() {
     document.getElementById('remainingChances').textContent = chances;
 }
 
@@ -333,19 +229,26 @@ function selectChoice(choice) {
     event.target.style.border = '3px solid red'; // 선택한 버튼에 border 적용
 }
 
-
-
-
-
 function startRoulette() {
+    // isLoggedIn 변수가 로그인 상태를 추적한다고 가정합니다.
+    if (isLoggedIn) {
+        getChancesLeft().then(() => {
+            playGame();
+        });
+    } else {
+        updateChancesDisplay(); // 로그인하지 않은 사용자에 대한 기본 기회를 표시합니다.
+        playGame();
+    }
+}
+
+function playGame() {
+    
     
     if (!isLoggedIn) {
         alert("로그인 후 진행할 수 있습니다. 지금 로그인 하시겠습니까?");
         
         // 첫 번째 모달(로그인 팝업)을 표시합니다.
         modals[0].style.display = 'block'; 
-        // chances = 0;
-        setChances(chances);
         return;
     }
 
@@ -359,7 +262,8 @@ function startRoulette() {
         return;
     }
 
-    setChances(chances - 1);
+    chances--;
+    updateChancesDisplay();
 
     let roulette = document.getElementById('rouletteImg');
     let deg = 1800 + Math.floor(Math.random() * 360);
@@ -379,7 +283,130 @@ function startRoulette() {
     setTimeout(() => {
         showResult();
     }, 3000);
+
+};
+
+
+
+function getChancesLeft() {
+    const accountId = localStorage.getItem('accountId');
+    const token = localStorage.getItem('token');
+    const date = new Date().toISOString().slice(0, 10); // 현재 날짜를 YYYY-MM-DD 형식으로 가져옵니다
+
+    // 기본 기회를 얻는 Promise
+    const chancesPromise = fetch(`https://mir2red.com/api/rulet/${accountId}/${date}/chance-left-count`, {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + token
+        }
+    })
+    .then(handleApiResponse)
+    .then(data => updateChances(data.chancesLeft)); // 예제에서는 .chancesLeft를 사용하나 실제 응답에 맞게 변경해야 함
+
+    // 이벤트 1 참여 여부를 확인하는 Promise
+    const event1Promise = fetch(`https://mir2red.com/api/event-first/${accountId}/${date}`, {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + token
+        }
+    })
+    .then(handleApiResponse);
+
+    // 이벤트 2 참여 여부를 확인하는 Promise
+    const event2Promise = fetch(`https://mir2red.com/api/event-second/${accountId}/${date}`, {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + token
+        }
+    })
+    .then(handleApiResponse);
+
+    // 모든 Promise를 병렬로 실행하고 모두 완료되었을 때 처리합니다.
+    return Promise.all([chancesPromise, event1Promise, event2Promise])
+    .then(([chancesResult, event1Result, event2Result]) => {
+        // 이벤트 참여 결과에 따라 추가 기회 부여
+        if (event1Result.ok) chances++;
+        if (event2Result.ok) chances++;
+
+        // 화면에 최종 게임 횟수 업데이트
+        document.getElementById('remainingChances').textContent = chances;
+    })
+    .catch(error => {
+        console.error('API 호출 중 에러 발생:', error);
+        alert(error.message);
+    });
 }
+
+
+function handleApiResponse(response) {
+    if (response.ok) {
+        return response.json(); // 혹은 response.text() 로 변경할 수도 있습니다.
+    } else {
+        handleErrors(response);
+    }
+}
+
+function updateChances(text) {
+    chances = parseInt(text, 10);
+    // 남은 횟수를 화면에 업데이트
+    document.getElementById('remainingChances').textContent = chances;
+}
+
+// 에러 처리 함수
+function handleErrors(response) {
+    switch (response.status) {
+        case 400:
+            throw new Error('Bad Request: 요청이 잘못되었습니다.');
+        case 401:
+            throw new Error('Unauthorized: 로그인이 필요합니다.');
+        case 500:
+            throw new Error('Server Error: 서버 에러가 발생했습니다.');
+        default:
+            throw new Error('An error occurred: ' + response.statusText);
+    }
+}
+
+// 게임 기록을 가져와서 화면에 표시하는 함수
+function fetchGameHistory() {
+    const accountId = localStorage.getItem('accountId');
+    const token = localStorage.getItem('token');
+
+    if (!accountId || !token) {
+        alert('로그인 정보가 올바르지 않습니다. 다시 로그인 해주세요.');
+        return;
+    }
+
+    fetch(`https://mir2red.com/api/rulet/${accountId}`, {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + token
+        }
+    })
+    .then(response => response.json()) // or .text() if it returns a text response
+    .then(data => {
+        let wins = 0;
+        let losses = 0;
+
+        // 가정: data는 이력 목록을 배열로 반환합니다. { isSuccess: true/false } 형태로.
+        data.forEach(record => {
+            if (record.isSuccess) {
+                wins++;
+            } else {
+                losses++;
+            }
+        });
+
+        // 승패 기록을 HTML에 업데이트합니다.
+        const scoreSpan = document.querySelector('.rollet-score span');
+        scoreSpan.textContent = `${wins}승 ${losses}패`;
+    })
+    .catch(error => {
+        console.error('게임 기록 조회 중 에러 발생:', error);
+        alert(error.message); // 사용자에게 에러 알림
+    });
+}
+
+
 
 function showResult() {
     let modal = document.querySelector('.rollet_gmae_modal');
@@ -430,6 +457,7 @@ function showResult() {
     }
 
     sendGameResult(isSuccess);
+    fetchGameHistory();
 
 // p 태그에 결과 텍스트를 적용하고, 색상 설정
 resultScore.innerHTML = `<p style="color: ${resultColor}">${resultText}</p>`;
@@ -520,12 +548,6 @@ function sendGameResult(isSuccess) {
         alert(error.message); // 사용자에게 에러 알림
     });
 }
-
-document.addEventListener('DOMContentLoaded', () => {
-    checkLogin();
-    updateChanceDisplay(); // 페이지 로딩 시 남은 기회를 화면에 업데이트
-});
-
 
 
 

@@ -97,11 +97,14 @@ document.addEventListener("DOMContentLoaded", function() {
             isLoggedIn = false;
             localStorage.removeItem('token');
             localStorage.removeItem('accountId');
+            localStorage.setItem('chances', 0); // 'gameCount' 대신 'chances'를 0으로 설정
             headerLoginButton.innerText = '로그인';
             loginInfoSpan.style.display = 'block';
-            modals.style.display = 'none';
+            modal.style.display = 'none';
             phoneInputLogin.value = '';  // 입력 값을 초기화
             rawInput = '';  // rawInput 값도 초기화
+            setChances(0); // 로그아웃 시 남은 기회를 0으로 설정하는 함수 호출
+            checkLogin(); // 로그인 상태 재검사
             return;
         } else {
             modals.style.display = 'block'; // 로그아웃 상태에서는 모달을 보이게 함
@@ -162,7 +165,8 @@ document.addEventListener("DOMContentLoaded", function() {
             if (loginStateCheckbox.checked) {
                 localStorage.setItem('isLoggedIn', 'true');
             }
- 
+
+            fetchGameHistory(body.accountId); 
         })
 
         .catch(error => {
@@ -214,114 +218,9 @@ let gameResults = [];
 document.addEventListener('DOMContentLoaded', () => {
     
     checkLogin();
+
 });
 
-
-// 남은 게임 기회를 화면에 표시하는 함수
-function updateRemainingChancesDisplay() {
-    const remainingChances = localStorage.getItem('gameChances') || '4';
-    document.getElementById('remainingChances').textContent = remainingChances;
-}
-
-function playRoulette() {
-    let gameChances = parseInt(localStorage.getItem('gameChances') || '4', 10);
-    if (gameChances > 0) {
-        gameChances -= 1; // 게임 기회를 감소
-        localStorage.setItem('gameChances', gameChances.toString());
-        updateRemainingChancesDisplay(); // 변경된 기회를 화면에 표시합니다.
-    } else {
-        alert("게임 기회가 더 이상 남아있지 않습니다.");
-    }
-}
-
-
-function checkLogin() {
-    const token = localStorage.getItem('token');
-    const accountId = localStorage.getItem('accountId');
-    
-    if (token && accountId) {
-        isLoggedIn = true;
-        fetchGameHistory(accountId);
-    } else {
-        isLoggedIn = false;
-        chances = localStorage.getItem('chances') ? parseInt(localStorage.getItem('chances'), 10) : chances; // 기본값을 4로 설정
-        setChances(chances);
-    }
-}
-
-
-
-// 사용자의 게임 이력을 가져오는 함수
-function fetchGameHistory(accountId) {
-    const token = localStorage.getItem('token'); // 토큰을 로컬 스토리지에서 가져옴
-    const date = new Date().toISOString().split('T')[0];
-
-    fetch(`https://mir2red.com/api/rulet/${accountId}/${date}`, {
-        headers: {
-            'Authorization': 'Bearer ' + token // 인증 토큰을 헤더에 추가
-        }
-    })
-    .then(response => {
-        // 성공적인 응답이 아닐 경우 에러 처리
-        if (!response.ok) {
-            // 여기서 상태 코드별 다른 처리를 할 수 있습니다.
-            switch (response.status) {
-                case 400:
-                    throw new Error('Bad Request: 요청이 잘못되었습니다.');
-                case 401:
-                    throw new Error('Unauthorized: 인증 정보가 없습니다.');
-                case 500:
-                    throw new Error('Server Error: 서버 오류가 발생했습니다.');
-                // 다른 상태 코드에 대한 처리를 추가할 수 있습니다.
-                default:
-                    throw new Error(`An error occurred: ${response.statusText}`);
-            }
-        }
-        return response.json();
-    })
-    .then(data => {
-        // 남은 기회가 유효한 숫자인지 확인
-        if (typeof data.remainingChances !== 'undefined' && !isNaN(Number(data.remainingChances))) {
-            const remainingChances = Number(data.remainingChances);
-            setChances(remainingChances);
-        } else {
-            console.error('Invalid or missing remainingChances from the response');
-        }
-
-        // 게임 이력을 gameResults 배열에 추가
-        const gameResult = data.isSuccess === 'true' ? true : false;
-        gameResults.push(gameResult);
-
-        // 현재 나의 전적을 업데이트하고 화면에 표시
-        updateMyScore();
-    })
-    
-    
-    .catch(error => {
-        console.error('Error fetching game history:', error);
-        alert(error.message); // 사용자에게 에러 메시지를 보여줍니다.
-    });
-}
-
-// 현재 나의 전적을 업데이트하고 화면에 표시하는 함수
-function updateMyScore() {
-    const wins = gameResults.filter(result => result === true).length;
-    const losses = gameResults.filter(result => result === false).length;
-    
-    const scoreElement = document.querySelector('.rollet-score span');
-    scoreElement.textContent = `${wins}승 ${losses}패`;
-}
-
-// 남은 기회를 설정하는 함수
-function setChances(num) {
-    chances = num;
-    localStorage.setItem('chances', num);
-    document.getElementById('remainingChances').textContent = num;
-}
-
-function updateChanceDisplay() {
-    document.getElementById('remainingChances').textContent = chances;
-}
 
 
 function selectChoice(choice) {
@@ -334,9 +233,6 @@ function selectChoice(choice) {
 }
 
 
-
-
-
 function startRoulette() {
     
     if (!isLoggedIn) {
@@ -344,8 +240,6 @@ function startRoulette() {
         
         // 첫 번째 모달(로그인 팝업)을 표시합니다.
         modals[0].style.display = 'block'; 
-        // chances = 0;
-        setChances(chances);
         return;
     }
 
@@ -358,8 +252,6 @@ function startRoulette() {
         alert("남은 기회가 없습니다. 미션을 통해 추가 기회를 획득해 보세요.");
         return;
     }
-
-    setChances(chances - 1);
 
     let roulette = document.getElementById('rouletteImg');
     let deg = 1800 + Math.floor(Math.random() * 360);
@@ -523,9 +415,8 @@ function sendGameResult(isSuccess) {
 
 document.addEventListener('DOMContentLoaded', () => {
     checkLogin();
-    updateChanceDisplay(); // 페이지 로딩 시 남은 기회를 화면에 업데이트
-});
 
+});
 
 
 
@@ -542,48 +433,19 @@ document.addEventListener("DOMContentLoaded", function() {
     const shareUrlInputSecond = document.querySelector('.rollet_share_link input'); // 두 번째 공유 URL 입력 필드
     const shareUrlButtonSecond = document.querySelector('.rollet_share_link_btn'); // 두 번째 공유 URL 제출 버튼
     
+    // 첫 번째 버튼에 이벤트 리스너 추가
     shareUrlButtonFirst.addEventListener('click', function() {
-        checkParticipation('event-first', shareUrlInputFirst, 'https://mir2red.com/api/event-first/create', "이벤트에 응모 완료했습니다.");
+        handleShareButtonClick(shareUrlInputFirst, 'https://mir2red.com/api/event-first/create');
     });
 
     // 두 번째 버튼에 이벤트 리스너 추가
     shareUrlButtonSecond.addEventListener('click', function() {
-        checkParticipation('event-second', shareUrlInputSecond, 'https://mir2red.com/api/event-second/create', "룰렛 이벤트에 추가 기회를 획득했습니다.");
+        handleShareButtonClick(shareUrlInputSecond, 'https://mir2red.com/api/event-second/create');
     });
 });
 
-
-function checkParticipation(eventType, shareUrlInput, apiUrl, successMessage) {
-    const accountId = localStorage.getItem('accountId');
-    const token = localStorage.getItem('token');
-    const date = new Date().toISOString().split('T')[0]; // YYYY-MM-DD 형식의 현재 날짜
-
-    fetch(`https://mir2red.com/api/${eventType}/${accountId}/${date}`, {
-        headers: {
-            'Authorization': `Bearer ${token}`
-        }
-    })
-    .then(response => {
-        if (response.status === 200) {
-            // 이미 참여한 경우
-            alert("응모 횟수를 초과했습니다. 내일 다시 참여해 보세요.");
-            return;
-        } else if (response.status === 400 || response.status === 401 || response.status === 500) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        } else {
-            // 참여하지 않았으면 제출 함수 호출
-            handleShareButtonClick(shareUrlInput, apiUrl, successMessage);
-        }
-    })
-    .catch(error => {
-        console.error('API 호출 중 에러 발생:', error);
-        handleApiError(error);
-    });
-}
-
-
 // 공유 URL 제출 처리 함수
-function handleShareButtonClick(shareUrlInput, apiUrl, successMessage) {
+function handleShareButtonClick(shareUrlInput, apiUrl) {
     // 로그인 체크 및 토큰과 accountId 가져오기
     const token = localStorage.getItem('token');
     const accountId = localStorage.getItem('accountId');
@@ -603,8 +465,8 @@ function handleShareButtonClick(shareUrlInput, apiUrl, successMessage) {
         return;
     }
 
- // 공유 URL API 제출
- submitShareUrl(accountId, sharedUrl, token, apiUrl, successMessage);
+    // 로그인 되어 있고 URL 입력됐다면 공유 URL 제출
+    submitShareUrl(accountId, sharedUrl, token, apiUrl);
 }
 
 // 공유 URL API 제출 함수
