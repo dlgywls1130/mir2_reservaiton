@@ -632,6 +632,7 @@ function handleShareButtonClick(shareUrlInput, apiUrl) {
     // 로그인 체크 및 토큰과 accountId 가져오기
     const token = localStorage.getItem('token');
     const accountId = localStorage.getItem('accountId');
+    const date = new Date().toISOString().split('T')[0];
 
     // 먼저 로그인 상태 확인
     if (!token || !accountId) {
@@ -649,13 +650,13 @@ function handleShareButtonClick(shareUrlInput, apiUrl) {
     }
 
 
-    const checkApiUrl = createApiUrl.includes('event-first') ? 
-                        'https://mir2red.com/api/event-first/{accountId}/{date}' :
-                        'https://mir2red.com/api/event-second/{accountId}/{date}';
+    const checkApiUrl = apiUrl.includes('event-first') ? 
+                    'https://mir2red.com/api/event-first/{accountId}/{date}' :
+                    'https://mir2red.com/api/event-second/{accountId}/{date}';
 
     // 이벤트 참여 여부 확인 후 콜백으로 제출 로직 실행
     checkParticipation(accountId, date, checkApiUrl, () => {
-        submitShareUrl(accountId, sharedUrl, token, createApiUrl);
+        submitShareUrl(accountId, sharedUrl, token, apiUrl);
     });
 }
 
