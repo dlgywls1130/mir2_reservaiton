@@ -218,17 +218,18 @@ let gameResults = [];
 document.addEventListener('DOMContentLoaded', () => {
     
     checkLogin();
+    heckEventParticipationAndUpdateUI();
 });
 
 
 // 남은 게임 기회를 화면에 표시하는 함수
 function updateRemainingChancesDisplay() {
-    const remainingChances = localStorage.getItem('gameChances') || '4';
+    const remainingChances = localStorage.getItem('gameChances') || '';
     document.getElementById('remainingChances').textContent = remainingChances;
 }
 
 function playRoulette() {
-    let gameChances = parseInt(localStorage.getItem('gameChances') || '4', 10);
+    let gameChances = parseInt(localStorage.getItem('gameChances') || '', 10);
     if (gameChances > 0) {
         gameChances -= 1; // 게임 기회를 감소
         localStorage.setItem('gameChances', gameChances.toString());
@@ -237,6 +238,7 @@ function playRoulette() {
         alert("게임 기회가 더 이상 남아있지 않습니다.");
     }
 }
+
 
 
 function checkLogin() {
@@ -306,6 +308,55 @@ function fetchGameHistory(accountId) {
         alert(error.message); // 사용자에게 에러 메시지를 보여줍니다.
     });
 }
+
+// 이벤트 참여 여부 확인 및 UI 업데이트
+function checkEventParticipationAndUpdateUI() {
+    const accountId = localStorage.getItem('accountId');
+    const today = new Date().toISOString().slice(0, 10); // 현재 날짜 yyyy-mm-dd 형식
+
+    // 로그인 상태 확인
+    let isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    if (!isLoggedIn) {
+        // 로그인하지 않은 경우 처리
+        console.log("User is not logged in.");
+        return;
+    }
+
+    // 첫 번째 이벤트 참여 여부 확인
+    fetch(`https://mir2red.com/api/event-first/${accountId}/${today}`)
+        .then(response => handleApiResponse(response))
+        .then(data => {
+            if (data && data.participated) {
+                alert("이미 첫 번째 이벤트에 참여하셨습니다. 내일 다시 시도해주세요.");
+                disableShareButton('.url-share-btn_input input', '.url-share-btn');
+            }
+        })
+        .catch(error => {
+            console.error('첫 번째 이벤트 확인 중 에러 발생:', error);
+        });
+
+    // 두 번째 이벤트 참여 여부 확인
+    fetch(`https://mir2red.com/api/event-second/${accountId}/${today}`)
+        .then(response => handleApiResponse(response))
+        .then(data => {
+            if (data && data.participated) {
+                alert("이미 두 번째 이벤트에 참여하셨습니다. 내일 다시 시도해주세요.");
+                disableShareButton('.rollet_share_link input', '.rollet_share_link_btn');
+            }
+        })
+        .catch(error => {
+            console.error('두 번째 이벤트 확인 중 에러 발생:', error);
+        });
+}
+
+// API 응답 처리
+function handleApiResponse(response) {
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return response.json();
+}
+
 
 // 현재 나의 전적을 업데이트하고 화면에 표시하는 함수
 function updateMyScore() {
@@ -531,7 +582,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-
+// 4.공유
 
 // 페이지가 로드되었을 때 실행
 document.addEventListener("DOMContentLoaded", function() {
@@ -555,6 +606,27 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
+function checkParticipation(accountId, date, apiUrl, successCallback) {
+    fetch(apiUrl.replace('{accountId}', accountId).replace('{date}', date))
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.participationExists) {
+                alert("참여횟수 초과");
+            } else {
+                successCallback();
+            }
+        })
+        .catch(error => {
+            console.error('이벤트 참여 여부 확인 중 에러 발생:', error);
+            handleApiError(error);
+        });
+}
+
 // 공유 URL 제출 처리 함수
 function handleShareButtonClick(shareUrlInput, apiUrl) {
     // 로그인 체크 및 토큰과 accountId 가져오기
@@ -576,8 +648,15 @@ function handleShareButtonClick(shareUrlInput, apiUrl) {
         return;
     }
 
-    // 로그인 되어 있고 URL 입력됐다면 공유 URL 제출
-    submitShareUrl(accountId, sharedUrl, token, apiUrl);
+
+    const checkApiUrl = createApiUrl.includes('event-first') ? 
+                        'https://mir2red.com/api/event-first/{accountId}/{date}' :
+                        'https://mir2red.com/api/event-second/{accountId}/{date}';
+
+    // 이벤트 참여 여부 확인 후 콜백으로 제출 로직 실행
+    checkParticipation(accountId, date, checkApiUrl, () => {
+        submitShareUrl(accountId, sharedUrl, token, createApiUrl);
+    });
 }
 
 // 공유 URL API 제출 함수
