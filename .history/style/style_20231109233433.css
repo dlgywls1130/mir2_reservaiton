@@ -2239,7 +2239,6 @@ body {
         box-sizing: border-box;
         background: url('../image/back2_mo.png') no-repeat;
         width: 100vw;
-        height: 100%;
         background-size: cover;
     }
 
@@ -2411,6 +2410,7 @@ body {
     .span_sub {
         font-size: 10px;
         margin-top: 15px;
+        white-space: nowrap;
         line-height: 15px;
     }
 
@@ -2629,10 +2629,6 @@ body {
     .modal-content.item-popup .rollet-ok_btn::before {
         left: 0;
         width: 100%;
-    }
-
-    .modal_title_sub{
-        font-size: -14px;
     }
 }
 

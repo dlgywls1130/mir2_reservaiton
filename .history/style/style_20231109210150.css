@@ -7,6 +7,11 @@
     --text-brown: #411f00;
 }
 
+html,
+body {
+    overflow-x: hidden;
+    width: 100vw;
+}
 
 /* common */
 
@@ -139,26 +144,7 @@ header .header_wrapp .nav-links li a {
 
 /* main */
 .main-se {
-    width: 100vw;
-    height: 100vh;
-}
-
-.background_movie{
-    position: relative;
-    top: 2px;
-    left: 0;
-    width: 100%;
-    height: 0;
-    padding-top: 56.5%;
-    overflow: hidden;
-}
-
-.background_movie iframe{
-    position:absolute; 
-    top:0; 
-    left:0; 
-    width:100%; 
-    height:100%;
+    background: #282828;
 }
 
 .main_wrapper {
@@ -166,12 +152,7 @@ header .header_wrapp .nav-links li a {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    width: 100%;
+    height: 100%;
 }
 
 .main_logo {
@@ -681,20 +662,19 @@ header .header_wrapp .nav-links li a {
 .app_dowload{
     display: flex;
     align-items: center;
-    max-width: 930px;
+    max-width: 980px;
     margin: 60px 0;
-    justify-content: space-between;
 }
 
 .app_dowload a{
-    width: 200px;
+    width: 240px;
     height: 60px;
 }
 
 .app_dowload a img{
     width: 100%;
     height: 100%;
-
+    object-fit: contain;
 }
 /* 게임공유 */
 
@@ -1827,17 +1807,7 @@ width: 17%;
     display: flex;
     align-items: flex-start;
     column-gap: 0.5rem;
-    width: 100%;
-}
-
-.item_list{
-    width: 25%;
-    height: auto;
-}
-
-.item_list img{
-    width: 100%;
-    height: 100%;
+    
 }
 
 .modal-content.item-popup .modal_title{
@@ -1861,20 +1831,7 @@ width: 17%;
 .share_sns p br{
     display: none;
 }
-html,
-body {
-    overflow-x: hidden;
-    width: 100vw;
-}
-
 @media screen and (max-width: 1024px) {
-
-    html,
-body {
-    overflow-x: hidden;
-    width: 100vw;
-}
-
 
     header {
         height: 70px;
@@ -2018,9 +1975,6 @@ body {
         width: 100%;
         height: 100%;
         background-size: cover;
-        padding: 100px 20px 20px;
-        box-sizing: border-box;
-    
     }
 
     .reserve_sub {
@@ -2239,7 +2193,6 @@ body {
         box-sizing: border-box;
         background: url('../image/back2_mo.png') no-repeat;
         width: 100vw;
-        height: 100%;
         background-size: cover;
     }
 
@@ -2306,7 +2259,7 @@ body {
     }
 
     .date_descript {
-        margin-left: 1rem;
+        margin-left: 0;
     }
 
     .event_date {
@@ -2411,6 +2364,7 @@ body {
     .span_sub {
         font-size: 10px;
         margin-top: 15px;
+        white-space: nowrap;
         line-height: 15px;
     }
 
@@ -2473,7 +2427,7 @@ body {
 
     .game_descript {
         padding: 22px 15px 15px 15px;
-        height: 300px;
+        height: 225px;
     }
 
     .descript_list p {
@@ -2616,23 +2570,6 @@ body {
 
     .share_sns p br{
         display: block;
-    }
-
-    .item_flex_list{
-        padding: 1rem 0;
-    }
-
-    .modal-content.item-popup .rollet-ok_btn{
-        width: 100%;
-    }
-
-    .modal-content.item-popup .rollet-ok_btn::before {
-        left: 0;
-        width: 100%;
-    }
-
-    .modal_title_sub{
-        font-size: -14px;
     }
 }
 
@@ -2831,11 +2768,5 @@ body {
     }
 
 
-    .background_movie{
-        padding-top: 217%;
-        height: 0;
-        width: 455%;
-    object-fit: cover;
-    left: -146%;
-    }
+    
 }

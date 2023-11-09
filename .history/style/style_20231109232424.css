@@ -1827,17 +1827,7 @@ width: 17%;
     display: flex;
     align-items: flex-start;
     column-gap: 0.5rem;
-    width: 100%;
-}
-
-.item_list{
-    width: 25%;
-    height: auto;
-}
-
-.item_list img{
-    width: 100%;
-    height: 100%;
+    
 }
 
 .modal-content.item-popup .modal_title{
@@ -2239,7 +2229,6 @@ body {
         box-sizing: border-box;
         background: url('../image/back2_mo.png') no-repeat;
         width: 100vw;
-        height: 100%;
         background-size: cover;
     }
 
@@ -2306,7 +2295,7 @@ body {
     }
 
     .date_descript {
-        margin-left: 1rem;
+        margin-left: 0;
     }
 
     .event_date {
@@ -2411,6 +2400,7 @@ body {
     .span_sub {
         font-size: 10px;
         margin-top: 15px;
+        white-space: nowrap;
         line-height: 15px;
     }
 
@@ -2473,7 +2463,7 @@ body {
 
     .game_descript {
         padding: 22px 15px 15px 15px;
-        height: 300px;
+        height: 225px;
     }
 
     .descript_list p {
@@ -2616,23 +2606,6 @@ body {
 
     .share_sns p br{
         display: block;
-    }
-
-    .item_flex_list{
-        padding: 1rem 0;
-    }
-
-    .modal-content.item-popup .rollet-ok_btn{
-        width: 100%;
-    }
-
-    .modal-content.item-popup .rollet-ok_btn::before {
-        left: 0;
-        width: 100%;
-    }
-
-    .modal_title_sub{
-        font-size: -14px;
     }
 }
 

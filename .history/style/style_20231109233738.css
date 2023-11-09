@@ -2239,7 +2239,6 @@ body {
         box-sizing: border-box;
         background: url('../image/back2_mo.png') no-repeat;
         width: 100vw;
-        height: 100%;
         background-size: cover;
     }
 
