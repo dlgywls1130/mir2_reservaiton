@@ -95,18 +95,20 @@ document.addEventListener("DOMContentLoaded", function() {
     headerLoginButton.addEventListener('click', function() {
         if (isLoggedIn) {
             isLoggedIn = false;
+            localStorage.removeItem('isLoggedIn'); // 'token'과 'accountId' 대신 'isLoggedIn'을 제거해야 함
             localStorage.removeItem('token');
             localStorage.removeItem('accountId');
             headerLoginButton.innerText = '로그인';
             loginInfoSpan.style.display = 'block';
-            modals.style.display = 'none';
-            phoneInputLogin.value = '';  // 입력 값을 초기화
-            rawInput = '';  // rawInput 값도 초기화
-            return;
+            // 모달을 닫는 코드는 필요하지 않음, 로그인 상태에서는 모달이 열리지 않아야 함
+            phoneInputLogin.value = ''; // 입력 값을 초기화 (필요하지 않으면 제거)
+            rawInput = ''; // rawInput 값도 초기화 (필요하지 않으면 제거)
         } else {
-            modals.style.display = 'block'; // 로그아웃 상태에서는 모달을 보이게 함
+            // 로그인 상태가 아닐 때만 모달을 열어야 함
+            modals.style.display = 'block';
         }
     });
+    
 
 
     loginButton.addEventListener('click', function() {
@@ -529,65 +531,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-
-// event 공유
-
 // 페이지가 로드되었을 때 실행
 document.addEventListener("DOMContentLoaded", function() {
+
     // 첫 번째 공유 URL 세트
     const shareUrlInputFirst = document.querySelector('.url-share-btn_input input'); // 첫 번째 공유 URL 입력 필드
     const shareUrlButtonFirst = document.querySelector('.sare_link_input .url-share-btn'); // 첫 번째 공유 URL 제출 버튼
-    
+
     // 두 번째 공유 URL 세트
     const shareUrlInputSecond = document.querySelector('.rollet_share_link input'); // 두 번째 공유 URL 입력 필드
     const shareUrlButtonSecond = document.querySelector('.rollet_share_link_btn'); // 두 번째 공유 URL 제출 버튼
-    
+
+    // 첫 번째 버튼에 이벤트 리스너 추가
     shareUrlButtonFirst.addEventListener('click', function() {
-        checkParticipation('event-first', shareUrlInputFirst, 'https://mir2red.com/api/event-first/create', "이벤트에 응모 완료했습니다.");
+        handleShareButtonClick(shareUrlInputFirst, 'https://mir2red.com/api/event-first/create');
     });
 
     // 두 번째 버튼에 이벤트 리스너 추가
     shareUrlButtonSecond.addEventListener('click', function() {
-        checkParticipation('event-second', shareUrlInputSecond, 'https://mir2red.com/api/event-second/create', "룰렛 이벤트에 추가 기회를 획득했습니다.");
+        handleShareButtonClick(shareUrlInputSecond, 'https://mir2red.com/api/event-second/create');
     });
 });
 
-
-function checkParticipation(eventType, shareUrlInput, apiUrl, successMessage) {
-    const accountId = localStorage.getItem('accountId');
-    const token = localStorage.getItem('token');
-    const date = new Date().toISOString().split('T')[0]; // YYYY-MM-DD 형식의 현재 날짜
-
-    fetch(`https://mir2red.com/api/${eventType}/${accountId}/${date}`, {
-        headers: {
-            'Authorization': `Bearer ${token}`
-        }
-    })
-    .then(response => {
-        if (response.status === 200) {
-            // 이미 참여한 경우
-            alert("응모 횟수를 초과했습니다. 내일 다시 참여해 보세요.");
-            return;
-        } else if (response.status === 400 || response.status === 401 || response.status === 500) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        } else {
-            // 참여하지 않았으면 제출 함수 호출
-            handleShareButtonClick(shareUrlInput, apiUrl, successMessage);
-        }
-    })
-    .catch(error => {
-        console.error('API 호출 중 에러 발생:', error);
-        handleApiError(error);
-    });
-}
-
-
 // 공유 URL 제출 처리 함수
-function handleShareButtonClick(shareUrlInput, apiUrl, successMessage) {
+function handleShareButtonClick(shareUrlInput, apiUrl) {
     // 로그인 체크 및 토큰과 accountId 가져오기
     const token = localStorage.getItem('token');
     const accountId = localStorage.getItem('accountId');
-    
+
     // 먼저 로그인 상태 확인
     if (!token || !accountId) {
         alert("로그인 후 진행할 수 있습니다. 지금 로그인 하시겠습니까?");
@@ -603,8 +574,8 @@ function handleShareButtonClick(shareUrlInput, apiUrl, successMessage) {
         return;
     }
 
- // 공유 URL API 제출
- submitShareUrl(accountId, sharedUrl, token, apiUrl, successMessage);
+    // 로그인 되어 있고 URL 입력됐다면 공유 URL 제출
+    submitShareUrl(accountId, sharedUrl, token, apiUrl);
 }
 
 // 공유 URL API 제출 함수
@@ -629,12 +600,14 @@ function submitShareUrl(accountId, sharedUrl, token, apiUrl) {
     .then(data => {
         alert("URL이 성공적으로 등록되었습니다.");
         // 추가적인 성공 후 처리
+        addGameChance();
     })
     .catch(error => {
         console.error('API 호출 중 에러 발생:', error);
         handleApiError(error);
     });
 }
+
 
 // API 에러 처리 함수
 function handleApiError(error) {
@@ -647,6 +620,7 @@ function handleApiError(error) {
         alert("서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
     }
 }
+
 
 
 
