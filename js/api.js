@@ -607,7 +607,14 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 function checkParticipation(accountId, date, apiUrl, successCallback) {
-    fetch(apiUrl.replace('{accountId}', accountId).replace('{date}', date))
+    const token = localStorage.getItem('token'); // 토큰을 로컬 스토리지에서 가져옵니다.
+
+    fetch(apiUrl.replace('{accountId}', accountId).replace('{date}', date), {
+        headers: {
+            'Authorization': `Bearer ${token}` // Authorization 헤더 추가
+        }
+    })
+    
         .then(response => {
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
