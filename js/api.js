@@ -94,20 +94,22 @@ document.addEventListener("DOMContentLoaded", function() {
 
     headerLoginButton.addEventListener('click', function() {
         if (isLoggedIn) {
+            // 로그인 상태일 때 로그아웃 처리
             isLoggedIn = false;
-            localStorage.removeItem('isLoggedIn'); // 'token'과 'accountId' 대신 'isLoggedIn'을 제거해야 함
+            localStorage.removeItem('isLoggedIn');
             localStorage.removeItem('token');
             localStorage.removeItem('accountId');
             headerLoginButton.innerText = '로그인';
             loginInfoSpan.style.display = 'block';
-            // 모달을 닫는 코드는 필요하지 않음, 로그인 상태에서는 모달이 열리지 않아야 함
-            phoneInputLogin.value = ''; // 입력 값을 초기화 (필요하지 않으면 제거)
-            rawInput = ''; // rawInput 값도 초기화 (필요하지 않으면 제거)
+            modals.style.display = 'none';
+            // 로그아웃 시 모달을 표시하지 않고, 페이지를 새로고침하거나 UI 상태를 업데이트
+            // 예: window.location.reload(); // 혹은 적절한 UI 업데이트 로직
         } else {
-            // 로그인 상태가 아닐 때만 모달을 열어야 함
+            // 비로그인 상태일 때 로그인 모달 표시
             modals.style.display = 'block';
         }
     });
+    
     
 
 
