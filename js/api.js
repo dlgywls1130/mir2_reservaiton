@@ -276,13 +276,22 @@ function startRoulette() {
         return;
     }
 
-    let remainingChances = document.getElementById('remainingChances').innerText;
-    remainingChances = parseInt(remainingChances);
 
-    if (isNaN(remainingChances) || remainingChances <= 0) {
-        alert("남은 기회가 없습니다. 미션을 통해 추가 기회를 획득해 보세요");
-        return;
-    }
+    fetchRemainingChances().then(fetchedChances => {
+        if (isNaN(fetchedChances) || fetchedChances <= 0) {
+            alert("남은 기회가 없습니다. 미션을 통해 추가 기회를 획득해 보세요");
+            return;
+        }
+
+        console.log('startRoulette - Updating chances to:', fetchedChances - 1);
+        updateRemainingChances(fetchedChances - 1);
+
+        if (userChoice === '') {
+            alert("STEP1의 묵찌빠 중 하나를 먼저 선택해 주세요");
+            return;
+        }
+
+    
 
     console.log('startRoulette - Updating chances to:', remainingChances - 1);
     updateRemainingChances(remainingChances - 1);
@@ -313,10 +322,12 @@ function startRoulette() {
         addGameResult(result.isSuccess);  // 결과를 배열에 추가
         updateGameResultsUI();  // UI 업데이트
     }, 3000);
+});
 }
 
+
 function updateRemainingChances(chances) {
-    console.log('Updating remaining chances to:', chances); 
+    console.log('Updating remaining chances to:', chances); // 여기서 전달받은 값 로깅
     document.getElementById('remainingChances').innerText = chances.toString();
     // Any other logic to update chances in your system...
 }
@@ -340,7 +351,7 @@ function fetchRemainingChances() {
         return response.json();
     })
     .then(data => {
-          console.log('API response:', data);  // API 응답 로깅
+        console.log('API response:', data);  // API 응답 로깅
 
         let chances;
         if (typeof data.chances === 'number') {
@@ -349,8 +360,8 @@ function fetchRemainingChances() {
             chances = 0;
         }
 
-        console.log('Updating chances to:', chances);
-        updateRemainingChances(chances);
+        console.log('Updating chances to:', chances); // 여기서 chances 값 로깅
+        updateRemainingChances(chances); // chances 값을 updateRemainingChances에 전달
     })
     .catch(error => {
         console.error('Error fetching remaining chances:', error);
