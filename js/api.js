@@ -304,7 +304,7 @@ function startRoulette() {
         computerChoice = '빠';
     }
 
-
+    fetchRemainingChances();
     setTimeout(() => {
         let result = showResult();  // 게임의 결과를 반환받음
         fetchRemainingChances()
@@ -357,6 +357,7 @@ function fetchRemainingChances() {
 
 
 function addGameResult(isSuccess) {
+    fetchRemainingChances();
     gameResults.push({ isSuccess: isSuccess });
 }
 
@@ -563,8 +564,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-
-async function handleShareButtonClick(shareUrlInput, postApiUrl, checkApiUrl) {
+async function handleShareButtonClick(shareUrlInput, apiUrl) {
     console.log("함수 실행됨");
 
     const token = localStorage.getItem('token');
@@ -587,17 +587,8 @@ async function handleShareButtonClick(shareUrlInput, postApiUrl, checkApiUrl) {
     }
 
     try {
-        const date = new Date().toISOString().split('T')[0]; // YYYY-MM-DD 형식의 오늘 날짜
-        const checkApiResponse = await checkParticipation(checkApiUrl, accountId, date, token);
-
-        if (checkApiResponse) {
-            alert("응모 횟수를 초과했습니다. 내일 다시 참여해 보세요.");
-            return;
-        }
-
-        await submitShareUrl(accountId, sharedUrl, token, postApiUrl);
-        alert("룰렛 이벤트에 추가 기회를 획득했습니다.");
-        fetchRemainingChances();
+        await submitShareUrl(accountId, sharedUrl, token, apiUrl);
+        alert("URL이 성공적으로 등록되었습니다.");
     } catch (error) {
         console.error('API 호출 중 에러 발생:', error);
         handleApiError(error);
@@ -630,23 +621,6 @@ async function submitShareUrl(accountId, sharedUrl, token, apiUrl) {
     }
 }
 
-async function checkParticipation(apiUrl, accountId, date, token) {
-    const url = `${apiUrl}/${accountId}/${date}`;
-    console.log("이벤트 참여 이력 확인 URL:", url); // URL 확인 로그
-
-    const response = await fetch(url, {
-        headers: {
-            'Authorization': `Bearer ${token}`
-        }
-    });
-
-    if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    const responseData = await response.json();
-    return responseData && responseData.hasParticipated;
-}
 
 
 
