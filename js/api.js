@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const reservationButton = document.querySelector('.reservation-btn button');
 
     reservationButton.addEventListener('click', function() {
-        // 1. 유효성 검사
+        // 유효성 검사
         const phoneRegex = /^[0-9]{8}$/;  // 8자리 숫자만 허용
         if (!phoneRegex.test(phoneInput.value)) {
             alert('휴대폰 번호를 정확히 8자리로 입력해주세요');
@@ -17,33 +17,72 @@ document.addEventListener("DOMContentLoaded", function() {
             return;
         }
 
-        // 2. 유효성 검사가 통과되면 API 호출
-        const requestBody = {
-            tel: "010" + phoneInput.value.trim(),
-            password: "string"
-        };
-
+        // 사전예약 API 호출
         fetch('https://mir2red.com/api/account/create', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(requestBody)
+            body: JSON.stringify({
+                tel: "010" + phoneInput.value.trim(),
+                password: "string",
+                routeUrl: "string"
+            })
         })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
         .then(data => {
             if (data.accountId) {
                 alert('사전예약을 완료했습니다. 로그인 후 다양한 이벤트에 참여해보세요.');
+
+                // 사전예약 성공 후 라우트 API 호출
+                const routeRequestBody = {
+                    routeUrl: "여기에 전달할 routeUrl 입력"
+                };
+                return fetch('https://mir2red.com/api/origin-route/create', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(routeRequestBody)
+                });
             } else {
                 alert(data.problemDetails?.detail || '이미 예약된 번호입니다.');
+                return Promise.reject('이미 예약된 번호입니다.');
             }
+        })
+        .then(response => {
+            if (!response.ok) {
+                if (response.status === 400) {
+                    alert("이미 사전예약 완료된 번호입니다. 로그인 후 이벤트에 참여해보세요");
+                } else {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+            }
+            return response.text();
+        })
+        .then(text => {
+            try {
+                // 응답이 비어있지 않은 경우에만 JSON으로 파싱
+                return text ? JSON.parse(text) : {};
+            } catch (e) {
+                throw new Error("The server's response was not valid JSON.");
+            }
+        })
+        .then(body => {
+            console.log('라우트 생성 성공:', body);
         })
         .catch(error => {
             console.error('API 호출 중 에러 발생:', error);
-            alert('서버 에러가 발생했습니다.');
+            // 여기에 적절한 오류 처리 로직 추가
         });
     });
 });
+
 
 
 
@@ -166,7 +205,7 @@ document.addEventListener("DOMContentLoaded", function() {
             }
 
             fetchGameResults();
- 
+            fetchRemainingChances(); 
         })
 
         .catch(error => {
@@ -237,6 +276,17 @@ function startRoulette() {
         return;
     }
 
+    let remainingChances = document.getElementById('remainingChances').innerText;
+    remainingChances = parseInt(remainingChances);
+
+    if (isNaN(remainingChances) || remainingChances <= 0) {
+        alert("남은 기회가 없습니다. 미션을 통해 추가 기회를 획득해 보세요");
+        return;
+    }
+
+    console.log('startRoulette - Updating chances to:', remainingChances - 1);
+    updateRemainingChances(remainingChances - 1);
+
     if (userChoice === '') {
         alert("STEP1의 묵찌빠 중 하나를 먼저 선택해 주세요");
         return;
@@ -264,6 +314,49 @@ function startRoulette() {
         updateGameResultsUI();  // UI 업데이트
     }, 3000);
 }
+
+function updateRemainingChances(chances) {
+    console.log('Updating remaining chances to:', chances); 
+    document.getElementById('remainingChances').innerText = chances.toString();
+    // Any other logic to update chances in your system...
+}
+
+function fetchRemainingChances() {
+    if (!isLoggedIn) return;
+
+    const accountId = localStorage.getItem('accountId');
+    const date = new Date().toISOString().split('T')[0]; // Assuming format YYYY-MM-DD
+
+    fetch(`https://mir2red.com/api/rulet/${accountId}/${date}/chance-left-count`, {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to fetch remaining chances: ' + response.statusText);
+        }
+        return response.json();
+    })
+    .then(data => {
+          console.log('API response:', data);  // API 응답 로깅
+
+        let chances;
+        if (typeof data.chances === 'number') {
+            chances = data.chances;
+        } else {
+            chances = 0;
+        }
+
+        console.log('Updating chances to:', chances);
+        updateRemainingChances(chances);
+    })
+    .catch(error => {
+        console.error('Error fetching remaining chances:', error);
+    });
+}
+
 
 function addGameResult(isSuccess) {
     gameResults.push({ isSuccess: isSuccess });
@@ -452,46 +545,134 @@ function sendGameResult(isSuccess) {
 }
 
 
-// 5. route api
-const createOriginRoute = (routeUrl) => {
-    const requestBody = {
-        routeUrl: routeUrl // 실제 URL 문자열로 교체해야합니다.
-    };
+// 4. 공유 url
+document.addEventListener("DOMContentLoaded", function() {
+    // 첫 번째 공유 URL 세트
+    const shareUrlInputFirst = document.querySelector('.url-share-btn_input input'); // 첫 번째 공유 URL 입력 필드
+    const shareUrlButtonFirst = document.querySelector('.sare_link_input .url-share-btn'); // 첫 번째 공유 URL 제출 버튼
 
-    fetch('https://mir2red.com/api/origin-route/create', {
+    // 두 번째 공유 URL 세트
+    const shareUrlInputSecond = document.querySelector('.rollet_share_link input'); // 두 번째 공유 URL 입력 필드
+    const shareUrlButtonSecond = document.querySelector('.rollet_share_link_btn'); // 두 번째 공유 URL 제출 버튼
+
+    // 첫 번째 버튼에 이벤트 리스너 추가
+    shareUrlButtonFirst.addEventListener('click', function() {
+        handleShareButtonClick(shareUrlInputFirst, 'https://mir2red.com/api/event-first/create', 'https://mir2red.com/api/event-first');
+    });
+    // 두 번째 버튼에 이벤트 리스너 추가
+    shareUrlButtonSecond.addEventListener('click', function() {
+        handleShareButtonClick(shareUrlInputSecond, 'https://mir2red.com/api/event-second/create', 'https://mir2red.com/api/event-second');
+    });
+});
+
+
+async function handleShareButtonClick(shareUrlInput, postApiUrl, checkApiUrl) {
+    console.log("함수 실행됨");
+
+    const token = localStorage.getItem('token');
+    const accountId = localStorage.getItem('accountId');
+    console.log("로그인 상태:", token, accountId);
+
+    if (!isLoggedIn) {
+        alert("로그인 후 진행할 수 있습니다. 지금 로그인 하시겠습니까?");
+        modals[0].style.display = 'block';
+        return;
+    }
+
+    const sharedUrl = shareUrlInput.value.trim();
+    console.log("입력된 URL:", sharedUrl);
+
+    if (!sharedUrl) {
+        alert("공유 URL을 입력해주세요.");
+        return;
+    }
+
+    try {
+        const date = new Date().toISOString().split('T')[0];
+        const checkApiResponse = await checkParticipation(checkApiUrl, accountId, date, token);
+
+        // 이력 확인 후 조건문 수정
+        if (checkApiResponse === true) {
+            alert("응모 횟수를 초과했습니다. 내일 다시 참여해 보세요.");
+            return; // 이 경우 함수 종료
+        }
+
+        // 이력이 없는 경우 URL 제출
+        await submitShareUrl(accountId, sharedUrl, token, postApiUrl);
+        alert("룰렛 이벤트에 추가 기회를 획득했습니다.");
+    } catch (error) {
+        console.error('API 호출 중 에러 발생:', error);
+        handleApiError(error);
+    }
+}
+
+async function checkParticipation(apiUrl, accountId, date, token) {
+    const url = `${apiUrl}/${accountId}/${date}`;
+    console.log("이벤트 참여 이력 확인 URL:", url);
+
+    const response = await fetch(url, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    });
+
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const responseData = await response.json();
+    console.log("서버 응답:", responseData); // 서버 응답 로깅
+
+    // hasParticipated 필드의 값에 따라 true 또는 false 반환
+    if(responseData && 'hasParticipated' in responseData) {
+        return responseData.hasParticipated;
+    }
+    return false; // hasParticipated 필드가 없거나 다른 문제가 있으면 false 반환
+}
+
+
+
+async function submitShareUrl(accountId, sharedUrl, token, apiUrl) {
+    const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify(requestBody)
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.text();
-    })
-    .then(text => {
-        try {
-            return text ? JSON.parse(text) : {};
-        } catch (e) {
-            throw new Error("The server's response was not valid JSON.");
-        }
-    })
-    .then(body => {
-        console.log('Success:', body);
-    })
-    .catch(error => {
-        console.error('API 호출 중 에러 발생:', error);
-        let errorMessage = '서버 에러가 발생했습니다.';
-        if (error.message.includes('400')) {
-            errorMessage = "잘못된 요청입니다. 입력 형식을 확인해주세요.";
-        } else if (error.message.includes('500')) {
-            errorMessage = "서버 내부 오류가 발생했습니다. 잠시 후 다시 시도해주세요.";
-        } else if (error.message === "The server's response was not valid JSON.") {
-            errorMessage = "서버의 응답이 유효한 JSON 형식이 아닙니다.";
-        }
-        alert(errorMessage);
+        body: JSON.stringify({ accountId: accountId, sharedUrl: sharedUrl })
     });
-};
+
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    // 응답이 비어있지 않은 경우에만 JSON으로 파싱
+    const text = await response.text();
+    try {
+        return JSON.parse(text);
+    } catch (e) {
+        if (text) {
+            console.error("서버로부터 예상치 못한 응답:", text);
+        }
+        return null; // JSON 파싱 실패 시 null 반환
+    }
+}
+
+
+
+
+// API 에러 처리 함수
+function handleApiError(error) {
+    // 에러에 따른 적절한 사용자 피드백
+    if (error.message.includes('400')) {
+        alert("잘못된 요청입니다. URL을 확인해주세요.");
+    } else if (error.message.includes('401')) {
+        alert("인증에 실패했습니다. 다시 로그인해주세요.");
+    } else if (error.message.includes('500')) {
+        alert("서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
+    }
+
+}
+
+
 
