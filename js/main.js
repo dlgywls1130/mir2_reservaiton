@@ -109,6 +109,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var menuBtn = document.querySelector('.menu-btn');
     var closeBtn = document.querySelector('.close-btn');
     var navLinks = document.querySelector('.nav-links');
+    var menuItems = navLinks.querySelectorAll('.nav_list a, .mo_nav a');
 
     // 메뉴 버튼 클릭 이벤트
     menuBtn.addEventListener('click', function () {
@@ -119,6 +120,12 @@ document.addEventListener('DOMContentLoaded', function () {
     closeBtn.addEventListener('click', function () {
         navLinks.classList.remove('open'); // nav-links에서 'open' 클래스를 제거하여 메뉴를 닫음
     });
+
+    menuItems.forEach(function(item) {
+      item.addEventListener('click', function() {
+          navLinks.classList.remove('open');
+      });
+  });
 });
 
 
@@ -157,3 +164,21 @@ function toSNS(sns, strTitle, strURL) {
     //window.open(snsArray[sns]);
             window.open(snsArray[sns],'sns','resizable=no width=200 height=200');
 }
+
+
+// 모든 로그인 버튼 찾기
+const loginButtons = document.querySelectorAll('.view_login');
+const loginModal = document.querySelector('.modalLogin');
+
+// 로그인 버튼에 이벤트 리스너 추가
+loginButtons.forEach(button => {
+    button.addEventListener('click', function() {
+        loginModal.style.display = 'block';
+    });
+});
+
+// 모달 닫기 버튼
+const closeModalButton = loginModal.querySelector('.close_modal');
+closeModalButton.addEventListener('click', function() {
+    loginModal.style.display = 'none';
+});
