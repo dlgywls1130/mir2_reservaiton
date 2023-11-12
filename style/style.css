@@ -1222,7 +1222,7 @@ width: 17%;
 .modal, .modalLogin {
     display: none;
     position: fixed;
-    z-index: 9;
+    z-index: 99;
     left: 0;
     top: 0;
     width: 100%;

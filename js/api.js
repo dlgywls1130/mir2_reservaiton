@@ -49,20 +49,25 @@ document.addEventListener("DOMContentLoaded", function() {
 
         .then(response => {
             if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+                return response.json().then(data => {
+                    // 오류 메시지가 응답 본문에 포함되어 있는 경우
+                    throw new Error(data.problemDetails?.detail || `HTTP error! status: ${response.status}`);
+                });
             }
-            return response.json(); // JSON으로 응답 파싱
+            return response.json();
         })
         .then(data => {
             if (data.accountId) {
                 alert('사전예약을 완료했습니다. 로그인 후 다양한 이벤트에 참여해보세요.');
+                phoneInput.value = ''; // 입력 창 리셋
+                agreeCheckbox.checked = false; // 체크박스를 비활성화 상태로 설정
             } else {
                 alert(data.problemDetails?.detail || '이미 예약된 번호입니다.');
             }
         })
         .catch(error => {
             console.error('API 호출 중 에러 발생:', error);
-            alert(error.message);
+            alert("이미 예약된 번호입니다.");
         });
     });
 });
