@@ -5,6 +5,23 @@ document.addEventListener("DOMContentLoaded", function() {
     const agreeCheckbox = document.getElementById('agree');
     const reservationButton = document.querySelector('.reservation-btn button');
 
+    function getCurrentDate() {
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0');
+        const day = String(today.getDate()).padStart(2, '0');
+        return `${year}년 ${month}월 ${day}일`;
+    }
+
+    agreeCheckbox.addEventListener('change', function() {
+        if (this.checked) {
+            alert(`${getCurrentDate()}에 광고성 정보 수신을 동의하였습니다.`);
+        } else {
+            alert(`${getCurrentDate()}에 광고성 정보 수신을 철회하였습니다.`);
+        }
+    });
+
+    
     reservationButton.addEventListener('click', function() {
         // 유효성 검사
         const phoneRegex = /^[0-9]{8}$/;  // 8자리 숫자만 허용
