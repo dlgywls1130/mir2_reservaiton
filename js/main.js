@@ -182,3 +182,7 @@ const closeModalButton = loginModal.querySelector('.close_modal');
 closeModalButton.addEventListener('click', function() {
     loginModal.style.display = 'none';
 });
+
+document.getElementById("alert").addEventListener('click', function() {
+  alert("공개예정입니다");
+});

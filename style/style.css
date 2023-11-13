@@ -1877,6 +1877,10 @@ body {
     width: 100vw;
 }
 
+
+.pc_main_background{display: block;}
+.mo_main_background{display: none;}
+
 @media screen and (max-width: 1024px) {
 
     html,
@@ -2005,7 +2009,7 @@ body {
     .floating_banner {
         position: absolute;
         right: 4%;
-        top: 12%;
+        top: 18%;
         display: block;
         cursor: pointer;
     }
@@ -2013,6 +2017,7 @@ body {
     .play_btn {
         
     }
+
 
     .reservation_btn {
         width: 60%;
@@ -2846,12 +2851,15 @@ body {
 
 
     .background_movie{
-        padding-top: 217%;
+        padding-top: 200%;
         height: 0;
-        width: 455%;
+        width: 100%;
     object-fit: cover;
-    left: -146%;
+    left: 0;
     }
+
+    .pc_main_background{display: none;}
+    .mo_main_background{display: block;}
 }
 
 @media (min-width:1270px) and (max-width:1680px){
@@ -2864,6 +2872,9 @@ body {
         padding-top: 73.5%;
         overflow: hidden;
     }
+
+
+
 }
 
 @media (min-width:769px) and (max-width:1269px){

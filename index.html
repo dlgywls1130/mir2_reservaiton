@@ -3,11 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="mire2red.com">
+    <meta property="og:title" content="Mir2 Red">
+    <meta property="og:image" content="./image/snsmain.jpg">
+    <meta property="og:description" content="더 빠르게 더 강력하게">
+    <!-- <meta property="og:site_name" content="Site Name">
+    <meta property="og:locale" content="en_US"> -->
+
     <title>미르2 RED</title>
 
     <link rel="stylesheet" href="./style/style.css">
     <link rel="stylesheet" href="./style/reset.css">
     <link rel="icon" href="./image/favicon.png" type="image/x-icon">
+
+
+
 
     <!-- Google Tag Manager -->
     <script>
@@ -70,14 +82,17 @@
 
     <!-- main -->
     <section id="main" class="main-se">
-        <div class="background_movie">
+        <div class="background_movie pc_main_background">
             <iframe src="https://www.youtube.com/embed/Zak8i4iM1vs?autoplay=1&mute=1&controls=0&loop=1&playlist=Zak8i4iM1vs"  allowfullscreen></iframe>
+        </div>
+        <div class="background_movie mo_main_background">
+            <iframe  src="https://www.youtube.com/embed/W7hN87njjbg?autoplay=1&mute=1&controls=0&loop=1&playlist=W7hN87njjbg"></iframe>
         </div>
         <div class="main_wrapper">
             <div class="main_logo">
                 <img src="./image/main_logo.png" alt="main-logo">
             </div>
-            <button type="button" class="play_btn view_more">
+            <button type="button" id="alert" class="play_btn">
                 <img src="./image/play.png" alt="play">
             </button>
 
@@ -460,7 +475,7 @@
         <!-- 모바일 로그인-->
 
 
-    <!-- main 영상 -->
+    <!-- main 영상
     <div class="modal">
         <div class="modal-content main_mp">
             <span class="close">
@@ -469,7 +484,7 @@
                 </svg>
             </span>
         </div>
-    </div>
+    </div> -->
 
     <!-- 아이템 -->
     <div class="modal">
