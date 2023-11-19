@@ -5,6 +5,23 @@ document.addEventListener("DOMContentLoaded", function() {
     const agreeCheckbox = document.getElementById('agree');
     const reservationButton = document.querySelector('.reservation-btn button');
 
+    function getCurrentDate() {
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0');
+        const day = String(today.getDate()).padStart(2, '0');
+        return `${year}년 ${month}월 ${day}일`;
+    }
+
+    agreeCheckbox.addEventListener('change', function() {
+        if (this.checked) {
+            alert(`${getCurrentDate()}에 광고성 정보 수신을 동의하였습니다.`);
+        } else {
+            alert(`${getCurrentDate()}에 광고성 정보 수신을 철회하였습니다.`);
+        }
+    });
+
+    
     reservationButton.addEventListener('click', function() {
         // 유효성 검사
         const phoneRegex = /^[0-9]{8}$/;  // 8자리 숫자만 허용
@@ -32,24 +49,28 @@ document.addEventListener("DOMContentLoaded", function() {
 
         .then(response => {
             if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+                return response.json().then(data => {
+                    // 오류 메시지가 응답 본문에 포함되어 있는 경우
+                    throw new Error(data.problemDetails?.detail || `HTTP error! status: ${response.status}`);
+                });
             }
-            return response.json(); // JSON으로 응답 파싱
+            return response.json();
         })
         .then(data => {
             if (data.accountId) {
                 alert('사전예약을 완료했습니다. 로그인 후 다양한 이벤트에 참여해보세요.');
+                phoneInput.value = ''; // 입력 창 리셋
+                agreeCheckbox.checked = false; // 체크박스를 비활성화 상태로 설정
             } else {
                 alert(data.problemDetails?.detail || '이미 예약된 번호입니다.');
             }
         })
         .catch(error => {
             console.error('API 호출 중 에러 발생:', error);
-            alert(error.message);
+            alert("이미 예약된 번호입니다.");
         });
     });
 });
-
 
 
 
@@ -67,6 +88,12 @@ function onLoginStatusChanged() {
         updateRemainingChancesDisplay();
     }
 }
+
+let fetchInterval;
+    function fetchRemainingChancesInterval() {
+        fetchRemainingChances();
+        fetchInterval = setInterval(fetchRemainingChances, 1000); // 5분마다 호출
+    }
 
 function updateRemainingChancesDisplay() {
     document.getElementById('remainingChances').innerText = remainingChances.toString();
@@ -111,7 +138,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     closeModalButton.addEventListener('click', function() {
-        modalsLoginLogin.style.display = 'none';
+        modalsLogin.style.display = 'none';
         phoneInputLogin.value = '';  // 입력 값을 초기화
         rawInput = '';  // rawInput 값도 초기화
     });
@@ -142,6 +169,7 @@ document.addEventListener("DOMContentLoaded", function() {
             modalsLogin.style.display = 'none';
             onLoginStatusChanged();
             updateLoginButtonsText();
+            fetchRemainingChances();
         } else {
             // 비로그인 상태일 때 로그인 모달 표시
             modalsLogin.style.display = 'block';
@@ -242,6 +270,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 });
+
 
 
 
@@ -415,6 +444,8 @@ function showResult() {
 // p 태그에 결과 텍스트를 적용하고, 색상 설정
 resultScore.innerHTML = `<p style="color: ${resultColor}">${resultText}</p>`;
 modal.style.display = 'block';
+
+return { isSuccess: isSuccess }; 
 }
 
 
@@ -546,6 +577,7 @@ function sendGameResult(isSuccess) {
 
 // 4. 공유 url
 document.addEventListener("DOMContentLoaded", function() {
+
     // 첫 번째 공유 URL 세트
     const shareUrlInputFirst = document.querySelector('.url-share-btn_input input'); // 첫 번째 공유 URL 입력 필드
     const shareUrlButtonFirst = document.querySelector('.sare_link_input .url-share-btn'); // 첫 번째 공유 URL 제출 버튼
@@ -564,7 +596,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-async function handleShareButtonClick(shareUrlInput, apiUrl) {
+async function handleShareButtonClick(shareUrlInput, createApiUrl, historyApiUrl) {
     console.log("함수 실행됨");
 
     const token = localStorage.getItem('token');
@@ -574,7 +606,7 @@ async function handleShareButtonClick(shareUrlInput, apiUrl) {
 
     if (!isLoggedIn) {
         alert("로그인 후 진행할 수 있습니다. 지금 로그인 하시겠습니까?");
-        modals[0].style.display = 'block'; 
+        modalsLogin.style.display = 'block'; 
         return;
     }
 
@@ -586,14 +618,56 @@ async function handleShareButtonClick(shareUrlInput, apiUrl) {
         return;
     }
 
+    // 게임 이력 조회
     try {
-        await submitShareUrl(accountId, sharedUrl, token, apiUrl);
-        alert("URL이 성공적으로 등록되었습니다.");
+        const history = await checkEventHistory(accountId, token, historyApiUrl);
+        fetchRemainingChances();
+
+        if (history.length >= 1) {
+            alert("응모 횟수를 초과하였습니다. 내일 다시 참여해보세요");
+            fetchRemainingChances();
+            return;
+
+        }
+    } catch (error) {
+        console.error('이력 조회 중 에러 발생:', error);
+        handleApiError(error);
+        return;
+    }
+
+
+
+    // URL 공유
+    try {
+        await submitShareUrl(accountId, sharedUrl, token, createApiUrl);
+        if (createApiUrl.includes('event-first')) {
+            alert("이벤트 응모에 완료했습니다");
+        } else if (createApiUrl.includes('event-second')) {
+            alert("룰렛 이벤트에 추가 기회를 획득하였습니다");
+            fetchRemainingChances();
+        }
     } catch (error) {
         console.error('API 호출 중 에러 발생:', error);
         handleApiError(error);
     }
 }
+
+
+async function checkEventHistory(accountId, token, apiUrl) {
+    const response = await fetch(`${apiUrl}/${accountId}/${new Date().toISOString().split('T')[0]}`, {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    });
+
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    return response.json();
+}
+
 
 async function submitShareUrl(accountId, sharedUrl, token, apiUrl) {
     const response = await fetch(apiUrl, {
@@ -605,35 +679,36 @@ async function submitShareUrl(accountId, sharedUrl, token, apiUrl) {
         body: JSON.stringify({ accountId: accountId, sharedUrl: sharedUrl })
     });
 
+    const contentType = response.headers.get("content-type");
     if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        // 서버가 에러 상태 코드를 반환한 경우
+        const responseText = await response.text();
+        console.error("Error response:", response.status, "Type:", contentType, "Body:", responseText);
+        throw new Error(`서버로부터 에러 응답을 받았습니다. 상태: ${response.status}, 내용: ${responseText}`);
     }
 
-    // 응답이 비어있지 않은 경우에만 JSON으로 파싱
-    const text = await response.text();
-    try {
-        return JSON.parse(text);
-    } catch (e) {
-        if (text) {
-            console.error("서버로부터 예상치 못한 응답:", text);
-        }
-        return null; // JSON 파싱 실패 시 null 반환
+    if (contentType && contentType.includes("application/json")) {
+        // 응답이 JSON 형식인 경우
+        return await response.json();
+    } else {
+        // JSON이 아닌 경우 또는 본문이 없는 경우
+        console.log("성공적인 응답:", response.status);
+        return null;  // 여기서는 빈 응답을 null로 처리
     }
 }
 
 
 
 
-// API 에러 처리 함수
+
 function handleApiError(error) {
     // 에러에 따른 적절한 사용자 피드백
-    if (error.message.includes('400')) {
+    const errorMessage = error.message.toLowerCase();
+    if (errorMessage.includes('400')) {
         alert("잘못된 요청입니다. URL을 확인해주세요.");
-    } else if (error.message.includes('401')) {
+    } else if (errorMessage.includes('401')) {
         alert("인증에 실패했습니다. 다시 로그인해주세요.");
-    } else if (error.message.includes('500')) {
+    } else if (errorMessage.includes('500')) {
         alert("서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
     }
-
 }
-

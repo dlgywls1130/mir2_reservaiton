@@ -3,11 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="mire2red.com">
+    <meta property="og:title" content="Mir2 Red">
+    <meta property="og:image" content="./image/snsmain.jpg">
+    <meta property="og:description" content="더 빠르게 더 강력하게">
+    <!-- <meta property="og:site_name" content="Site Name">
+    <meta property="og:locale" content="en_US"> -->
+
     <title>미르2 RED</title>
 
     <link rel="stylesheet" href="./style/style.css">
     <link rel="stylesheet" href="./style/reset.css">
     <link rel="icon" href="./image/favicon.png" type="image/x-icon">
+
+
+
+
 
     <!-- Google Tag Manager -->
     <script>
@@ -70,8 +83,11 @@
 
     <!-- main -->
     <section id="main" class="main-se">
-        <div class="background_movie">
+        <div class="background_movie pc_main_background">
             <iframe src="https://www.youtube.com/embed/Zak8i4iM1vs?autoplay=1&mute=1&controls=0&loop=1&playlist=Zak8i4iM1vs"  allowfullscreen></iframe>
+        </div>
+        <div class="background_movie mo_main_background">
+            <iframe  src="https://www.youtube.com/embed/W7hN87njjbg?autoplay=1&mute=1&controls=0&loop=1&playlist=W7hN87njjbg"></iframe>
         </div>
         <div class="main_wrapper">
             <div class="main_logo">
@@ -461,13 +477,19 @@
 
 
     <!-- main 영상 -->
-    <div class="modal">
+    <div id="modal1" class="modal game_video">
         <div class="modal-content main_mp">
             <span class="close">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
                     <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
                 </svg>
             </span>
+
+            <div class="modal_body">
+                <div class="modal_video">
+                    <iframe id="player1" src="https://www.youtube.com/embed/kQz_0jOWgjA?controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -550,7 +572,7 @@
     </div>
 
     <!-- 사전예약공유 -->
-    <div class="modal">
+    <div id="modal4" class="modal">
         <div class="modal-content  share_modal">
             <span class="close">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
@@ -564,8 +586,8 @@
                 </div>
                 <div class="modal_content_wrap">
                     
-                    <div class="share_mp">
-                        <iframe></iframe>
+                    <div class="modal_video">
+                        <iframe id="player2" src="https://www.youtube.com/embed/kQz_0jOWgjA?controls=0&loop=1&playlist=kQz_0jOWgjA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                     </div>
                     <p class="hash_info">
                         필수 해시태그와 함께 SNS 버튼을 통해 친구에게 공유해주세요!
@@ -698,12 +720,7 @@
 </body>
 
 <!-- js -->
-<!-- Google Tag Manager (noscript) -->
-<noscript>
-    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TS2HXWHV"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe>
-</noscript>
-    <!-- End Google Tag Manager (noscript) -->
+
 
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
@@ -713,4 +730,14 @@
 <script src="./js/api.js"></script>
 
 
+
+
+
+
+<!-- Google Tag Manager (noscript) -->
+<noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TS2HXWHV"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+    <!-- End Google Tag Manager (noscript) -->
 </html>
