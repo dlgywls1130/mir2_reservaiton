@@ -48,17 +48,17 @@
                 <a class="logo_m" href="javascript:void(0)">
                     <img src="./image/h_logo.png" alt="logo">
                 </a>
-                <li class="mo_nav mo-login-btn">
+                <!-- <li class="mo_nav mo-login-btn">
                     <div class="login_btn">
                         <button type="button" class="view_login">로그인</button>
                         <span>사전예약 후, 로그인 해주세요!</span>
                     </div>
-                </li>
+                </li> -->
                 <li class="nav_list"><a href="#main">메인</a></li>
-                <li class="nav_list"><a href="#prebook">사전예약</a></li>
+                <!-- <li class="nav_list"><a href="#prebook">사전예약</a></li> -->
                 <li class="nav_list"><a href="#intro">게임소개</a></li>
-                <li class="nav_list"><a href="#urlShare">이벤트1</a></li>
-                <li class="nav_list"><a href="#gameUrl">이벤트2</a></li>
+                <!-- <li class="nav_list"><a href="#urlShare">이벤트1</a></li>
+                <li class="nav_list"><a href="#gameUrl">이벤트2</a></li> -->
                 <li class="nav_list"><a href="https://cafe.naver.com/mir2red" target="_blank">공식카페</a></li>
                 <li class="mo_nav mobile_link_img">
                     <a href="https://cafe.naver.com/mir2red">
@@ -72,8 +72,8 @@
                 </div>
             </ul>
             <div class="login_btn">
-                <button type="button" class="view_login">로그인</button>
-                <span>사전예약 후, 로그인 해주세요!</span>
+                <!-- <button type="button" class="view_login">로그인</button>
+                <span>사전예약 후, 로그인 해주세요!</span> -->
             </div>
 
 
@@ -97,9 +97,25 @@
                 <img src="./image/play.png" alt="play">
             </button>
 
-            <button type="button" class="reservation_btn">
+            <button type="button" class="reservation_btn" style="display: none;">
                 사전예약하기
             </button>
+
+            <div class="app_dowload">
+                <a href="https://play.google.com/store/apps/details?id=com.vfg.mir2.google" class="app_dowload_list" target="_blank">
+                    <img src="./image/app1.png" alt="google">
+                </a>
+                <a href="http://apps.apple.com/kr/app/미르2-레드/id6469580558" class="app_dowload_list"  target="_blank">
+                    <img src="./image/app4.png" alt="ios">
+                </a>
+                <a href="https://onesto.re/_1UieZT1" class="app_dowload_list"  target="_blank">
+                    <img src="./image/app3.png" alt="one">
+                </a>
+                <a href="https://apps.samsung.com/appquery/preOrderDetail.as?contentId=000007135662" class="app_dowload_list"  target="_blank">
+                    <img src="./image/app2.png" alt="galaxy">
+                </a>
+            </div>
+
             <!-- <p class="reser_title">사전예약 신청 시 자동 신청 됩니다. </p> -->
             <a href="https://cafe.naver.com/mir2red" class="floating_banner" target="_blank">
                 <img src="./image/float.png" alt="banner">
@@ -113,7 +129,7 @@
     </section>
 
     <!-- 사전예약 -->
-    <section id="prebook" class=" pre-se">
+    <section id="prebook" class=" pre-se" style="display: none;">
         <div class="max-wi">
             <div class="form_wrapp">
                 <div class="form_title_wrap">
@@ -121,7 +137,6 @@
                         <div class="resever_title_content">
                             <img src="./image/title_line.png" alt="line" class="text-top-line">
                             <p class="reserve_sub">더 빠르게 더 강력하게!</p>
-                            <!-- <h3>사전예약</h3> -->
                             <h3><img src="./image/text_img.png"></h3>
                         </div>
                         <div class="reserver_descript">
@@ -154,7 +169,6 @@
                                 
                             </div>
                         </div>
-                        <!-- <p class="reser_text">※사전예약 신청 시 자동 신청 됩니다. </p> -->
                         <div class="reservation-btn">
                             <button type="button">사전예약 하기</button>
                         </div>
@@ -168,20 +182,7 @@
                     </div>
                 </form>
             </div>
-            <div class="app_dowload">
-                <a href="https://play.google.com/store/apps/details?id=com.vfg.mir2.google" class="app_dowload_list" target="_blank">
-                    <img src="./image/app1.png" alt="google">
-                </a>
-                <a href="http://apps.apple.com/kr/app/미르2-레드/id6469580558" class="app_dowload_list"  target="_blank">
-                    <img src="./image/app4.png" alt="ios">
-                </a>
-                <a href="https://onesto.re/_1UieZT1" class="app_dowload_list"  target="_blank">
-                    <img src="./image/app3.png" alt="one">
-                </a>
-                <a href="https://apps.samsung.com/appquery/preOrderDetail.as?contentId=000007135662" class="app_dowload_list"  target="_blank">
-                    <img src="./image/app2.png" alt="galaxy">
-                </a>
-            </div>
+
         </div>
     </section>
 
@@ -213,11 +214,12 @@
                 
             </div>
         </div>
+        <p class="copy">© Zhen Chuanqi Co.,Ltd. and ChuanQiIP Co.,Ltd. All Rights Reserved. Published by VFiveGames Co.,Ltd. </p>
     </section>
 
 
     <!-- 게임공유  -->
-    <section id="urlShare" class="game_share">
+    <section id="urlShare" class="game_share" style="display: none;">
         <div class="max-wi">
             <div class="event01_wrap">
                 <div class="line_wrapp">
@@ -275,7 +277,7 @@
 
 
     <!-- rollet 게임 -->
-    <section id="gameUrl" class="rollet_game">
+    <section id="gameUrl" class="rollet_game" style="display: none;">
         <div class="max-wi">
             <div class="event01_wrap">
                 <div class="line_wrapp">
